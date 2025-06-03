@@ -6,7 +6,7 @@ from utils.db import get_db
 app = Flask(__name__)
 def get_location_from_ipapi(ip_address):
     try:
-        response = requests.get(f"http://ip-api.com/json/{"184.22.181.233"}?lang=ru")
+        response = requests.get(f"http://ip-api.com/json/{ip_address}?lang=ru")
         data = response.json()
         if data and data['status'] == 'success':
             city = data.get('city')
