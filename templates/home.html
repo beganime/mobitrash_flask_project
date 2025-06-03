@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <title>home</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">WELCOME &#9829 &#9733</div>
+        <nav>
+            <ul>
+                <a href="/">
+                    <p id="headhome">Home</p>
+                </a>
+                <li>
+                    <a href="/about_us">
+                        <p>About us</p>
+                    </a>
+                </li>
+                <li>
+                    <p id="menubtn">Menu</p>
+                </li>
+                <li>
+                    <a href="#">
+                        <p>News</p>
+                    </a>
+                </li>
+                <li class="btn" id="logbtn"><a href="/profile/login">Login</a></li>
+                <li class="btnp" id="profilebtn">
+                    <div class="pr" id="profiletext" onclick="openProfile()">Profile</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div id="menu">
+        <h1>MENU</h1>
+        <div class="category">
+            <div class="line" id="mobileP">
+                <p>mobiles</p> <span>→</span>
+            </div>
+            <a href="/samsung/phone/?page=1">
+                <div class="lineM" id="mobsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/phone">
+                <div class="lineM" id="mobapple">
+                    apple
+                </div>
+            </a>
+            <div class="line" id="tabletP">
+                <p>tablets</p> <span> →</span>
+            </div>
+            <a href="/samsung/tablet">
+                <div class="lineT" id="tabsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/tablet">
+                <div class="lineT" id="tabapple">
+                    apple
+                </div>
+            </a>
+            <div class="line" id="computersP">
+                <p>computers</p> <span>→</span>
+            </div>
+            <a href="/samsung/notebook">
+                <div class="lineC" id="comsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/notebook">
+                <div class="lineC" id="comapple">
+                    apple
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="body" id="body">
+        <div class="home1" id="home1">
+            <div class="wlcm-container">
+                <h1 class="wlcm">SAMSUNG</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="mob">
+                <div class="samsung">
+                    <img src="/static/images/sa06.jpg" alt="samsung a06" width="200px" height="200px">
+                    <div class="info">
+                        <p>Samsung A06</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="samsung">
+                    <img src="/static/images/sa16.jpg" alt="samsung a16" width="200px" height="200px">
+                    <div class="info">
+                        <p>Samsung A16</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="samsung">
+                    <img src="/static/images/samsung s21.jpg" alt="samsung a16" width="200px" height="200px">
+                    <div class="info">
+                        <p>Samsung S21</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="more">
+                    <a href="/samsung/phone/?page=1">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="home12" id="home12">
+            <div class="wlcm-container">
+                <h1 class="wlcm">Galaxy Tabs</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="mob">
+                <div class="samsung">
+                    <img src="/static/images/tablet/Samsung Galaxy Tab S10 Ultra LTE.jpg" alt="samsung tab S10" width="200px" height="160px">
+                    <div class="info">
+                        <p>Galaxy Tab S10 Ultra</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="samsung">
+                    <img src="/static/images/tablet/Samsung Galaxy Tab S10.jpg" alt="samsung a16" width="200px" height="160px">
+                    <div class="info">
+                        <p>Galaxy Tab S10 Ultra</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="samsung">
+                    <img src="/static/images/tablet/Samsung Galaxy Tab S10 Ultra.jpg" alt="samsung a16" width="200px" height="160px">
+                    <div class="info">
+                        <p>Galaxy Tab S10 +</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="more">
+                    <a href="/samsung/tablet">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="home13" id="home13">
+            <div class="wlcm-container">
+                <h1 class="wlcm">GalaxyBooks</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="mob">
+                <div class="samsung notebook">
+                    <img src="/static/images/notebook/Samsung Galaxy Book2 Pro 15.6 i5 8ГБ 512ГБ 1.jpg" alt="samsung notebook" width="250px" height="200px">
+                    <div class="info">
+                        <p>Samsung Galaxy Book2 Pro</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="samsung notebook">
+                    <img src="/static/images/notebook/Samsung Galaxy Book4 Pro 16 Ultra 7 32ГБ 1ТБ 1.jpg" alt="samsung notebook" width="250px" height="200px">
+                    <div class="info">
+                        <p>Samsung Galaxy Book4 Pro 16 Ultra</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="samsung notebook">
+                    <img src="/static/images/notebook/Samsung Galaxy Book5 Pro 360 16 Ultra 7 32ГБ 1ТБ 1.jpg" alt="samsung notebook" width="250px" height="200px">
+                    <div class="info">
+                        <p>Samsung Galaxy Book5 Pro</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="more">
+                    <a href="/samsung/notebook">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="home2" id="home2">
+            <div class="wlcm-container">
+                <h1 class="wlcm">iPhone</h1>
+            </div>
+        </div>
+        <div class="container2">
+            <div class="mob">
+                <div class="apple">
+                    <img src="/static/images/iPhone-16-Pro-11.jpg" alt="samsung a06" width="200px" height="200px">
+                    <div class="info">
+                        <p>iPhone 16 Pro</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="apple">
+                    <img src="/static/images/iPhone-15-10.jpg" alt="samsung a16" width="200px" height="200px">
+                    <div class="info">
+                        <p>iPhone 15 Pro</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="apple">
+                    <img src="/static/images/iPhone-14 Pro.jpg" alt="samsung a16" width="200px" height="200px">
+                    <div class="info">
+                        <p>iPhone 14 Pro</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="more">
+                    <a href="/apple/phone">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="home22" id="home22">
+            <div class="wlcm-container">
+                <h1 class="wlcm">iPads</h1>
+            </div>
+        </div>
+        <div class="container2">
+            <div class="mob">
+                <div class="apple">
+                    <img src="/static/images/tablet/Apple iPad Air 2022.jpg" alt="samsung a06" width="200px" height="200px">
+                    <div class="info">
+                        <p>Apple iPad Air 2022</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="apple">
+                    <img src="/static/images/tablet/Apple iPad Air 2024.jpg" alt="samsung a16" width="200px" height="200px">
+                    <div class="info">
+                        <p>Apple iPad Air 2024</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="apple">
+                    <img src="/static/images/tablet/Apple iPad Pro 2024.jpg" alt="samsung a16" width="200px" height="200px">
+                    <div class="info">
+                        <p>Apple iPad Pro 2024</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="more">
+                    <a href="/apple/tablet">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="home23" id="home23">
+            <div class="wlcm-container">
+                <h1 class="wlcm">Macbooks</h1>
+            </div>
+        </div>
+        <div class="container2">
+            <div class="mob imac">
+                <div class="apple notebook" id="imac14">
+                    <img src="/static/images/notebook/Apple MacBook Pro 14 (M4 10C CPU, 10C GPU, 2024) 24 ГБ, 1 ТБ SSD 1.jpg" alt="apple notebook" width="230px" height="160px">
+                    <div class="info">
+                        <p>Apple MacBook Pro 14</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="apple notebook" id="imac15">
+                    <img src="/static/images/notebook/Apple MacBook Pro 14 (M4 Max 14C CPU, 32C GPU, 2024) 36 ГБ, 1 ТБ SSD 1.jpg" alt="apple notebook" width="230px" height="160px">
+                    <div class="info">
+                        <p>Apple MacBook Pro 15</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="apple notebook" id="imac16">
+                    <img src="/static/images/notebook/Apple MacBook Pro 16 (M4 Max 16C CPU, 40C GPU, 2024) 64 ГБ, 2 ТБ SSD 1.jpg" alt="apple notebook" width="230px" height="160px">
+                    <div class="info">
+                        <p>Apple MacBook Pro 16</p>
+                        <span class="more">more</span>
+                    </div>
+                </div>
+                <div class="more">
+                    <a href="/apple/notebook">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="cm category_samsung_mobile" id="category_samsung_mobile">
+        <div class="mob category">
+            <div class="samsungimg">
+                <h1 class="wlcm">SAMSUNG</h1>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/galaxy-s25 plus.jpg" alt="samsung s25+">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy S25+</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-s25 plus.jpg" alt="samsung s25 ultra">
+                        <div class="info">
+                            <p>Samsung Galaxy S25+</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке S25 модель с приставкой «плюс» должна была стать основным предложением по соотношению цена/качество. Не такой компактный аппарат, как базовый S25, но и не такой большой, как S25 Ultra, этакая золотая середина. По
+                                стоимости модель также выглядела интереснее, чем Ultra, выступала прямым конкурентом для iPhone 16 Pro. Надо учитывать, что модель мало чем отличается от прошлогоднего S24+, который все еще присутствует на рынке. Серые
+                                аппараты стоят около 45-50 тысяч рублей, соотношение цена/качество запредельное, отличный выбор в любом аспекте. При этом никаких серьезных недостатков по сравнению с новинкой у этой модели нет, она выглядит отлично. Возникает
+                                сакраментальный вопрос: насколько выгодно покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением флагманов, они не так интересны по соотношению цена/качество, как устройства, уходящие с рынка. Получается
+                                странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy S25+ станет востребован в больших
+                                объемах в следующем году, когда цены упадут, а новая модель не продемонстрирует огромных отличий. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны.
+                                Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги. Возможно, вам нужен подарок, тогда прошлогодняя модель не выглядит престижно для такого случая. С другой стороны, последние модели
+                                быстрее получают софт, который может вас порадовать (тот же OneUI 7 — очень классная штука, одна из лучших систем на рынке). Давайте посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 8 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/galaxy-s25 ultra.avif" alt="samsung s25 ultra">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy S25 Ultra</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-s25 ultra.avif" alt="samsung s25 ultra">
+                        <div class="info">
+                            <p>Samsung Galaxy S25 Ultra</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке S25 модель с приставкой «Ultra» традиционно становится флагманом, воплощающим все самые передовые технологии и инновации, доступные на момент выхода. S25 Ultra — это бескомпромиссный аппарат для тех, кто ищет максимум
+                                функциональности, мощную камеру и огромный экран, а также ценит наличие стилуса S Pen. Он выступает прямым конкурентом для iPhone 16 Pro Max, а также другим топовым Android-флагманам. Надо учитывать, что модель мало чем
+                                отличается от прошлогоднего S24 Ultra, который все еще присутствует на рынке. Серые аппараты стоят около 70-80 тысяч рублей, соотношение цена/качество запредельное, отличный выбор в любом аспекте. При этом никаких серьезных
+                                недостатков по сравнению с новинкой у этой модели нет, она выглядит отлично. Возникает сакраментальный вопрос: насколько выгодно покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением флагманов, они
+                                не так интересны по соотношению цена/качество, как устройства, уходящие с рынка. Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной
+                                рознице они также присутствуют). Понятно, что Galaxy S25 Ultra станет востребован в больших объемах в следующем году, когда цены упадут, а новая модель не продемонстрирует огромных отличий. Разница между аппаратами определенно
+                                присутствует, но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги. Возможно, вам нужен подарок, тогда прошлогодняя
+                                модель не выглядит престижно для такого случая. С другой стороны, последние модели быстрее получают софт, который может вас порадовать (тот же OneUI 7 — очень классная штука, одна из лучших систем на рынке, а новые функции
+                                Galaxy AI могут быть эксклюзивны или работать лучше на новом железе). Давайте посмотрим на аппарат и оценим его.
+                            </p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/galaxy-s25.avif" alt="samsung s25">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy S25</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-s25.avif" alt="samsung s25">
+                        <div class="info">
+                            <p>Samsung Galaxy S25</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке S25 модель стала базовым флагманским предложением, призванным обеспечить премиальный опыт в более компактном форм-факторе. Этот аппарат ориентирован на тех, кто ищет сбалансированное сочетание мощной производительности,
+                                качественных камер и флагманских функций, но при этом ценит удобство использования одной рукой и не нуждается в гигантском экране или сверх-продвинутом зуме. Он выступает прямым конкурентом для iPhone 16 и других компактных
+                                флагманов от различных производителей. Надо учитывать, что модель была официально представлена 22 января 2025 года и поступила в продажу 7 февраля 2025 года. Хотя это новинка, на рынке все еще активно присутствует ее предшественник
+                                – Galaxy S24. Серые аппараты или устройства в отличном состоянии на вторичном рынке Galaxy S24 могут предлагаться по существенно более выгодным ценам (ориентировочно от 50-60 тысяч рублей), и они по-прежнему демонстрируют
+                                очень достойное соотношение цена/качество. При этом, хоть S25 и предлагает ряд важных улучшений, серьезных недостатков у S24 нет, и он все еще выглядит отлично, особенно если вы ищете полноценный флагман по более доступной
+                                цене. Возникает сакраментальный вопрос: насколько выгодно покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением флагманов: они не так интересны по соотношению цена/качество, как устройства, уходящие
+                                с рынка. Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy S25 будет
+                                оставаться флагманом продаж в своем сегменте до выхода следующего поколения. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны для всех. Так
+                                что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги и что для вас приоритетнее. Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки" (Android 15 с One UI 7) и
+                                максимально длительной поддержкой обновлений (Samsung обещает до 7 лет основных обновлений Android и 7 лет патчей безопасности), а также полноценной интеграцией всех функций Galaxy AI. С другой стороны, если вам нужен функциональный,
+                                мощный и уникальный аппарат за меньшие деньги, Galaxy S24 может быть очень выгодным выбором. Давайте посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/galaxy-m14.jpg" alt="samsung m14">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy M14</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-m14.jpg" alt="samsung m14">
+                        <div class="info">
+                            <p>Samsung Galaxy M14</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy M14 модель должна была стать основным предложением по соотношению цена/качество в бюджетном сегменте. Это аппарат, ориентированный на тех, кто ищет долгое время автономной работы, большой дисплей и
+                                надежную работу за разумные деньги. Он выступает прямым конкурентом для множества бюджетных смартфонов от Xiaomi, Realme и других производителей. Надо учитывать, что модель довольно близка к прошлогодним бюджетным аппаратам
+                                Samsung, которые все еще присутствуют на рынке. Серые аппараты или модели прошлых поколений в официальной рознице стоят около 10-12 тысяч рублей (ориентировочно), соотношение цена/качество для базовых задач более чем адекватное,
+                                отличный выбор в аспекте доступности. При этом никаких серьезных недостатков по сравнению с новинкой у этих моделей нет, они выглядят хорошо для своего сегмента. Возникает сакраментальный вопрос: насколько выгодно покупать
+                                новый аппарат? Ответ ровно такой же, как с любым новым поколением бюджетных смартфонов, они не так интересны по соотношение цена/качество, как устройства, уходящие с рынка, особенно если речь идет о минимальных отличиях.
+                                Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy M14 станет востребован
+                                в больших объемах в следующем году, когда цены упадут, а новая модель не продемонстрирует огромных отличий. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая, чтобы отличия в стоимости
+                                были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги. Возможно, вам нужен максимально свежий смартфон с обновленным дизайном или новыми возможностями программного обеспечения.
+                                С другой стороны, предыдущие модели могут быть выгоднее по цене, если вам просто нужен надежный рабочий аппарат без лишних функций. Давайте посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/galaxy-m53-5g.jpg" alt="samsung m53">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy M53</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-m53-5g.jpg" alt="samsung m53">
+                        <div class="info">
+                            <p>Samsung Galaxy M53</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy M53 модель должна была стать одним из ключевых предложений по соотношению цена/качество в среднем ценовом сегменте, ориентированным на тех, кому нужен большой AMOLED-дисплей, достойная камера и отличная
+                                автономность. Он позиционировался как смартфон для повседневного использования, мультимедиа и даже легкого гейминга, выступая конкурентом для множества моделей от Xiaomi, Realme и других брендов в своей категории. Надо
+                                учитывать, что модель уже достаточно давно на рынке (выпущена в 2022 году), и на текущий момент (2025 год) есть много более свежих аппаратов, а также прямые преемники в лице M54, M55 и т.д., которые все еще присутствуют
+                                в различных каналах продаж. Цены на Galaxy M53 сейчас, вероятно, составляют около 15-20 тысяч рублей (ориентировочно для аппаратов в хорошем состоянии или остатков со складов), что может выглядеть очень привлекательно за
+                                предлагаемый функционал. При этом никаких серьезных недостатков по сравнению с новинками у этой модели нет, она выглядит вполне актуально для своего сегмента, особенно если учесть, что многие новые аппараты в этом ценовом
+                                диапазоне не предлагают существенно больших преимуществ. Возникает сакраментальный вопрос: насколько выгодно покупать такой "не новый" аппарат? Ответ ровно такой же, как с любым устройством, уходящим с рынка: они становятся
+                                интереснее по соотношению цена/качество. Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на абсолютно новых моделях, но лучше продаются предыдущие аппараты, особенно когда их цена снижается.
+                                Понятно, что Galaxy M53 уже не является флагманом продаж, но он по-прежнему способен удовлетворить потребности многих пользователей. Разница между аппаратами определенно присутствует (новые чипы, более актуальный софт "из
+                                коробки"), но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги и что для вас приоритетнее. Возможно, вам
+                                нужен аппарат с длительной поддержкой обновлений, тогда более новые модели будут предпочтительнее. С другой стороны, если вам нужен проверенный, функциональный смартфон за минимальные деньги, Galaxy M53 может быть отличным
+                                выбором. Давайте посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/galaxy-m55-5g.jpg" alt="samsung m55">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy M55</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-m55-5g.jpg" alt="samsung m55">
+                        <div class="info">
+                            <p>Samsung Galaxy M55</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy M55 модель с приставкой «M» должна была стать основным предложением по соотношению цена/качество в уверенном среднем сегменте. Этот аппарат ориентирован на тех, кто ищет сбалансированное решение с ярким
+                                AMOLED-экраном, мощной производительностью для своего класса, качественными камерами и отличной автономностью. Он выступает прямым конкурентом для многих моделей от Xiaomi, Realme, POCO и других производителей, предлагая
+                                фирменные преимущества Samsung. Надо учитывать, что модель появилась на рынке в начале 2024 года и, на текущий момент (середина 2025 года), является относительно свежей, но уже не самой "новой" на фоне потенциальных преемников.
+                                Предыдущие модели M-серии (например, M54) все еще присутствуют на рынке и могут предлагаться по более выгодным ценам. Серые аппараты или остатки прошлых партий Galaxy M54 могут стоить около 20-25 тысяч рублей (ориентировочно),
+                                предлагая достойное соотношение цена/качество. При этом, хоть M55 и предлагает ряд улучшений, серьезных недостатков у предшественника нет, и он все еще выглядит отлично. Возникает сакраментальный вопрос: насколько выгодно
+                                покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением смартфонов: они не так интересны по соотношение цена/качество, как устройства, уходящие с рынка, особенно если речь идет о минимальных отличиях.
+                                Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy M55 будет оставаться
+                                востребованным в течение всего 2025 года, но в следующем году, когда появятся его преемники, цены упадут, а он все еще будет конкурентоспособен. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая,
+                                чтобы отличия в стоимости были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги. Возможно, вам нужен самый свежий смартфон со всеми новыми функциями и максимальной поддержкой
+                                обновлений, тогда M55 — хороший выбор. С другой стороны, если вам нужен функциональный и надежный аппарат за меньшие деньги, предыдущая модель M54 может быть более выгодной. Давайте посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/ru-galaxy-a26-5g-sm-a266-sm-a266blgdcau-thumb-545391258.jpg" alt="samsung a26">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy A26 5g</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/ru-galaxy-a26-5g-sm-a266-sm-a266blgdcau-thumb-545391258.jpg" alt="samsung a26">
+                        <div class="info">
+                            <p>Samsung Galaxy A26</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy A26 модель призвана стать одним из наиболее привлекательных предложений в массовом сегменте, балансируя между доступной ценой и актуальными функциями. Этот аппарат ориентирован на широкую аудиторию,
+                                которой важен большой, качественный экран, приличная камера для повседневной съемки, достаточная производительность для большинства задач и, что немаловажно, долгосрочная поддержка программного обеспечения. Он выступает
+                                прямым конкурентом для множества среднебюджетных смартфонов от других производителей, а также для смартфонов Samsung предыдущих поколений. Надо учитывать, что модель была выпущена в марте 2025 года, и хотя она является
+                                новинкой, на рынке все еще присутствует ее предшественник – Galaxy A25. Серые аппараты или остатки прошлых партий Galaxy A25 могут предлагаться по более выгодным ценам (ориентировочно около 18-22 тысяч рублей), и они по-прежнему
+                                демонстрируют очень достойное соотношение цена/качество. При этом, хоть A26 и предлагает ряд улучшений, серьезных недостатков у предшественника нет, и он все еще выглядит отлично. Возникает сакраментальный вопрос: насколько
+                                выгодно покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением смартфонов: они не так интересны по соотношение цена/качество, как устройства, уходящие с рынка, особенно если речь идет о минимальных отличиях.
+                                Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy A26 будет оставаться
+                                востребованным в течение всего 2025 года, но в следующем году, когда появятся его преемники, цены упадут, а он все еще будет конкурентоспособен. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая,
+                                чтобы отличия в стоимости были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги. Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки" (One
+                                UI 7) и максимально длительной поддержкой обновлений (Samsung обещает до 6 лет обновлений Android для A-серии). С другой стороны, если вам нужен функциональный и надежный аппарат за меньшие деньги, прошлогодняя модель A25
+                                может быть более выгодной, при этом она также предлагает неплохую поддержку. Давайте посмотрим на аппарат и оценим его.
+                            </p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/ru-galaxy-a36-5g-sm-a366-sm-a366elvgcau-thumb-545386828.jpg" alt="samsung a36">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy A36 5g</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/ru-galaxy-a36-5g-sm-a366-sm-a366elvgcau-thumb-545386828.jpg" alt="samsung a36">
+                        <div class="info">
+                            <p>Samsung Galaxy A36 5g</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy A36 модель должна была стать одним из ключевых предложений в уверенном среднем сегменте, предлагая отличный баланс между ценой и продвинутыми функциями. Этот аппарат ориентирован на тех, кто ищет стильный
+                                смартфон с ярким AMOLED-дисплеем, достойной производительностью, универсальными камерами и, что особенно важно для Samsung, длительной программной поддержкой. Он выступает прямым конкурентом для множества среднебюджетных
+                                смартфонов от других производителей, а также для смартфонов Samsung предыдущих поколений, особенно из A-серии. Надо учитывать, что модель была выпущена в первой половине 2025 года, и хотя она является новинкой, на рынке
+                                все еще присутствует ее предшественник – Galaxy A35. Серые аппараты или остатки прошлых партий Galaxy A35 могут предлагаться по более выгодным ценам (ориентировочно около 25-30 тысяч рублей), и они по-прежнему демонстрируют
+                                очень достойное соотношение цена/качество. При этом, хоть A36 и предлагает ряд улучшений, серьезных недостатков у предшественника нет, и он все еще выглядит отлично. Возникает сакраментальный вопрос: насколько выгодно покупать
+                                новый аппарат? Ответ ровно такой же, как с любым новым поколением смартфонов: они не так интересны по соотношение цена/качество, как устройства, уходящие с рынка, особенно если речь идет о минимальных отличиях. Получается
+                                странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy A36 будет оставаться востребованным
+                                в течение всего 2025 года, но в следующем году, когда появятся его преемники, цены упадут, а он все еще будет конкурентоспособен. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая, чтобы
+                                отличия в стоимости были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги. Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки" (One UI
+                                7) и максимально длительной поддержкой обновлений (Samsung обещает до 5 лет обновлений Android и 6 лет патчей безопасности для A3x серии). С другой стороны, если вам нужен функциональный и надежный аппарат за меньшие деньги,
+                                прошлогодняя модель A35 может быть более выгодной, при этом она также предлагает неплохую поддержку. Давайте посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/ru-galaxy-a56-5g-sm-a566-sm-a566ezaacau-thumb-545369359.jpg" alt="samsung a56">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy A56 5g</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/ru-galaxy-a56-5g-sm-a566-sm-a566ezaacau-thumb-545369359.jpg" alt="samsung a56">
+                        <div class="info">
+                            <p>Samsung Galaxy A56 5g</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке S25 (ошибка в шаблоне, корректнее: "В линейке Galaxy A") модель с приставкой «A56» стала одним из центральных предложений по соотношению цена/качество в верхнем среднем сегменте. Этот аппарат ориентирован на тех,
+                                кто ищет превосходный Super AMOLED дисплей, мощную производительность, универсальные камеры и, что особенно важно для Samsung, выдающуюся программную поддержку. Он выступает прямым конкурентом для iPhone SE 4 (если бы он
+                                был выпущен в 2025 году), а также для многочисленных моделей от других ведущих Android-производителей в этом ценовом диапазоне. Надо учитывать, что модель была официально выпущена 10 марта 2025 года. Хотя это новинка, на
+                                рынке все еще активно присутствует ее предшественник – Galaxy A55. Серые аппараты или остатки прошлых партий Galaxy A55 могут предлагаться по существенно более выгодным ценам (ориентировочно от 28-35 тысяч рублей), и они
+                                по-прежнему демонстрируют очень достойное соотношение цена/качество. При этом, хоть A56 и предлагает ряд заметных улучшений, серьезных недостатков у предшественника нет, и он все еще выглядит отлично. Возникает сакраментальный
+                                вопрос: насколько выгодно покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением смартфонов: они не так интересны по соотношение цена/качество, как устройства, уходящие с рынка, особенно если речь идет
+                                о минимальных отличиях. Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что
+                                Galaxy A56 будет оставаться востребованным в течение всего 2025 года, но в следующем году, когда появятся его преемники, цены упадут, а он все еще будет конкурентоспособен. Разница между аппаратами определенно присутствует,
+                                и в данном случае она довольно ощутима (особенно по части яркости экрана и скорости зарядки), но для некоторых пользователей эти отличия могут не оправдывать разницу в стоимости. Так что покупка этого аппарата напрямую
+                                зависит от того, насколько вы экономите деньги. Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки" (Android 15 с One UI 7) и беспрецедентной для среднего класса длительной поддержкой обновлений
+                                (до 6 лет обновлений Android и 6 лет патчей безопасности), а также новыми функциями Galaxy AI. С другой стороны, если вам нужен функциональный и надежный аппарат за меньшие деньги, прошлогодняя модель A55 может быть очень
+                                выгодной. Давайте посмотрим на аппарат и оценим его.
+                            </p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact" data-phone-id="1">
+                    <img src="/static/images/galaxy-z-fold4.jpg" alt="samsung sfold4">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy ZFold 4</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-z-fold4.jpg" alt="samsung sfold4">
+                        <div class="info">
+                            <p>Samsung Galaxy ZFold 4</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy Z Fold4 модель была флагманским предложением 2022 года, воплощающим передовые технологии складных смартфонов. Этот аппарат ориентирован на энтузиастов технологий, бизнес-пользователей и тех, кто ищет
+                                максимальную многозадачность и продуктивность в компактном (в сложенном виде) форм-факторе. Он выступал прямым конкурентом для других ранних складных телефонов и топовых нескладных флагманов, предлагая уникальный пользовательский
+                                опыт. Надо учитывать, что модель была выпущена в августе 2022 года и на текущий момент (середина 2025 года) уже имеет два поколения преемников – Z Fold5 и Z Fold6. Серые аппараты или устройства в отличном состоянии на вторичном
+                                рынке могут предлагаться по существенно более выгодным ценам (ориентировочно от 50-70 тысяч рублей), и они по-прежнему демонстрируют очень достойное соотношение цена/качество для тех, кто хочет попробовать складной форм-фактор
+                                без переплаты за самые новые модели. При этом, хоть Z Fold6 и Z Fold5 предлагают ряд улучшений, серьезных недостатков у Z Fold4 нет, и он все еще выглядит отлично, особенно если вы ищете полноценный планшет в кармане. Возникает
+                                сакраментальный вопрос: насколько выгодно покупать такой "не новый" аппарат? Ответ ровно такой же, как с любым устройством, уходящим с рынка: они становятся интереснее по соотношению цена/качество. Получается странная ситуация:
+                                с одной стороны — реклама, продвижение и фокус на абсолютно новых моделях, но лучше продаются предыдущие аппараты, особенно когда их цена снижается. Понятно, что Galaxy Z Fold4 уже не является флагманом продаж, но он по-прежнему
+                                способен удовлетворить потребности многих пользователей, особенно тех, кто ценит его уникальные возможности. Разница между аппаратами определенно присутствует (новые чипы, улучшенные камеры, возможно, более тонкий и легкий
+                                дизайн в новых моделях), но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны для всех. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги и готовы ли идти
+                                на компромиссы ради более низкой цены. Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки" и максимально длительной поддержкой обновлений, тогда Z Fold6 или Z Fold5 будут предпочтительнее.
+                                С другой стороны, если вам нужен функциональный и уникальный аппарат за меньшие деньги, Galaxy Z Fold4 может быть отличным выбором, при этом он также получил длительную программную поддержку от Samsung. Давайте посмотрим
+                                на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact">
+                    <img src="/static/images/galaxy-z-fold5avif.avif" alt="samsung sfold5">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy ZFold 5</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info" data-phone-id="1">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-z-fold5avif.avif" alt="samsung sfold5">
+                        <div class="info">
+                            <p>Samsung Galaxy ZFold 5</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy Z Fold5 модель стала флагманским предложением 2023 года, представляя собой эволюцию складных смартфонов с акцентом на усовершенствование форм-фактора и повышение производительности. Этот аппарат ориентирован
+                                на тех, кто ищет максимальную продуктивность, непревзойденные возможности многозадачности и премиальный пользовательский опыт в складном дизайне. Он выступает прямым конкурентом для iPhone 15 Pro Max и других топовых нескладных
+                                и складных флагманов, предлагая более утонченный и мощный подход к концепции "планшета в кармане". Надо учитывать, что модель была выпущена в августе 2023 года и на текущий момент (середина 2025 года) уже имеет преемника
+                                – Z Fold6. Серые аппараты или устройства в отличном состоянии на вторичном рынке могут предлагаться по существенно более выгодным ценам (ориентировочно от 80-100 тысяч рублей), и они по-прежнему демонстрируют очень достойное
+                                соотношение цена/качество для тех, кто хочет получить почти флагманский складной опыт без переплаты за самую свежую модель. При этом, хоть Z Fold6 и предлагает ряд улучшений (особенно в дизайне и, возможно, камерах), серьезных
+                                недостатков у Z Fold5 нет, и он все еще выглядит отлично, предлагая все ключевые преимущества складного форм-фактора с лучшей реализацией шарнира, чем у предшественника. Возникает сакраментальный вопрос: насколько выгодно
+                                покупать такой "не новый" аппарат? Ответ ровно такой же, как с любым устройством, уходящим с рынка: они становятся интереснее по соотношению цена/качество. Получается странная ситуация: с одной стороны — реклама, продвижение
+                                и фокус на абсолютно новых моделях, но лучше продаются предыдущие аппараты, особенно когда их цена снижается. Понятно, что Galaxy Z Fold5 уже не является флагманом продаж, но он по-прежнему способен удовлетворить потребности
+                                самых требовательных пользователей. Разница между аппаратами определенно присутствует (новые чипы, улучшенные камеры, более тонкий и легкий дизайн в Z Fold6), но она не настолько ошеломляющая, чтобы отличия в стоимости
+                                были так разительны для всех. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги и что для вас приоритетнее. Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки"
+                                и максимально длительной поддержкой обновлений, тогда Z Fold6 будет предпочтительнее. С другой стороны, если вам нужен функциональный, мощный и уникальный аппарат за меньшие деньги, Galaxy Z Fold5 может быть отличным выбором,
+                                при этом он также получит длительную программную поддержку от Samsung. Давайте посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="samsung">
+                <div class="phone-compact">
+                    <img src="/static/images/galaxy-z-fold6.avif" alt="samsung sfold6">
+                    <div class="like">&#9829</div>
+                    <div class="info">
+                        <p>Samsung Galaxy ZFold 6</p>
+                        <p>price: 0$</p>
+                        <span class="more js-more-toggle">more</span>
+                    </div>
+                </div>
+                <div class="characters js-detailed-info" data-phone-id="1">
+                    <div class="charact">
+                        <img src="/static/images/galaxy-z-fold6.avif" alt="samsung sfold6">
+                        <div class="info">
+                            <p>Samsung Galaxy ZFold 6</p>
+                            <p>price: 0$</p>
+                        </div>
+                        <div class="opisanie">
+                            <p class="hidden-text">В линейке Samsung Galaxy Z Fold6 модель стала флагманским предложением 2024 года, представляя собой вершину инженерной мысли в сегменте складных смартфонов. Этот аппарат ориентирован на тех, кто ищет бескомпромиссную производительность,
+                                максимальную продуктивность, самые передовые функции камеры и уникальный, доведенный до совершенства складной дизайн. Он выступает прямым конкурентом для iPhone 16 Pro Max и других топовых складных и нескладных флагманов,
+                                предлагая самый полный набор возможностей. Надо учитывать, что модель была выпущена в июле 2024 года, и на текущий момент (май 2025 года) является самой актуальной складной новинкой от Samsung. Тем не менее, на рынке все
+                                еще активно присутствуют ее предшественники – Z Fold5 и даже Z Fold4. Серые аппараты или устройства в отличном состоянии на вторичном рынке (особенно Z Fold5) могут предлагаться по существенно более выгодным ценам (ориентировочно
+                                от 100-120 тысяч рублей за Z Fold5), и они по-прежнему демонстрируют очень достойное соотношение цена/качество для тех, кто хочет получить почти флагманский складной опыт без переплаты за самую свежую модель. При этом,
+                                хоть Z Fold6 и предлагает ряд важных улучшений, серьезных недостатков у Z Fold5 нет, и он все еще выглядит отлично. Возникает сакраментальный вопрос: насколько выгодно покупать новый аппарат? Ответ ровно такой же, как с
+                                любым новым поколением флагманов: они не так интересны по соотношению цена/качество, как устройства, уходящие с рынка. Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше
+                                продаются предыдущие аппараты, особенно когда их цена снижается. Понятно, что Galaxy Z Fold6 будет оставаться флагманом продаж в сегменте складных устройств Samsung до выхода следующего поколения. Разница между аппаратами
+                                определенно присутствует, и в случае с Z Fold6 она заметна по дизайну и, возможно, камерам, но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны для всех. Так что покупка этого аппарата напрямую
+                                зависит от того, насколько вы экономите деньги и что для вас приоритетнее. Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки" (Android 14/15 с One UI 6.1.1/7) и максимально длительной поддержкой
+                                обновлений, а также полноценной интеграцией всех функций Galaxy AI. С другой стороны, если вам нужен функциональный, мощный и уникальный аппарат за меньшие деньги, Galaxy Z Fold5 может быть очень выгодным выбором. Давайте
+                                посмотрим на аппарат и оценим его.</p>
+                            <button class="toggle-button">Ещё</button>
+                        </div>
+                        <div class="infomodel">
+                            <span> Процессор:</span>
+                            <p> Snapdragon 8 Gen 12 ядер</p>
+                            <span>Емкость аккумулятора:</span>
+                            <p> 5000 мАч</p>
+                            <span>Память ОЗУ:</span>
+                            <p> 8 GB</p>
+                            <span>Память RAM:</span>
+                            <p> 256 GB</p>
+                            <span>Дисплей:</span>
+                            <p> Dynamic AMOLED – 1440 x 3120</p>
+                            <span>Камера:</span>
+                            <p> 3 (50 MP + 12 MP + 16 MP)</p>
+                        </div>
+                        <div class="more js-hide-toggle">hide</div>
+                        <div class="more add-to-basket">add to basket</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pages">
+                <a href="/samsung/phone/?page=1" id="p1">1</a>
+                <a href="/samsung/phone/?page=2" id="p2">2</a>
+                <a href="/samsung/phone/?page=3" id="p3">3</a>
+                <a href="/samsung/phone/?page=4" id="p4">4</a>
+                <a href="/samsung/phone/?page=5">...</a>
+                <a href="/samsung/phone/?page=146" id="p146">146</a>
+            </div>
+            <div class="more"><a href="/samsung/phone">Ещё</a></div>
+        </div>
+    </div>
+    <div class="cm category_samsung_tablet" id="category_samsung_tablet">
+        <div class="mob category">
+            <p>Страничка в разработке</p>
+        </div>
+    </div>
+    <div class="cm category_samsung_notebook" id="category_samsung_notebook">
+        <div class="mob category">
+            <p>Страничка в разработке</p>
+        </div>
+    </div>
+    <div class="cm category_apple_mobile" id="category_apple_mobile">
+        <div class="mob category">
+            <p>Страничка в разработке</p>
+        </div>
+    </div>
+    <div class="cm category_apple_tablet" id="category_apple_tablet">
+        <div class="mob category">
+            <p>Страничка в разработке</p>
+        </div>
+    </div>
+    <div class="cm category_apple_notebook" id="category_apple_notebook">
+        <div class="mob category">
+            <p>Страничка в разработке</p>
+        </div>
+    </div>
+
+    <button id="scrollToTop" title="Наверх">↑</button>
+    <footer>
+        <div class="end">
+            <nav class="navsa">
+                <span>samsung</span>
+                <a href="#">News</a>
+                <a href="/samsung/phone/?page=1">Phones</a>
+                <a href="/samsung/tablet">Tablets</a>
+                <a href="/samsung/notebook">Computers</a>
+            </nav>
+            <div class="nava">
+                <p>
+                    © 2025 All Rights Reserved
+                </p>
+                <a href="/">Обратная связь</a>
+                <p>city → <span>{{context.city}}</span></p>
+                <p>country → <span>{{context.country}}</span></p>
+            </div>
+            <nav class="navsa">
+                <span>apple</span>
+                <a href="#">News</a>
+                <a href="/apple/phone">Phones</a>
+                <a href="/apple/tablet">Tablets</a>
+                <a href="/apple/notebook">Computers</a>
+            </nav>
+        </div>
+    </footer>
+    <div id="username" style="display: none;">{{context.username}}</div>
+    <div id="message">{{context.message}}</div>
+    <div id="page">{{context.page}}</div>
+</body>
+<script src="/static/js/script.js"></script>
+<script src="/static/js/menu.js"></script>
+
+
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/1.png" type="image/x-icon">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: rgb(245, 245, 245);
+        }
+        
+        .header {
+            height: 50px;
+            width: 1500px;
+            margin: 10px;
+            padding: 10px;
+            background: linear-gradient(rgb(2, 54, 196), rgb(105, 138, 255));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgb(0, 42, 159);
+        }
+        
+        .header h1 {
+            left: 10px;
+            bottom: 10px;
+            color: rgb(255, 255, 255);
+        }
+        
+        .container {
+            margin: 10px;
+            margin-left: 140px;
+            width: 1200px;
+            height: auto;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            display: flex;
+            justify-content: start;
+        }
+        
+        .brend-mobile {
+            background-color: rgba(0, 200, 70, 0.1);
+            width: 150px;
+            height: auto;
+            padding: 10px;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-items: center;
+            text-align: center;
+        }
+        
+        .vip-mobile {
+            background-color: rgba(0, 200, 70, 0.1);
+            width: 150px;
+            height: auto;
+            padding: 10px;
+            gap: 20px;
+            margin-left: 100px;
+            justify-items: center;
+            text-align: center;
+        }
+        
+        .mobile {
+            width: 120px;
+            height: auto;
+            background-color: rgba(0, 200, 70, 0.1);
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+            cursor: pointer;
+        }
+        
+        .mobile:hover {
+            background-color: rgba(0, 500, 500, 0.1);
+            transform: translateX(-5px) translateY(-5px);
+            transition: 1s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile:hover .opisanie {
+            display: block;
+        }
+        
+        .mobile:hover .imgphone {
+            display: block;
+        }
+        
+        span {
+            font-weight: bold;
+        }
+        
+        .vip_mobile {
+            width: 120px;
+            height: auto;
+            background-color: rgba(0, 200, 70, 0.1);
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+            cursor: pointer;
+        }
+        
+        .vip_mobile:hover {
+            background-color: rgba(0, 500, 500, 0.1);
+            transform: translateX(-5px) translateY(-5px);
+            transition: 1s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .vip_mobile:hover .opisanie {
+            display: block;
+        }
+        
+        .vip_mobile:hover .imgphone {
+            display: block;
+        }
+        
+        .basket1 {
+            background-color: #5bc0de;
+            color: white;
+            width: 120px;
+            height: auto;
+            position: fixed;
+            top: 100px;
+            right: 300px;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 0.9em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .basket2 {
+            background-color: #5bc0de;
+            color: white;
+            width: 120px;
+            height: auto;
+            position: fixed;
+            top: 100px;
+            right: 150px;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 0.9em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        button {
+            position: fixed;
+            right: 240px;
+            top: 250px;
+            width: 100px;
+            height: 20px;
+            display: none;
+        }
+        
+        .opisanie {
+            background-color: rgba(136, 251, 159, 0.566);
+            width: auto;
+            height: auto;
+            padding-left: 50px;
+            padding-right: 50px;
+            font-size: 14px;
+            box-shadow: rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+            position: absolute;
+            margin-left: 120px;
+            margin-top: -100px;
+            display: none;
+        }
+        
+        .imgphone {
+            background-color: rgb(255, 255, 255);
+            width: 150px;
+            height: 100px;
+            box-shadow: rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+            position: absolute;
+            right: 120%;
+            top: 10px;
+            display: none;
+        }
+        
+        .newmobile {
+            width: 120px;
+            height: auto;
+            background-color: rgba(0, 200, 70, 0.1);
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+        }
+        
+        .newmobile:hover {
+            background-color: rgba(0, 500, 500, 0.1);
+            transform: translateX(-5px) translateY(-5px);
+            transition: 1s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        input {
+            font-size: 18px;
+            width: 140px;
+            height: 20px;
+            border: none;
+            border-radius: 15% 15% 0 0;
+            border-bottom: 1px solid #757575;
+        }
+        
+        .input_info1 {
+            width: 160px;
+            height: auto;
+            position: relative;
+            background-color: rgba(0, 200, 70, 0.1);
+            padding: 10px;
+            margin-left: 1000px;
+            margin-top: -650px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+            display: none;
+        }
+        
+        .input_info2 {
+            width: 160px;
+            height: auto;
+            position: relative;
+            background-color: rgba(0, 200, 70, 0.1);
+            padding: 10px;
+            margin-left: 1000px;
+            margin-top: -650px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+            display: none;
+        }
+        
+        .info {
+            background-color: rgba(0, 500, 500, 0.1);
+            width: 155px;
+            border-radius: 10%;
+        }
+        
+        .imgmobile {
+            background-color: rgba(0, 500, 500, 0.1);
+            padding-left: 5px;
+            width: 150px;
+            height: 100px;
+        }
+        
+        .submit {
+            width: 150px;
+            height: auto;
+            display: block;
+            background-color: rgba(0, 900, 900, 0.2);
+            border-radius: 25%;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        .submit:hover {
+            background-color: rgba(0, 900, 900, 0.1);
+        }
+    </style>
+    <div class="header">
+        <h1>Wellcome</h1>
+    </div>
+    <div class="container">
+        <div class="brend-mobile" id="brend-mobile">
+            <h3>Brand-Mobile</h3>
+            <div class="mobile" id="bsmA06">
+                <h4>Samsung A06</h4>
+                <p>Galaxy A06 4/64 GB</p>
+                <div class="opisanie">
+                    <p>Емкость аккумулятора <span id="bsmA06b">5000</span> мА*ч</p>
+                    <p>Зарядка <span id="bsmA06e">25</span> вт</p>
+                    <p>Процессор <span id="bsmA06p">Mediatek Helio G85</span></p>
+                    <p>Количество ядер процессора <span id="bsmA06y">8</span></p>
+                    <p>Память ОЗУ <span id="bsmA06o">4</span> GB</p>
+                    <p>Память RAM <span id="bsmA06r">64</span> GB</p>
+                </div>
+                <p>price: <span id="priceBSMA06">60</span>$</p>
+                <div class="imgphone">
+                    <img src="/static/sa06.jpg" width="100" height="100px">
+                </div>
+            </div>
+            <div class="mobile" id="bsmA16">
+                <h4>Samsung A16</h4>
+                <p>Galaxy A16 6/256 GB</p>
+                <div class="opisanie">
+                    <p>Емкость аккумулятора <span id="bsmA16b">5000</span> мА*ч</p>
+                    <p>Зарядка <span id="bsmA16e">25</span> вт</p>
+                    <p>Процессор <span id="bsmA16p">MediaTek Helio G99</span></p>
+                    <p>Количество ядер процессора <span id="bsmA16y">10</span></p>
+                    <p>Память ОЗУ <span id="bsmA16o">8</span> GB</p>
+                    <p>Память RAM <span id="bsmA16r">256</span> GB</p>
+                </div>
+                <p>price: <span id="priceBSMA16">130</span>$</p>
+                <div class="imgphone">
+                    <img src="/static/sa16.jpg" width="100px" height="100px">
+                </div>
+            </div>
+            <div class="mobile" id="bsmS21">
+                <h4>Samsung S21</h4>
+                <p>Galaxy S21 FE 8/128 GB</p>
+                <div class="opisanie">
+                    <p>Емкость аккумулятора <span id="bsmS21b">6000</span> мА*ч</p>
+                    <p>Зарядка <span id="bsmS21e">45</span> вт</p>
+                    <p>Процессор <span id="bsmS21p">Qualcomm Snapdragon 888</span></p>
+                    <p>Количество ядер процессора <span id="bsmS21y">10</span></p>
+                    <p>Память ОЗУ <span id="bsmS21o">8</span> GB</p>
+                    <p>Память RAM <span id="bsmS21r">256</span> GB</p>
+                </div>
+                <p>price: <span id="priceBSMS21">400</span>$</p>
+                <div class="imgphone">
+                    <img src="/static/ss21.jpg" width="100px" height="100px">
+                </div>
+            </div>
+            <div class="newmobile" id="newmobile1">+</div>
+            <div class="input_info1" id="input_info1">
+                <div class="info">
+                    <h4>New Brend-Mobile</h4>
+                    <label for="">mobile name</label>
+                    <input type="text" id="mobile_name">
+                    <label for="">full name</label>
+                    <input type="text" id="full_name">
+                    <div class="imgmobile">
+                        <label for="">img</label>
+                        <input type="file" name="" id="imageInput" accept="image/*">
+                        <img src="#" id="previewImg" alt="Предварительный просмотр." style="display: none; max-width: 300px; max-height:300px;">
+                    </div>
+                    <p>Емкость аккумулятора <span><input type="text" id="battery"></span> мА*ч</p>
+                    <p>Зарядка <span><input type="text" id="energy"></span> вт</p>
+                    <p>Процессор <span><input type="text" id="proc"></span></p>
+                    <p>Количество ядер процессора <span><input type="text" id="yadra"></span></p>
+                    <p>Память ОЗУ <span><input type="text" id="ozu"></span>GB</p>
+                    <p>Память RAM <span><input type="text" id="ram"></span>GB</p>
+                    <p>price <span><input type="number" id="newmob_price"></span>$</p>
+                    <div class="submit" id="submit" onclick="bsubmit()">submit</div>
+                </div>
+            </div>
+        </div>
+        <div class="vip-mobile" id="vip-mobile">
+            <h3>Vip-Mobile</h3>
+            <div class="vip_mobile" id="vsmA06">
+                <h4>Samsung A06</h4>
+                <p>Galaxy A06 4/128 GB</p>
+                <div class="opisanie">
+                    <p>Емкость аккумулятора <span id="vsmA06b">5000</span> мА*ч</p>
+                    <p>Зарядка <span id="vsmA06e">25</span> вт</p>
+                    <p>Процессор <span id="vsmA06p">Mediatek Helio G85</span></p>
+                    <p>Количество ядер процессора <span id="vsmA06y">8</span></p>
+                    <p>Память ОЗУ <span id="vsmA06o">4</span> GB</p>
+                    <p>Память RAM <span id="vsmA06r">128</span> GB</p>
+                </div>
+                <p>price: <span id="priceVSMA06">70</span>$</p>
+                <div class="imgphone">
+                    <img src="/static/sa06.jpg" width="100" height="100px">
+                </div>
+            </div>
+            <div class="vip_mobile" id="vsmA16">
+                <h4>Samsung A16</h4>
+                <p>Galaxy A16 6/128 GB</p>
+                <div class="opisanie">
+                    <p>Емкость аккумулятора <span id="vsmA16b">5000</span> мА*ч</p>
+                    <p>Зарядка <span id="vsmA16e">25</span> вт</p>
+                    <p>Процессор <span id="vsmA16p">MediaTek Helio G99</span></p>
+                    <p>Количество ядер процессора <span id="vsmA16y">8</span></p>
+                    <p>Память ОЗУ <span id="vsmA16o">6</span> GB</p>
+                    <p>Память RAM <span id="vsmA16r">128</span> GB</p>
+                </div>
+                <p>price: <span id="priceVSMA16">120</span>$</p>
+                <div class="imgphone">
+                    <img src="/static/sa16.jpg" width="100" height="100px">
+                </div>
+            </div>
+            <div class="vip_mobile" id="vsmS21">
+                <h4>Samsung S21</h4>
+                <p>Galaxy S21 FE 8/256 GB</p>
+                <div class="opisanie">
+                    <p>Емкость аккумулятора <span id="vsmS21b">6000</span> мА*ч</p>
+                    <p>Зарядка <span id="vsmS21e">45</span> вт</p>
+                    <p>Процессор <span id="vsmS21p">Qualcomm Snapdragon 888</span></p>
+                    <p>Количество ядер процессора <span id="vsmS21y">12</span></p>
+                    <p>Память ОЗУ <span id="vsmS21o">8</span> GB</p>
+                    <p>Память RAM <span id="vsmS21r">256</span> GB</p>
+                </div>
+                <p>price: <span id="priceVSMS21">400</span>$</p>
+                <div class="imgphone">
+                    <img src="/static/ss21.jpg" width="100" height="100px">
+                </div>
+            </div>
+            <div class="newmobile" id="newmobile2">+</div>
+            <div class="input_info2" id="input_info2">
+                <div class="info">
+                    <h4>New Vip-mobile</h4>
+                    <label for="">mobile name</label>
+                    <input type="text" id="mobile_name2">
+                    <label for="">full name</label>
+                    <input type="text" id="full_name2">
+                    <div class="imgmobile">
+                        <label for="">img</label>
+                        <input type="file" name="" id="imageInput2" accept="image/*">
+                        <img src="#" id="previewImg2" alt="Предварительный просмотр." style="display: none; max-width: 300px; max-height:300px;">
+                    </div>
+                    <p>Емкость аккумулятора <span><input type="text" id="battery2"></span> мА*ч</p>
+                    <p>Зарядка <span><input type="text" id="energy2"></span> вт</p>
+                    <p>Процессор <span><input type="text" id="proc2"></span></p>
+                    <p>Количество ядер процессора <span><input type="text" id="yadra2"></span></p>
+                    <p>Память ОЗУ <span><input type="text" id="ozu2"></span>GB</p>
+                    <p>Память RAM <span><input type="text" id="ram2"></span>GB</p>
+                    <p>price <span><input type="number" id="newmob_price2"></span>$</p>
+                    <div class="submit" id="submit" onclick="vsubmit()">submit</div>
+                </div>
+            </div>
+        </div>
+        <div class="basket1" id="bas1"></div>
+        <div class="basket2" id="bas2"></div>
+        <button onclick="mmfunc()" id="but">сравнить</button>
+    </div>
+    <script>
+        const new_mobile1 = document.getElementById("newmobile1")
+        const new_mobile2 = document.getElementById("newmobile2")
+        const bsmA06 = document.getElementById("bsmA06")
+        const bsmA16 = document.getElementById("bsmA16")
+        const bsmS21 = document.getElementById("bsmS21")
+        const vsmA06 = document.getElementById("vsmA06")
+        const vsmA16 = document.getElementById("vsmA16")
+        const vsmS21 = document.getElementById("vsmS21")
+        let i = 0
+        let j = 0
+        let but = document.getElementById("but")
+
+        function addTo1Basket(productName, productPrice) {
+            if (bas1) {
+                i++
+                bas1.innerHTML = `<h3>Товаров: ${i}</h3><p>${productName} price: ${productPrice}$</p> <span>${productPrice*i}$</span>`
+            }
+        }
+
+        function addTo2Basket(productName, productPrice) {
+            if (bas2) {
+                j++
+                bas2.innerHTML = `<h3>Товаров: ${j}</h3><p>${productName} price: ${productPrice}$</p> <span>${productPrice*j}$</span>`
+                but.style.display = "block"
+            }
+        }
+        let input_info1 = document.getElementById("input_info1")
+
+        function bsubmit() {
+            const mobile_name = document.getElementById("mobile_name").value
+            const full_name = document.getElementById("full_name").value
+            const battery = document.getElementById("battery").value
+            const energy = document.getElementById("energy").value
+            const proc = document.getElementById("proc").value
+            const yadra = document.getElementById("yadra").value
+            const ozu = document.getElementById("ozu").value
+            const ram = document.getElementById("ram").value
+            const newmob_price = document.getElementById("newmob_price").value
+            console.log(mobile_name, full_name, battery, energy, proc, yadra, ozu, ram, newmob_price)
+            if (mobile_name, full_name, battery, energy, proc, yadra, ozu, ram, newmob_price) {
+                input_info1.style.display = "none"
+                let classname = mobile_name[0].toLowerCase() + mobile_name.substring(1, 3)
+                const mobile = document.createElement('div')
+                const opisanie = document.createElement('div')
+                const new_brendMobile = document.getElementById("brend-mobile")
+                mobile.classList.add('mobile')
+                opisanie.classList.add('opisanie')
+                if (new_brendMobile) {
+                    new_brendMobile.appendChild(mobile)
+                    mobile.appendChild(opisanie)
+                }
+                if (mobile) {
+                    mobile.innerHTML = `
+                    <h4>${mobile_name}</h4>
+                    <p>${full_name}</p>
+                    <p>price <span>${newmob_price}</span>$</p>`
+                }
+                if (opisanie) {
+                    opisanie.innerHTML = `                    
+                        <p>Емкость аккумулятора <span id="$b{classname}b">${battery}</span> мА*ч</p>
+                        <p>Зарядка <span id="b${classname}e">${energy}</span> вт</p>
+                        <p>Процессор <span id="b${classname}p">${proc}</span></p>
+                        <p>Количество ядер процессора <span id="b${classname}y">${yadra}</span></p>
+                        <p>Память ОЗУ <span id="b${classname}o">${ozu}</span> GB</p>
+                        <p>Память RAM <span id="b${classname}r">${ram}</span> GB</p>`
+                    console.log("tes1")
+                }
+                console.log("mobile added")
+            } else {
+                alert("Вы не ввели все данные")
+            }
+        }
+
+        let input_info2 = document.getElementById("input_info2")
+
+        function vsubmit() {
+            const mobile_name = document.getElementById("mobile_name2").value
+            const full_name = document.getElementById("full_name2").value
+            const battery = document.getElementById("battery2").value
+            const energy = document.getElementById("energy2").value
+            const proc = document.getElementById("proc2").value
+            const yadra = document.getElementById("yadra2").value
+            const ozu = document.getElementById("ozu2").value
+            const ram = document.getElementById("ram2").value
+            const newmob_price = document.getElementById("newmob_price2").value
+            console.log(mobile_name, full_name, battery, energy, proc, yadra, ozu, ram, newmob_price)
+            if (mobile_name, full_name, battery, energy, proc, yadra, ozu, ram, newmob_price) {
+                input_info2.style.display = "none"
+                let classname = mobile_name[0].toLowerCase() + mobile_name.substring(1, 3)
+                const mobile2 = document.createElement('div')
+                const opisanie2 = document.createElement('div')
+                const new_vipMobile = document.getElementById("vip-mobile")
+                mobile2.classList.add('vip_mobile')
+                opisanie2.classList.add('opisanie')
+                if (new_vipMobile) {
+                    new_vipMobile.appendChild(mobile2)
+                    mobile2.appendChild(opisanie2)
+                }
+                if (mobile2) {
+                    mobile2.innerHTML = `
+                    <h4>${mobile_name}</h4>
+                    <p>${full_name}</p>
+                    <p>price <span>${newmob_price}</span>$</p>`
+                }
+                if (opisanie2) {
+                    opisanie2.innerHTML = `                    
+                        <p>Емкость аккумулятора <span id="$b{classname}b">${battery}</span> мА*ч</p>
+                        <p>Зарядка <span id="b${classname}e">${energy}</span> вт</p>
+                        <p>Процессор <span id="b${classname}p">${proc}</span></p>
+                        <p>Количество ядер процессора <span id="b${classname}y">${yadra}</span></p>
+                        <p>Память ОЗУ <span id="b${classname}o">${ozu}</span> GB</p>
+                        <p>Память RAM <span id="b${classname}r">${ram}</span> GB</p>`
+                    console.log("tes2")
+                }
+                console.log("mobile added")
+            } else {
+                alert("Вы не ввели все данные")
+            }
+        }
+        const imageInput = document.getElementById("imageInput")
+        const previewImg = document.getElementById("previewImg")
+
+        let price1 = 0
+        let price2 = 0
+        let battery1 = 0
+        let battery2 = 0
+        let ram1 = 0
+        let ram2 = 0
+        let ozu1 = 0
+        let ozu2 = 0
+        let yadra1 = 0
+        let yadra2 = 0
+        let good1 = 0
+        let good2 = 0
+
+        function mmfunc() {
+            if (price1 < price2) {
+                good1++
+            }
+            if (price1 > price2) {
+                good2++
+            }
+            if (price1 == price2) {
+                good1++
+                good2++
+            }
+            if (battery1 > battery2) {
+                good1++
+            }
+            if (battery2 > battery1) {
+                good2++
+            }
+            if (battery1 == battery2) {
+                good1++
+                good2++
+            }
+            if (ozu1 > ozu2) {
+                good1++
+            }
+            if (ozu2 > ozu1) {
+                good2++
+            }
+            if (ozu2 == ozu1) {
+                good1++
+                good2++
+            }
+            if (ram1 > ram2) {
+                good1++
+            }
+            if (ram2 > ram1) {
+                good2++
+            }
+            if (ram1 == ram2) {
+                good1++
+                good2++
+            }
+            if (yadra1 > yadra2) {
+                good1++
+            }
+            if (yadra2 > yadra1) {
+                good2++
+            }
+            if (yadra1 == yadra2) {
+                good1++
+                good2++
+            }
+            if (good1 > good2) {
+                bas1.style.backgroundColor = "#5bdea3"
+            }
+            if (good1 == good2) {
+                bas1.style.backgroundColor = "#5bdea3"
+                bas2.style.backgroundColor = "#5bdea3"
+            }
+            if (good2 > good1) {
+                bas2.style.backgroundColor = "#5bdea3"
+            }
+            console.log(good1, good2)
+        }
+
+        if (new_mobile1) {
+            new_mobile1.addEventListener('click', function() {
+                let new_element
+                input_info1.style.display = "block"
+            })
+            new_mobile1.addEventListener('dblclick', function() {
+                input_info1.style.display = "none"
+            })
+        }
+        if (new_mobile2) {
+            new_mobile2.addEventListener('click', function() {
+                let new_element
+                input_info2.style.display = "block"
+            })
+            new_mobile2.addEventListener('dblclick', function() {
+                input_info2.style.display = "none"
+            })
+        }
+        if (bsmA06) {
+            bsmA06.addEventListener('click', function() {
+                const name = this.parentNode.querySelector('h4').innerText
+                const price = document.getElementById("priceBSMA06").innerText
+                const bsmA06b = document.getElementById("bsmA06b").innerText
+                const bsmA06o = document.getElementById("bsmA06o").innerText
+                const bsmA06r = document.getElementById("bsmA06r").innerText
+                const bsmA06y = document.getElementById("bsmA06y").innerText
+                battery1 = bsmA06b
+                price1 = price
+                ozu1 = bsmA06o
+                ram1 = bsmA06r
+                yadra1 = bsmA06y
+                console.log(battery1, price1, ozu1, ram1, yadra1)
+                addTo1Basket(name, price)
+            })
+        }
+        if (vsmA06) {
+            vsmA06.addEventListener('click', function() {
+                const name = this.parentNode.querySelector("h4").innerText
+                const price = document.getElementById("priceVSMA06").innerText
+                const vsmA06b = document.getElementById("vsmA06b").innerText
+                const vsmA06o = document.getElementById("vsmA06o").innerText
+                const vsmA06r = document.getElementById("vsmA06r").innerText
+                const vsmA06y = document.getElementById("vsmA06y").innerText
+                battery2 = vsmA06b
+                price2 = price
+                ozu2 = vsmA06o
+                ram2 = vsmA06r
+                yadra2 = vsmA06y
+                console.log(battery2, price2, ozu2, ram2, yadra2)
+                addTo2Basket(name, price)
+            })
+        }
+        if (bsmA16) {
+            bsmA16.addEventListener('click', function() {
+                const name = this.querySelector('h4').innerText
+                const price = document.getElementById("priceBSMA16").innerText
+                const bsmA16b = document.getElementById("bsmA16b").innerText
+                const bsmA16o = document.getElementById("bsmA16o").innerText
+                const bsmA16r = document.getElementById("bsmA16r").innerText
+                const bsmA16y = document.getElementById("bsmA16y").innerText
+                battery1 = bsmA16b
+                ozu1 = bsmA16o
+                ram1 = bsmA16r
+                yadra1 = bsmA16y
+                price1 = price
+                console.log(battery1, price1, ozu1, ram1, yadra1)
+                addTo1Basket(name, price)
+            })
+        }
+        if (vsmA16) {
+            vsmA16.addEventListener('click', function() {
+                const name = this.querySelector('h4').innerText
+                const price = document.getElementById("priceVSMA16").innerText
+                const vsmA16b = document.getElementById("vsmA16b").innerText
+                const vsmA16o = document.getElementById("vsmA16o").innerText
+                const vsmA16r = document.getElementById("vsmA16r").innerText
+                const vsmA16y = document.getElementById("vsmA16y").innerText
+                battery2 = vsmA16b
+                ozu2 = vsmA16o
+                ram2 = vsmA16r
+                yadra2 = vsmA16y
+                price2 = price
+                console.log(battery2, price2, ozu2, ram2, yadra2)
+                addTo2Basket(name, price)
+            })
+        }
+        if (bsmS21) {
+            bsmS21.addEventListener('click', function() {
+                const name = this.querySelector('h4').innerText
+                const price = document.getElementById("priceBSMS21").innerText
+                const bsmS21b = document.getElementById("bsmS21b").innerText
+                const bsmS21o = document.getElementById("bsmS21o").innerText
+                const bsmS21r = document.getElementById("bsmS21r").innerText
+                const bsmS21y = document.getElementById("bsmS21y").innerText
+                battery1 = bsmS21b
+                ozu1 = bsmS21o
+                ram1 = bsmS21r
+                yadra1 = bsmS21y
+                price1 = price
+                console.log(battery1, price1, ozu1, ram1, yadra1)
+                addTo1Basket(name, price)
+            })
+        }
+        if (vsmS21) {
+            vsmS21.addEventListener('click', function() {
+                const name = this.querySelector('h4').innerText
+                const price = document.getElementById("priceVSMS21").innerText
+                const vsmS21b = document.getElementById("vsmS21b").innerText
+                const vsmS21o = document.getElementById("vsmS21o").innerText
+                const vsmS21r = document.getElementById("vsmS21r").innerText
+                const vsmS21y = document.getElementById("vsmS21y").innerText
+                battery2 = vsmS21b
+                ozu2 = vsmS21o
+                ram2 = vsmS21r
+                yadra2 = vsmS21y
+                price2 = price
+                console.log(battery2, price2, ozu2, ram2, yadra2)
+                addTo2Basket(name, price)
+            })
+        }
+    </script>
+</body>
+
+</html>

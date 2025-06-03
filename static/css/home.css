@@ -1,0 +1,609 @@
+#headhome {
+    border-bottom: 5px solid #DC7000;
+}
+
+.body {
+    margin: 0;
+    display: block;
+}
+
+.home1 {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("/static/images/galaxy-s25-ultra-features-kv-h.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.home12 {
+    margin: 0;
+    margin-top: 10px;
+    width: 100%;
+    height: 130vh;
+    background-image: url("/static/images/tablet/ru-feature - nbsp-543506100.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.home13 {
+    margin: 0;
+    width: 100%;
+    height: 130vh;
+    background-image: url("/static/images/notebook/2-118_Galaxy_Book2_Pro_360_15_Silver_Graphite_13_Silver_Graphite_product_LI-844x563.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.home2 {
+    margin-top: 50px;
+    width: 100%;
+    height: 80vh;
+    background-image: url("/static/images/Apple-iPhone-16-Pro-1300x611.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.home22 {
+    margin-top: 50px;
+    width: 100%;
+    height: 155vh;
+    background-image: url("/static/images/tablet/tablet.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.home23 {
+    margin-top: 50px;
+    width: 100%;
+    height: 100vh;
+    background-image: url("/static/images/notebook/fon.jpg");
+    background-size: cover;
+    border-radius: 45px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.wlcm {
+    font-size: 4em;
+    margin: 0;
+    box-shadow: 0 5px 20px #000000;
+    padding: 15px;
+    border-radius: 45px;
+}
+
+.container {
+    width: 100%;
+    height: 120vh;
+    background: linear-gradient( #000000, #02001c, #000000);
+    display: flex;
+    justify-content: center;
+}
+
+.container2 {
+    width: 100%;
+    height: 120vh;
+    background: linear-gradient( #000000, #1c0000, #000000);
+    display: flex;
+    justify-content: center;
+}
+
+.mob {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    box-shadow: 0 2px 10px #ffffff;
+    border-radius: 10px;
+    align-self: center;
+}
+
+.samsungimg {
+    background-image: url("/static/images/PCD_Galaxy-S_Curation-KV_1440x640_pc_LTR__RU.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    width: 100%;
+    height: 500px;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.samsungimg .wlcm {
+    box-shadow: 0 2px 10px #ffffff;
+}
+
+.samsungimg img {
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.cm {
+    margin: 20px;
+    width: 98%;
+    display: none;
+    justify-content: center;
+}
+
+.cm p {
+    padding: 10px;
+}
+
+.opisanie {
+    width: 400px;
+    margin: 20px 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+}
+
+.hidden-text {
+    line-height: 1.5em;
+    max-height: 3em;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+.hidden-text.expanded {
+    max-height: none;
+    mask-image: none;
+    -webkit-mask-image: none;
+}
+
+.toggle-button {
+    display: block;
+    margin-left: 80%;
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.more {
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+.more a {
+    color: #ffffff;
+}
+
+.more:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+}
+
+.samsung {
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 50px;
+    justify-items: center;
+    width: auto;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px #ffffff;
+    padding: 10px;
+    transition: all 750ms ease;
+}
+
+.category_samsung_mobile .samsung:hover {
+    transform: scale(1.01);
+}
+
+.container .samsung:hover {
+    transform: scale(1.02);
+    background-color: #ffffff13;
+}
+
+.samsung img {
+    border-radius: 30px;
+}
+
+.samsung .info {
+    height: auto;
+    text-align: center;
+}
+
+.samsung .info span {
+    color: #ffffff;
+    width: 50px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.samsung .info span:hover {
+    border-radius: 20px;
+    color: #ffffff;
+}
+
+.apple {
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 50px;
+    justify-items: center;
+    width: auto;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px #ffffff;
+    padding: 10px;
+    transition: all 750ms ease;
+}
+
+.apple:hover {
+    transform: scale(1.02);
+    background-color: #ffffff13;
+}
+
+.apple img {
+    border-radius: 30px;
+}
+
+.apple .info {
+    height: auto;
+    text-align: center;
+}
+
+.apple .info span {
+    color: #ffffff;
+    width: 50px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.apple .info span:hover {
+    border-radius: 20px;
+    color: #ffffff;
+}
+
+.js-hide-toggle {
+    width: 40px;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.js-detailed-info {
+    display: none;
+}
+
+.charact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.charact img {
+    width: 300px;
+    height: auto;
+}
+
+.charact .infomodel {
+    width: 400px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: start;
+    line-height: 20px;
+}
+
+.charact .infomodel span {
+    color: #ffffff65;
+}
+
+.charact .info p {
+    text-align: center;
+    font-size: 29px;
+    font-weight: bold;
+    line-height: 10px;
+    margin-bottom: 10px;
+}
+
+.add-to-basket {
+    background-color: #007bff;
+    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.5);
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    width: 100%;
+    transition: all 300ms ease;
+}
+
+.add-to-basket:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.7);
+}
+
+.phone-compact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.phone-compact .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.phone-compact .info p {
+    font-size: 24px;
+    margin: 0;
+    width: 280px;
+    pointer-events: none;
+}
+
+.phone-compact .info span.more {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.phone-compact .info span.more:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+.pages {
+    position: relative;
+    display: flex;
+    gap: 10px;
+}
+
+.error {
+    display: none;
+    box-shadow: 0 2px 10px red;
+    width: 100%;
+    margin-bottom: 50px;
+    height: 500px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.error h1 {
+    font-size: 30px;
+}
+
+.like {
+    display: none;
+}
+
+.samsung:hover .like {
+    position: absolute;
+    display: block;
+    margin-top: 50%;
+    font-size: 25px;
+}
+
+.like-button.liked {
+    display: block;
+    color: #e74c3c;
+}
+
+.like:hover {
+    color: rgba(255, 0, 0, 0.513);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .home1 {
+        width: 100%;
+        background: linear-gradient(#000000, #02001c, #000000);
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    .home12 {
+        width: 100%;
+        background: linear-gradient(#000000, #02001c, #000000);
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    .home13 {
+        width: 100%;
+        background: linear-gradient(#000000, #02001c, #000000);
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    .home2 {
+        width: 100%;
+        background-image: url("/static/images/new-phone-screen-mockup-design_23-2151871067.avif");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        margin-top: 160px;
+        margin-bottom: 130px;
+    }
+    .home22 {
+        width: 100%;
+        background: linear-gradient(#000000, #1c0000, #000000);
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    .home23 {
+        width: 100%;
+        background: linear-gradient(#000000, #1c0000, #000000);
+        margin-bottom: 150px;
+        margin-top: 100px;
+    }
+    .mob {
+        padding: 0 20px;
+        width: auto;
+        height: auto;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+    }
+    .samsung {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .apple {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .more {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .imac {
+        margin-bottom: 280px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    nav ul {
+        flex-direction: column;
+    }
+    nav li {
+        margin-bottom: 10px;
+    }
+    .line:hover span {
+        margin-left: 150px;
+    }
+    .samsungimg .wlcm {
+        width: auto;
+        height: auto;
+        font-size: 40px
+    }
+    .category_samsung_mobile {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .charact {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+    .charact img {
+        max-width: 180px;
+        margin-bottom: 10px;
+    }
+    .charact .info {
+        text-align: center;
+    }
+    .charact .info p {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    .charact .infomodel {
+        text-align: center;
+        gap: 6px;
+    }
+    .infomodel p {
+        font-size: 14px;
+    }
+    .more,
+    .hide,
+    .add-to-basket {
+        padding: 8px 15px;
+        font-size: 14px;
+        margin: 10px auto;
+    }
+    .samsung {
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+    }
+    .samsung img {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .charact img {
+        max-width: 150px;
+    }
+    .charact .info p {
+        font-size: 20px;
+    }
+    .infomodel p {
+        font-size: 13px;
+    }
+}

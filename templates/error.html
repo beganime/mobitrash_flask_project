@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <title>Error</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">WELCOME &#9829 &#9733</div>
+        <nav>
+            <ul>
+                <a href="/">
+                    <p id="headhome">Home</p>
+                </a>
+                <li>
+                    <a href="/about_us">
+                        <p>About us</p>
+                    </a>
+                </li>
+                <li>
+                    <p id="menubtn">Menu</p>
+                </li>
+                <li>
+                    <a href="#">
+                        <p>News</p>
+                    </a>
+                </li>
+                <li class="btn" id="logbtn"><a href="/profile/login">Login</a></li>
+                <li class="btnp" id="profilebtn">
+                    <div class="pr" id="profiletext" onclick="openProfile()">Profile</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div id="menu">
+        <h1>MENU</h1>
+        <div class="category">
+            <div class="line" id="mobileP">
+                <p>mobiles</p> <span>→</span>
+            </div>
+            <a href="/samsung/phone/?page=1">
+                <div class="lineM" id="mobsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/phone">
+                <div class="lineM" id="mobapple">
+                    apple
+                </div>
+            </a>
+            <div class="line" id="tabletP">
+                <p>tablets</p> <span> →</span>
+            </div>
+            <a href="/samsung/tablet">
+                <div class="lineT" id="tabsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/tablet">
+                <div class="lineT" id="tabapple">
+                    apple
+                </div>
+            </a>
+            <div class="line" id="computersP">
+                <p>computers</p> <span>→</span>
+            </div>
+            <a href="/samsung/notebook">
+                <div class="lineC" id="comsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/notebook">
+                <div class="lineC" id="comapple">
+                    apple
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="error" id="error" style="display: flex;">
+        <h1>404 error</h1>
+    </div>
+    <button id="scrollToTop" title="Наверх">↑</button>
+    <footer>
+        <div class="end">
+            <nav class="navsa">
+                <span>samsung</span>
+                <a href="#">News</a>
+                <a href="/samsung/phone/?page=1">Phones</a>
+                <a href="/samsung/tablet">Tablets</a>
+                <a href="/samsung/notebook">Computers</a>
+            </nav>
+            <div class="nava">
+                <p>
+                    © 2025 All Rights Reserved
+                </p>
+                <a href="/">Обратная связь</a>
+                <p>city → <span>{{context.city}}</span></p>
+                <p>country → <span>{{context.country}}</span></p>
+            </div>
+            <nav class="navsa">
+                <span>apple</span>
+                <a href="#">News</a>
+                <a href="/apple/phone">Phones</a>
+                <a href="/apple/tablet">Tablets</a>
+                <a href="/apple/notebook">Computers</a>
+            </nav>
+        </div>
+    </footer>
+    <div id="username" style="display: none;">{{context.username}}</div>
+    <div id="message">{{context.message}}</div>
+    <div id="page">{{context.page}}</div>
+</body>
+<script src="/static/js/menu.js"></script>
+
+</html>

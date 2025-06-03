@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <title>login</title>
+</head>
+
+<body>
+    <header>
+        <span class="logo">logo</span>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">
+                        <p>Home</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about_us">
+                        <p>About us</p>
+                    </a>
+                </li>
+                <li>
+                    <p id="menubtn">Menu</p>
+                </li>
+                <li>
+                    <a href="#">
+                        <p>News</p>
+                    </a>
+                </li>
+                <li class="btn" id="logbtn"><a href="/profile/login">Login</a></li>
+                <li class="btnp" id="profilebtn">
+                    <div class="pr" id="profiletext" onclick="openProfile()">Profile</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div id="menu">
+        <h1>MENU</h1>
+        <div class="category">
+            <div class="line" id="mobileP">
+                <p>mobiles</p> <span>→</span>
+            </div>
+            <a href="/samsung/phone/?page=1">
+                <div class="lineM" id="mobsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/phone">
+                <div class="lineM" id="mobapple">
+                    apple
+                </div>
+            </a>
+            <div class="line" id="tabletP">
+                <p>tablets</p> <span> →</span>
+            </div>
+            <a href="/samsung/tablet">
+                <div class="lineT" id="tabsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/tablet">
+                <div class="lineT" id="tabapple">
+                    apple
+                </div>
+            </a>
+            <div class="line" id="computersP">
+                <p>computers</p> <span>→</span>
+            </div>
+            <a href="/samsung/notebook">
+                <div class="lineC" id="comsamsung">
+                    samsung
+                </div>
+            </a>
+            <a href="/apple/notebook">
+                <div class="lineC" id="comapple">
+                    apple
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="container log" id="log">
+        <div class="login-container" id="log_con">
+            <div class="back"><a href="/profile/login">←</a></div>
+            <form method="POST" action="/profile/login" enctype="application/x-www-form-urlencoded">
+                <h2>Войти</h2>
+                <div class="group">
+                    <input type="text" name="username" required title="Введите ваше уникальное имя">
+                    <label>Имя пользователя</label>
+                </div>
+                <div class="group">
+                    <input type="password" name="password" required>
+                    <label>Пароль</label>
+                </div>
+                <button class="submit-btn" type="submit">Войти</button>
+                <div class="reg_log_link" onclick="showreg()">
+                    <p>Нет аккаунта? <span>Зарегистрироваться</span></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="register-container" id="reg_con">
+            <div class="back"><a href="/profile/login">←</a></div>
+            <form method="POST" action="/profile/register" enctype="application/x-www-form-urlencoded" id="formreg">
+                <h2>Регистрация</h2>
+                <div class="group">
+                    <input type="text" name="username" required title="Введите ваше уникальное имя">
+                    <label>Имя пользователя</label>
+                </div>
+                <div class="group">
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="group">
+                    <input type="password" name="password" required>
+                    <label>Пароль</label>
+                </div>
+                <div class="group">
+                    <input type="password" name="repait_password" required>
+                    <label>Подтвердите пароль</label>
+                </div>
+                <button class="submit-btn" type="submit">Зарегистрироваться</button>
+                <div class="reg_log_link" onclick="showlog()">
+                    <p>Есть аккаунта? <span>Войти</span></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="container" id="con_prof" style="display: none;">
+        <div class="container_profile" id="profile_con">
+            <div class="user">
+                <div class="back" id="alog"><a href="/profile/login">←</a></div>
+                <div class="back hom" id="ahom"><a href="/">←</a></div>
+                <h2>Добро пожаловать</h2>
+                <div class="avatar" id="avatar">
+                    B
+                </div>
+                <div class="details">
+                    <p>Имя: <span id="username">{{context.username}}</span></p>
+                    <p>Email: <span id="email">{{context.email}}</span></p>
+                    <p id="role">role:<span><a href="/admin" id="roleinfo">{{context.role}}</a></span></p>
+                    <p><span id="message"> {{context.message}}</span></p>
+                    <a href="/basket/{{context.username}}">
+                        <div class="basbtn">
+                            basket
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if context.basket_items %} {% for item in context.basket_items %}
+
+    <div class="busket_con">
+        <div class="charact">
+            <h1>{{ item.product_name }}</h1>
+            <div class="info">
+                <span>Дата добавления:</span>
+                <p>{{ item.added_date.strftime('%Y-%m-%d %H:%M') if item.added_date else 'Неизвестно' }}</p>
+                <h3>{{ item.product_name }}</h3>
+                <span>price:</span>
+                <p class="price">{{ item.price }}$</p>
+            </div>
+            <div class="countDiv">
+                <div class="counter">
+                    <span>Количесвто:</span>
+                    <div class="countbtn minus">-</div>
+                    <p id="countP" class="quantity-display">1</p>
+                    <div class="countbtn plus">+</div>
+                </div>
+                <div class="total">
+                    <p class="totalQ"></p>
+                </div>
+            </div>
+            <a href="">
+                <div class="order">
+                    Заказать
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %} {% else %}
+    <div class="basketnone">
+        <p>Ваша корзина пуста.</p>
+    </div>
+    {% endif %}
+    <footer>
+        <div class="end">
+            <nav class="navsa">
+                <span>samsung</span>
+                <a href="#">News</a>
+                <a href="/samsung/phone/?page=1">Phones</a>
+                <a href="/samsung/tablet">Tablets</a>
+                <a href="/samsung/notebook">Computers</a>
+            </nav>
+            <div class="nava">
+                <p>
+                    © 2025 All Rights Reserved
+                </p>
+                <a href="/">Обратная связь</a>
+                <p>city → <span>{{context.city}}</span></p>
+                <p>country → <span>{{context.country}}</span></p>
+            </div>
+            <nav class="navsa">
+                <span>apple</span>
+                <a href="#">News</a>
+                <a href="/apple/phone">Phones</a>
+                <a href="/apple/tablet">Tablets</a>
+                <a href="/apple/notebook">Computers</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+<script>
+    var menu = document.getElementById("menu")
+    var menubtn = document.getElementById("menubtn")
+    var mobsamsung = document.getElementById("mobsamsung")
+    var tabsamsung = document.getElementById("tabsamsung")
+    var comsamsung = document.getElementById("comsamsung")
+    var mobapple = document.getElementById("mobapple")
+    var tabapple = document.getElementById("tabapple")
+    var comapple = document.getElementById("comapple")
+    var mobileP = document.getElementById("mobileP")
+    var tabletP = document.getElementById("tabletP")
+    var computersP = document.getElementById("computersP")
+    var reg_con = document.getElementById("reg_con")
+    var log_con = document.getElementById("log_con")
+    let bus_con = document.getElementById("bus_con")
+    var profile_con = document.getElementById("profile_con")
+    var con_prof = document.getElementById("con_prof")
+    var log = document.getElementById("log")
+    var logbtn = document.getElementById("logbtn")
+    var profilebtn = document.getElementById("profilebtn")
+    var profiletext = document.getElementById("profiletext")
+    var alog = document.getElementById("alog")
+    var ahom = document.getElementById("ahom")
+    let username = document.getElementById("username").textContent
+    let email = document.getElementById("email").textContent
+    let message = document.getElementById("message").textContent
+    let role = document.getElementById("role")
+    let roleinfo = document.getElementById("roleinfo").textContent
+    let avatar = document.getElementById("avatar")
+    document.addEventListener('DOMContentLoaded', () => {
+        const productItemContainers = document.querySelectorAll('.busket_con');
+        productItemContainers.forEach(itemContainer => {
+            const priceElement = itemContainer.querySelector('.info .price');
+            const quantityDisplay = itemContainer.querySelector('.quantity-display'); // Используем класс, а не id="countP"
+            const minusButton = itemContainer.querySelector('.countbtn.minus');
+            const plusButton = itemContainer.querySelector('.countbtn.plus');
+            const totalQElement = itemContainer.querySelector('.totalQ');
+
+            if (!priceElement || !quantityDisplay || !minusButton || !plusButton || !totalQElement) {
+                console.warn('Не все необходимые элементы для обработки корзины найдены в одном из блоков товара. Проверьте HTML-структуру.', itemContainer);
+                return;
+            }
+
+            const priceText = priceElement.textContent.replace('$', '').trim();
+            const price = parseFloat(priceText);
+
+            if (isNaN(price)) {
+                console.error('Не удалось распарсить цену для товара:', priceText, itemContainer);
+                return;
+            }
+
+            let currentQuantity = parseInt(quantityDisplay.textContent);
+            if (isNaN(currentQuantity) || currentQuantity < 1) {
+                currentQuantity = 1;
+                quantityDisplay.textContent = currentQuantity;
+            }
+
+            const updateTotalPrice = () => {
+                const totalPrice = price * currentQuantity;
+                totalQElement.textContent = `${totalPrice.toFixed(2)}$`;
+            };
+            updateTotalPrice();
+            minusButton.addEventListener('click', () => {
+                if (currentQuantity > 1) {
+                    currentQuantity--;
+                    quantityDisplay.textContent = currentQuantity;
+                    updateTotalPrice();
+                } else {
+                    console.log('Количество не может быть меньше 1. Рассмотрите возможность удаления товара.');
+                }
+            });
+            plusButton.addEventListener('click', () => {
+                currentQuantity++;
+                quantityDisplay.textContent = currentQuantity;
+                updateTotalPrice();
+            });
+        });
+    });
+
+    menubtn.addEventListener('click', function() {
+        menu.classList.toggle('open')
+    })
+    if (roleinfo == "admin") {
+        role.style.display = "block"
+    }
+    mobileP.addEventListener('click', function() {
+        if (mobsamsung.style.display == "none") {
+            mobsamsung.style.display = "block"
+            mobapple.style.display = "block"
+        } else {
+            mobsamsung.style.display = "none"
+            mobapple.style.display = "none"
+        }
+    })
+    tabletP.addEventListener('click', function() {
+        if (tabsamsung.style.display == "none") {
+            tabsamsung.style.display = "block"
+            tabapple.style.display = "block"
+        } else {
+            tabsamsung.style.display = "none"
+            tabapple.style.display = "none"
+        }
+    })
+    computersP.addEventListener('click', function() {
+        if (comsamsung.style.display == "none") {
+            comsamsung.style.display = "block"
+            comapple.style.display = "block"
+        } else {
+            comsamsung.style.display = "none"
+            comapple.style.display = "none"
+        }
+    })
+    if (username) {
+        console.log(username)
+        profile_con.style.display = "block"
+        con_prof.style.display = "flex"
+        log.style.display = "none"
+        avatar.innerHTML = username[0]
+        logbtn.style.display = 'none'
+        profilebtn.style.display = 'block'
+        profilebtn.style.border = "2px solid #FA9021"
+        profilebtn.style.background = "none"
+        alog.style.display = "none"
+        ahom.style.display = "block"
+        setCookie("username", username)
+    } else {
+        console.log("username not found")
+    }
+
+    console.log(message)
+    if (message == " open_basket") {
+        console.log("start", message)
+        log.style.display = "none"
+        bus_con.style.display = "flex"
+    }
+
+    function openProfile() {
+        const cookieUsername = getCookie('username')
+        const response = window.location.href = `/profile/${cookieUsername}`
+        return response
+    }
+
+    function showreg() {
+        console.log("reg")
+        log_con.style.display = "none"
+        reg_con.style.display = "flex"
+        bus_con.style.display = "none"
+    }
+
+    function showlog() {
+        console.log("log")
+        log_con.style.display = "flex"
+        reg_con.style.display = "none"
+        bus_con.style.display = "none"
+    }
+    async function setCookie(key, value) {
+        const response = await fetch(`/set_cookie/${key}/${value}`)
+        const data = await response.json()
+        console.log(data)
+    }
+    document.cookie = "username" + "=;expires=Thu, 01 Jan 00:00:01 GMT; path=/;"
+
+    function getCookie(key) {
+        const name = key + "="
+        const decodedCookie = decodeURIComponent(document.cookie)
+        const ca = decodedCookie.split(';')
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i]
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length)
+            }
+        }
+        return null
+    }
+    setTimeout(() => {
+        const cookieUsername = getCookie('username')
+        if (cookieUsername) {
+            if (cookieUsername == "none") {
+                console.log("username не найден")
+            } else {
+                console.log('Значение куки "username":', cookieUsername)
+                profiletext.innerHTML = "Profile " + cookieUsername[0]
+                profilebtn.style.display = "block"
+                logbtn.style.display = "none"
+            }
+        } else {
+            console.log('Куки "username" не найдена.')
+        }
+    }, 100);
+</script>
+
+</html>

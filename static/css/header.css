@@ -1,0 +1,337 @@
+body {
+    background-color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+}
+
+#message {
+    display: none;
+}
+
+#role {
+    display: none;
+}
+
+#page {
+    display: none;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header {
+    position: relative;
+}
+
+header nav {
+    float: right;
+    width: 50%;
+}
+
+.logo {
+    position: absolute;
+    width: auto;
+    height: 20px;
+    margin: 20px;
+    border-radius: 45px;
+    text-align: center;
+    padding: 10px 20px;
+    color: white;
+    animation: shadow-flow 2s infinite alternate;
+}
+
+@keyframes shadow-flow {
+    0% {
+        box-shadow: 0 2px 10px orange;
+    }
+    100% {
+        box-shadow: 0 2px 10px white;
+    }
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+header nav ul li {
+    display: inline-block;
+    cursor: pointer;
+}
+
+header nav ul li a {
+    color: #ffffff;
+}
+
+header nav ul li:not(.btn) p:hover {
+    border-bottom: 5px solid #DC7000;
+}
+
+header nav ul li.btn a {
+    position: relative;
+    top: 15px;
+    left: -10px;
+    padding: 9px 17px;
+    border-radius: 5px;
+    transition: all 250ms ease;
+}
+
+header nav ul li.btnp {
+    position: relative;
+    height: 20px;
+    top: 5px;
+    left: -10px;
+    padding: 9px 17px;
+    border-radius: 5px;
+    transition: all 250ms ease;
+    display: none;
+    background: #FA9021
+}
+
+header nav ul li.btn a:hover {
+    background: #d54400;
+}
+
+header nav ul li.btnp:hover {
+    background: #d54400;
+}
+
+footer {
+    margin: 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+.end {
+    padding: 20px 0;
+    width: 100%;
+    border-top: 2px solid #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.end nav {
+    margin: 0 20px;
+}
+
+.nava {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.nava a {
+    color: #ffffff;
+    border-bottom: 2px solid #fa912189;
+    white-space: nowrap;
+}
+
+.nava a:hover {
+    border-bottom: 2px solid #ff8400;
+}
+
+.nava p {
+    color: #ffffff8c;
+}
+
+.nava span {
+    color: #fff;
+}
+
+.navsa {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.navsa a {
+    color: #ffffff8c;
+    margin-bottom: 5px;
+}
+
+.navsa a:hover {
+    border-bottom: 2px solid #ff8400;
+    color: #ffffff;
+}
+
+footer p {
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .end {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+        border-radius: 0;
+    }
+    .end nav {
+        margin: 10px 0;
+        text-align: center;
+    }
+    .nava {
+        margin-top: 15px;
+    }
+    footer p {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 480px) {
+    .end {
+        padding: 10px 0;
+    }
+    footer p {
+        font-size: 12px;
+    }
+}
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    padding: 20px;
+    color: #ffffff;
+    border-radius: 0 45px 45px 0;
+    width: 300px;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: rgba(255, 123, 0, 0.8);
+    z-index: 10;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+    box-sizing: border-box;
+}
+
+#menu.open {
+    display: block;
+    transform: translateX(0);
+}
+
+#menu h1 {
+    padding: 15px 0;
+    margin-bottom: 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.line {
+    margin-top: 15px;
+    padding: 15px 20px;
+    background-color: rgba(210, 123, 0, 0.9);
+    border-radius: 45px;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+.line:hover {
+    background-color: rgba(187, 109, 1, 0.9);
+    transform: translateX(5px);
+}
+
+.line span {
+    margin-left: 15px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.line:hover span {
+    margin-left: 180px;
+}
+
+.lineM {
+    display: none;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: rgba(210, 123, 0, 0.9);
+    border-radius: 25px;
+    align-items: center;
+    width: 80%;
+    height: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+.lineM:hover {
+    background-color: rgba(187, 109, 1, 0.9);
+    transform: translateX(5px);
+}
+
+.lineT {
+    display: none;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: rgba(210, 123, 0, 0.9);
+    border-radius: 25px;
+    align-items: center;
+    width: 80%;
+    height: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+.lineT:hover {
+    background-color: rgba(187, 109, 1, 0.9);
+    transform: translateX(5px);
+}
+
+.lineC {
+    display: none;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: rgba(210, 123, 0, 0.9);
+    border-radius: 25px;
+    align-items: center;
+    width: 80%;
+    height: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+.lineC:hover {
+    background-color: rgba(187, 109, 1, 0.9);
+    transform: translateX(5px);
+}
+
+#scrollToTop {
+    display: none;
+    width: 50px;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 15px 20px;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3 ease;
+}
+
+#scrollToTop:hover {
+    background-color: #0056b3;
+}

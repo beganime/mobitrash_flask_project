@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/earth_icon-icons.com_50404.png" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="menu" id="menu">
+        <h1>Wellcome to Mobitrash</h1>
+        <div class="category">
+            <div class="mobilesC">
+                <p>mobiles</p> <span>→</span>
+            </div>
+            <div class="computersC">
+                <p>computers</p> <span>→</span>
+            </div>
+            <div class="tabletC">
+                <p>tablet</p> <span>→</span>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <h1>Wellcome to Mobitrash</h1>
+        <button id="logbutton" onclick="showlog()">Войти</button>
+        <div class="ava" id="ava">name</div>
+        <button class="menubtn" id="menubtn">menu</button>
+    </div>
+    <div class="container" id="con">
+        <div class="description" id="des">
+            <!-- <img src="/static/galaxy-s25-1.jpg" alt="mobile" width="150px" height="150px">
+            <p> Процессор: <span>${Snapdragon 8 Elite} <span>${8}</span></span> ядер</p>
+            <p> Емкость аккумулятора: <span>${5000}</span> мАч</p>
+            <p> Память ОЗУ: <span>${8}</span>GB</p>
+            <p> Память RAM: <span>${256}</span>GB</p>
+            <p> Дисплей: <span>Dynamic AMOLED –<span> 1440 x 3120</span></span>
+            </p>
+            <p> Камера: <span>3 (50 MP + 10 MP + 12 MP)</span></p> -->
+        </div>
+        <div class="products">
+            <div class="mobiles" id="sgs25">
+                <h3 id="mobile_name1">Samsung</h3>
+                <p id="des1">Samsung Galaxy S25+ 8/256 GB</p>
+                <p id="brand_mobile">Brand-Mobile</p>
+            </div>
+            <div class="mobiles" id="mobiles2">
+                <h3 id="mobile_name">mobile_name</h3>
+                <p id="des">description</p>
+                <p id="mag_name">magazin_name</p>
+            </div>
+            <div class="mobiles" id="mobiles3">
+                <h3 id="mobile_name">mobile_name</h3>
+                <p id="des">description</p>
+                <p id="mag_name">magazin_name</p>
+            </div>
+        </div>
+    </div>
+    <div class="login-container" id="log_con">
+        <div class="back"><a href="/">←</a></div>
+        <form method="POST" action="/login" enctype="application/x-www-form-urlencoded">
+            <h2>Войти</h2>
+
+            <div class="group">
+                <input type="text" name="username" required>
+                <label>Имя пользователя</label>
+            </div>
+
+            <div class="group">
+                <input type="password" name="password" required>
+                <label>Пароль</label>
+            </div>
+            <div class="error" id="error">
+                <span>error: Неверное имя пользователя или пароль</span>
+            </div>
+            <button class="submit-btn" type="submit">Войти</button>
+            <div class="reg_log_link" onclick="showreg()">
+                <p>Нет аккаунта? <span>Зарегистрироваться</span></p>
+            </div>
+        </form>
+
+    </div>
+    <div class="register-container" id="reg_con">
+        <div class="back"><a href="/">←</a></div>
+        <form method="POST" action="/register" enctype="application/x-www-form-urlencoded" id="formreg">
+            <h2>Регистрация</h2>
+            <div class="group">
+                <input type="text" name="username" required>
+                <label>Имя пользователя</label>
+            </div>
+
+            <div class="group">
+                <input type="email" name="email" required>
+                <label>Email</label>
+            </div>
+
+            <div class="group">
+                <input type="password" name="password" required>
+                <label>Пароль</label>
+            </div>
+
+            <div class="group">
+                <input type="password" name="repait_password" required>
+                <label>Подтвердите пароль</label>
+            </div>
+            <button class="submit-btn" type="submit">Зарегистрироваться</button>
+            <div class="reg_log_link" onclick="showlog()">
+                <p>Есть аккаунта? <span>Войти</span></p>
+            </div>
+        </form>
+        <div class="successful" id="succ">
+            <div class="profile-container">
+                <h2>Добро пожаловать</h2>
+                <div class="user-info">
+                    <div class="avatar" id="avatar">
+                    </div>
+                    <div class="details">
+                        <p>Имя пользователя: <span id="username">{{context.username}}</span></p>
+                        <p>Электронная почта: <span id="email">{{context.email}}</span></p>
+                        <p class="message">Сообщение: <span id="message"> {{context.message}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="ender"></div>
+
+</body>
+<script>
+    let menu = document.getElementById("menu")
+    let menubtn = document.getElementById("menubtn")
+
+    menubtn.addEventListener('click', function() {
+        menu.style.display = "block"
+    })
+    menubtn.addEventListener('dblclick', function() {
+        menu.style.display = "none"
+    })
+    let des = document.getElementById("des")
+    let m1 = document.getElementById("sgs25")
+    m1.addEventListener('click', function() {
+        des.style.display = "block"
+        let d = des.innerHTML
+        let description = `
+            <img src="/static/galaxy-s25-1.jpg" alt="mobile" width="150px" height="150px">
+            <p> Процессор: <span> Snapdragon 8 Elite <span>${8}</span></span> ядер</p>
+            <p> Емкость аккумулятора: <span>${5000}</span> мАч</p>
+            <p> Память ОЗУ: <span>${8}</span>GB</p>
+            <p> Память RAM: <span>${256}</span>GB</p>
+            <p> Дисплей: <span>Dynamic AMOLED –<span> 1440 x 3120</span></span>
+            </p>
+            <p> Камера: <span>3 (50 MP + 10 MP + 12 MP)</span></p>
+        `
+        des.innerHTML = description
+    })
+    m1.addEventListener('dblclick', function() {
+        des.style.display = "none"
+    })
+    let reg_con = document.getElementById("reg_con")
+    let log_con = document.getElementById("log_con")
+    let con = document.getElementById("con")
+
+    function showreg() {
+        reg_con.style.display = "flex"
+        log_con.style.display = "none"
+        con.style.display = "none"
+    }
+
+    function showlog() {
+        reg_con.style.display = "none"
+        log_con.style.display = "flex"
+        con.style.display = "none"
+    }
+
+    function showcon() {
+        reg_con.style.display = "none"
+        log_con.style.display = "none"
+        con.style.display = "flex"
+    }
+    let err = document.getElementById("error")
+    let username = document.getElementById("username").innerText
+    let email = document.getElementById("email").innerText
+    let message = document.getElementById("message").innerText
+    let succ = document.getElementById("succ")
+    let formreg = document.getElementById("formreg")
+    let ava = document.getElementById("ava")
+    let logbutton = document.getElementById("logbutton")
+    if (username) {
+        succ.style.display = "block"
+        formreg.style.display = "none"
+        con.style.display = "none"
+        reg_con.style.display = "block"
+        reg_con.style.height = "480px"
+        log_con.style.display = "none"
+        console.log(username)
+        setCookie('username', username)
+    } else {
+        console.log("username not defined")
+    }
+    if (username == "none") {
+        console.log(message)
+        succ.style.display = "none"
+        formreg.style.display = "none"
+        con.style.display = "none"
+        reg_con.style.display = "none"
+        log_con.style.display = "block"
+        err.style.display = "block"
+    } else {
+        console.log("OK")
+    }
+    if (message == "Profile") {
+        succ.style.display = "block"
+        formreg.style.display = "none"
+        con.style.display = "none"
+        reg_con.style.display = "block"
+        reg_con.style.boxShadow = '0 px'
+        log_con.style.display = "none"
+        console.log(message)
+    }
+    if (email != "none") {
+        console.log(email)
+    }
+    ava.addEventListener('click', function() {
+        user = getCookie('username')
+        console.log(user)
+        const response = window.location.href = `/profile/${user}`
+        console.log(response)
+        return response
+    })
+    async function setCookie(key, value) {
+        const response = await fetch(`/set_cookie/${key}/${value}`)
+        const data = await response.json()
+        console.log(data)
+    }
+
+    function getCookie(key) {
+        const name = key + "="
+        const decodedCookie = decodeURIComponent(document.cookie)
+        const ca = decodedCookie.split(';')
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i]
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length)
+            }
+        }
+        return null
+    }
+
+    function getRandomColor(colors) {
+        if (!Array.isArray(colors) || colors.length === 0) {
+            return undefined
+        }
+        const randomIndex = Math.floor(Math.random() * colors.length)
+        return colors[randomIndex]
+    }
+    setTimeout(() => {
+        const cookieUsername = getCookie('username')
+        if (cookieUsername) {
+            if (cookieUsername == "none") {
+                console.log("username не найден")
+            } else {
+                console.log('Значение куки "username":', cookieUsername)
+                ava.style.display = "block"
+                logbutton.style.display = "none"
+                const avaColor = ["red", "green", "blue", "yellow", "purple", "gray", "black", "brown"]
+                const randomColor = getRandomColor(avaColor)
+                ava.style.backgroundColor = randomColor
+                let avatar = document.getElementById("avatar")
+                avatar.innerHTML = cookieUsername[0]
+                ava.innerHTML = cookieUsername[0]
+            }
+        } else {
+            console.log('Куки "username" не найдена.')
+        }
+    }, 1000);
+</script>
+
+</html>

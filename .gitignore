@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/ # Ваше виртуальное окружение
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+.pytest_cache/
+
+# IDEs
+.idea/ # Для PyCharm
+.vscode/ # Для VS Code
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific
+.DS_Store # Для macOS
+Thumbs.db # Для Windows
+
+# Flask-specific
+instance/ # Если Flask создает здесь временные файлы или локальные БД
+.flaskenv # Переменные окружения для Flask CLI (если используете Flask-DotEnv)
+*.flaskenv # То же самое
+
+# Environment variables
+.env # Самое важное: здесь хранятся конфиденциальные данные для подключения к БД!
+
+# Logs
+*.log
+
+# Database backups or dumps (if you generate them locally)
+*.sql
+*.backup
