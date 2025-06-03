@@ -163,7 +163,7 @@
             <div class="info">
                 <span>Дата добавления:</span>
                 <p>{{ item.added_date.strftime('%Y-%m-%d %H:%M') if item.added_date else 'Неизвестно' }}</p>
-                <h3>{{ item.product_name }}</h3>
+                <h3 class="productname">{{ item.product_name }}</h3>
                 <span>price:</span>
                 <p class="price">{{ item.price }}$</p>
             </div>
@@ -171,22 +171,20 @@
                 <div class="counter">
                     <span>Количесвто:</span>
                     <div class="countbtn minus">-</div>
-                    <p id="countP" class="quantity-display">1</p>
+                    <p class="quantity-display">1</p>
                     <div class="countbtn plus">+</div>
                 </div>
                 <div class="total">
                     <p class="totalQ"></p>
                 </div>
             </div>
-            <a href="">
-                <div class="order">
-                    Заказать
-                </div>
-            </a>
+            <div class="delete">
+                удалить с корзины
+            </div>
         </div>
     </div>
     {% endfor %} {% else %}
-    <div class="basketnone">
+    <div class="basketnone" style="display: none;">
         <p>Ваша корзина пуста.</p>
     </div>
     {% endif %}
@@ -204,8 +202,6 @@
                     © 2025 All Rights Reserved
                 </p>
                 <a href="/">Обратная связь</a>
-                <p>city → <span>{{context.city}}</span></p>
-                <p>country → <span>{{context.country}}</span></p>
             </div>
             <nav class="navsa">
                 <span>apple</span>
@@ -248,18 +244,34 @@
     let avatar = document.getElementById("avatar")
     document.addEventListener('DOMContentLoaded', () => {
         const productItemContainers = document.querySelectorAll('.busket_con');
+        const basketnone = document.querySelector(".basketnone");
+        if (message == " open_basket") {
+            console.log("start", message)
+            if (productItemContainers.length === 0 && basketnone) {
+                basketnone.style.display = "flex";
+                if (document.getElementById("log")) {
+                    document.getElementById("log").style.display = "none";
+                }
+                return;
+            } else if (productItemContainers.length > 0 && document.getElementById("log")) {
+                document.getElementById("log").style.display = "none";
+            }
+        }
         productItemContainers.forEach(itemContainer => {
             const priceElement = itemContainer.querySelector('.info .price');
-            const quantityDisplay = itemContainer.querySelector('.quantity-display'); // Используем класс, а не id="countP"
+            const productnameElement = itemContainer.querySelector('.info .productname'); // Получаем элемент имени продукта
+            const quantityDisplay = itemContainer.querySelector('.quantity-display');
             const minusButton = itemContainer.querySelector('.countbtn.minus');
             const plusButton = itemContainer.querySelector('.countbtn.plus');
             const totalQElement = itemContainer.querySelector('.totalQ');
+            const deleteButton = itemContainer.querySelector('.delete'); // Получаем кнопку "удалить"
 
-            if (!priceElement || !quantityDisplay || !minusButton || !plusButton || !totalQElement) {
+            if (!priceElement || !quantityDisplay || !minusButton || !plusButton || !totalQElement || !productnameElement || !deleteButton) {
                 console.warn('Не все необходимые элементы для обработки корзины найдены в одном из блоков товара. Проверьте HTML-структуру.', itemContainer);
                 return;
             }
 
+            const productName = productnameElement.textContent.trim(); // Получаем текстовое имя продукта
             const priceText = priceElement.textContent.replace('$', '').trim();
             const price = parseFloat(priceText);
 
@@ -279,23 +291,57 @@
                 totalQElement.textContent = `${totalPrice.toFixed(2)}$`;
             };
             updateTotalPrice();
+
             minusButton.addEventListener('click', () => {
                 if (currentQuantity > 1) {
                     currentQuantity--;
                     quantityDisplay.textContent = currentQuantity;
                     updateTotalPrice();
                 } else {
-                    console.log('Количество не может быть меньше 1. Рассмотрите возможность удаления товара.');
+                    console.log('Количество не может быть меньше 1.');
                 }
             });
+
             plusButton.addEventListener('click', () => {
                 currentQuantity++;
                 quantityDisplay.textContent = currentQuantity;
                 updateTotalPrice();
             });
+            deleteButton.addEventListener('click', async() => {
+                const currentusername = getCookie('username')
+                const url = `/basket/delete_product/?product_name=${encodeURIComponent(productName)}&username=${currentusername}`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        console.log('Ответ сервера:', data);
+                        alert(`Товар "${productName}" успешно удалён из корзины!`);
+                        itemContainer.remove();
+
+                        const remainingItems = document.querySelectorAll('.busket_con');
+                        if (remainingItems.length === 0 && basketnone) {
+                            basketnone.style.display = "flex";
+                        }
+                    } else {
+                        console.error('Ошибка при удалении:', data.message || 'Неизвестная ошибка');
+                        alert(`Ошибка: ${data.message || 'Не удалось удалить товар из корзины.'}`);
+                    }
+                } catch (error) {
+                    console.error('Сетевая ошибка при отправке запроса:', error);
+                    alert('Произошла сетевая ошибка. Пожалуйста, попробуйте еще раз.');
+                }
+            });
+
         });
     });
-
     menubtn.addEventListener('click', function() {
         menu.classList.toggle('open')
     })
@@ -346,13 +392,6 @@
         console.log("username not found")
     }
 
-    console.log(message)
-    if (message == " open_basket") {
-        console.log("start", message)
-        log.style.display = "none"
-        bus_con.style.display = "flex"
-    }
-
     function openProfile() {
         const cookieUsername = getCookie('username')
         const response = window.location.href = `/profile/${cookieUsername}`
@@ -377,7 +416,7 @@
         const data = await response.json()
         console.log(data)
     }
-    document.cookie = "username" + "=;expires=Thu, 01 Jan 00:00:01 GMT; path=/;"
+    // document.cookie = "username" + "=;expires=Thu, 01 Jan 00:00:01 GMT; path=/;"
 
     function getCookie(key) {
         const name = key + "="

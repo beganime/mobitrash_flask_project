@@ -170,7 +170,6 @@ def open_basket(username):
                 user_record = cur.fetchone()
                 if user_record:
                     user_id = user_record[0]
-
                     cur.execute("""
                         SELECT
                             p.name AS product_name,
@@ -184,7 +183,6 @@ def open_basket(username):
                             b.user_id = %s
                             AND b.active = true;
                     """, (user_id,)) 
-
                     raw_items = cur.fetchall()
                     for item in raw_items:
                         basket_items.append({
@@ -215,6 +213,8 @@ def open_basket(username):
         "total_items": len(basket_items) 
     }
     return render_template("login.html", context=context)
+
+    
 @app.route('/set_cookie/<key>/<value>')
 def set_cookie_route(key, value):
     print(key, value)
@@ -355,7 +355,6 @@ def add_to_basket(username_from_url):
             with conn.cursor() as cur:
                 cur.execute("SELECT id FROM users WHERE name = %s", (username_from_url,)) 
                 user_record = cur.fetchone()
-
                 if user_record:
                     user_id = user_record[0]
                 else:
@@ -378,9 +377,70 @@ def add_to_basket(username_from_url):
         print(f"Общая ошибка при добавлении в корзину: {e}")
         return jsonify({"status": "error", "message": "Internal server error"}), 500
 
+@app.route("/basket/delete_product/", methods = ['POST'])
+def delete_product_is_basket():
+    product_name = request.args.get('product_name')
+    if not product_name:
+        return jsonify({"status": "error", "message": "Product name is missing"}), 400
+    
+    user_name_from_query = request.args.get('username')
+    if not user_name_from_query:
+        return jsonify({"status": "error", "message": "Username is missing"}), 400
+    
+    current_user_id = None
+    try:
+        with get_db() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT id FROM users WHERE name = %s", (user_name_from_query,))
+                user_record = cur.fetchone()
+                if user_record:
+                    current_user_id = user_record[0]
+                else:
+                    return jsonify({"status": "error", "message": "User not found"}), 404
+    except Exception as e:
+        print(f"Ошибка при поиске пользователя: {e}")
+        return jsonify({"status": "error", "message": "Database error while finding user"}), 500
+    if not current_user_id:
+        return jsonify({"status": "error", "message": "User ID not available (authentication issue)"}), 401
+    product_id = None
+    try:
+        with get_db() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT id FROM product WHERE name = %s", (product_name,))
+                product_record = cur.fetchone()
+                if product_record:
+                    product_id = product_record[0]
+                else:
+                    return jsonify({"status": "error", "message": "Product not found"}), 404
+    except Exception as e:
+        print(f"Ошибка при поиске продукта: {e}")
+        return jsonify({"status": "error", "message": "Database error while finding product"}), 500
+    try:
+        with get_db() as conn:
+            with conn.cursor() as cur:
+                print(current_user_id, product_id)
+                cur.execute(
+                    "DELETE FROM basket WHERE user_id = %s AND product_id = %s;",
+                    (current_user_id, product_id)
+                )
+                if cur.rowcount == 0:
+                    return jsonify({"status": "error", "message": "Product not found in user's basket"}), 404
+                else:
+                    return jsonify({"status": "success", "message": "Product successfully removed from basket"}), 200
+    except psycopg2.Error as e: 
+        print(f"Ошибка базы данных при удалении из корзины: {e}")
+        return jsonify({"status": "error", "message": "Database error during deletion"}), 500
+    except Exception as e:
+        print(f"Общая непредвиденная ошибка при удалении из корзины: {e}")
+        return jsonify({"status": "error", "message": "Internal server error"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=7010,host="0.0.0.0")
 
+#git init
+#git status
+#git add .
+#git commit -m "обновил ещё несколько вещей"
+#git push
 
-#opencard
+#opencart
