@@ -101,6 +101,7 @@ header nav ul li.btnp:hover {
 }
 
 footer {
+    padding-top: 10px;
     margin: 0;
     margin-top: auto;
     width: 100%;
@@ -123,7 +124,7 @@ footer {
 }
 
 .nava {
-    margin-top: 25px;
+    padding-top: 25px;
     text-align: center;
 }
 
@@ -146,6 +147,8 @@ footer {
 }
 
 .navsa {
+    padding-top: 30px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     text-align: center;

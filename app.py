@@ -1,41 +1,73 @@
 from flask import Flask, jsonify, make_response, redirect, render_template, request
-import psycopg2
-import requests
-from utils.db import get_db
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from utils.models import init_models
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_port = os.getenv('DB_PORT')
+db_name = os.getenv('DB_NAME')
+
+db = SQLAlchemy()
 
 app = Flask(__name__)
-def get_location_from_ipapi(ip_address):
-    try:
-        response = requests.get(f"http://ip-api.com/json/{ip_address}?lang=ru")
-        data = response.json()
-        if data and data['status'] == 'success':
-            city = data.get('city')
-            country = data.get('country')
-            return city, country
-        else:
-            print(f"Ошибка IP-API: {data.get('message', 'Неизвестная ошибка')}")
-            return None, None
-    except requests.exceptions.RequestException as e:
-        print(f"Сетевая ошибка при запросе к IP-API: {e}")
-        return None, None
+
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+User, Product, Category, Basket = init_models(db)
+
+
+
+
 
 @app.route('/',methods = ['GET'])
 def get_page():
     if request.method == "GET":
-        user_ip = request.remote_addr # Получить IP пользователя
-        city, country = get_location_from_ipapi(user_ip)
+        user_ip = request.remote_addr
+        city, country = "city","country"
         if city and country:
             detail = {"message":"home","city":city,"country":country}
             return render_template('home.html',context=detail)
         else:
             detail = {"message":"home","city":"не удалось определить","country":"не удалось определить"}
             return render_template('home.html',context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
 
 @app.route('/error',methods = ['GET'])
 def error():
     detail = {"message":"error"}
     if request.method == "GET":
         return render_template("error.html",context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/samsung/phone/',methods = ['GET'])
 def get_samsung_phone():
@@ -44,90 +76,191 @@ def get_samsung_phone():
     detail = {"message":"samsung_phone","page":page}
     if request.method == "GET":
         return render_template("home.html",context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/samsung/tablet',methods = ['GET'])
 def get_samsung_tablet():
     detail = {"message":"samsung_tablet"}
     if request.method == "GET":
         return render_template("home.html",context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/samsung/notebook',methods = ['GET'])
 def get_samsung_notebook():
     detail = {"message":"samsung_notebook"}
     if request.method == "GET":
         return render_template("home.html",context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
 
 @app.route('/apple/phone',methods = ['GET'])
 def get_apple_phone():
     detail = {"message":"apple_phone"}
     if request.method == "GET":
         return render_template("home.html",context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/apple/tablet',methods = ['GET'])
 def get_apple_tablet():
     detail = {"message":"apple_tablet"}
     if request.method == "GET":
         return render_template("home.html",context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/apple/notebook',methods = ['GET'])
 def get_apple_notebook():
     detail = {"message":"apple_notebook"}
     if request.method == "GET":
         return render_template("home.html",context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
 
-@app.route('/profile/<username>')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/profile/<username>', methods = ['GET'])
 def get_profile(username):
     print(username,"name")
-    if username == "none":
-        message = "Такой учетной записи нету."
-        data = {"username":"none","email":"none","message":message}
-        return render_template("login.html",context = data)
-    if request.method == 'GET':
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT name, email, role from users WHERE name = %s",(username,))
-                db = cur.fetchone()
-                if db is None:
-                    message = "Такой учетной записи нету."
-                    data = {"username":"none","email":"none","message":message}
-                    return render_template("login.html",context = data)
-                else:
-                    usernameInDb = db[0]
-                    email = db[1]
-                    role = db[2]
-                    message = "Welcome"
-                    data = {"username":usernameInDb,"email":email,"message":message,"role":role}
-                    return render_template("login.html",context = data)
+    if request.method == "GET":
+        if username == "none":
+            data = {"username":"none","email":"none","message":"Такой учетной записи нету."}
+            return render_template("login.html",context = data)
+
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            data = {"username":"none","email":"none","message":"Такой учетной записи нету."}
+            return render_template("login.html",context = data)
+
+        username, email, role = user.username, user.email, user.role
+        return render_template("login.html",context = {"username":username,"email":email,"message":"Welcome","role":role})
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/profile/login', methods=['GET','POST'])
 def log_in():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
         print(username, password)
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                if password:
-                    cur.execute("SELECT email, password from users WHERE name = %s AND password = %s",(username, password,))
-                    db = cur.fetchone()
-                    if db is None:
-                        message = "Имя пользователя или пароль не верно."
-                        data = {"username":"none","email":"none","message":message}
-                        return render_template("login.html",context = data)
-                    else:
-                        passwordOK = db[1]
-                        email = db[0]
-                        print(passwordOK)
-                        if password == passwordOK:
-                            message = "Вы вошли успешно"
-                            print(message)
-                            data = [username,email]
-                            return redirect(f"/profile/{username}")
-                        else:
-                            message = "Пароли не совподают."
-                            return render_template("login.html",context = data)
+        
+        user = User.query.filter_by(username=username,password=password).first()
+        if not user:
+            data = {"username":"none","email":"none","message":"Имя пользователя или пароль не верно."}
+            return render_template("login.html",context = data)
+        if user.password == password:
+            print("Пароль верный")
+            response = make_response(redirect(f"/profile/{username}"))
+            response.set_cookie('username', username, max_age=1500)
+            return response
+        else:
+            
+            return render_template("login.html",context = {"message":"Пароли не совподают."})
+
     elif request.method == 'GET':
         data = {}
         return render_template("login.html",context = data)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/profile/register', methods=['POST'])
 def register():
     if request.method == 'POST':
@@ -137,82 +270,94 @@ def register():
         repeat_password = request.form.get('repait_password')
         print(username, email, password)
         if password == repeat_password:
-            message = "Регистрация прошла успешно!"
-            with get_db() as conn:
-                with conn.cursor() as cur:
-                    cur.execute("SELECT name from users WHERE password = %s",(password,))
-                    usernameInDb = cur.fetchone()
-                    if usernameInDb is None:
-                        cur.execute("""
-                        INSERT INTO users (name, email, password)
-                        VALUES (%s, %s, %s)""",(username, email, password))
-                        print(username)
-                        detail = {'message': message, 'username': username, 'email': email}
-                        return redirect(f"/profile/{username}")
-                    else:
-                        print(username)
-                        detail = {'message': message, 'username': username, 'email': email}
-                        return redirect(f"/profile/{username}")
+            user = User.query.filter_by(username=username,password=password).first()
+            if user:
+                detail = {'username': username, 'email': email,"message":"Пользователь с таким именем уже существует."}
+                return render_template("login.html", context=detail)
+            new_user = User(
+                username = username,
+                email = email,
+                password = password)
+            db.session.add(new_user)
+            db.session.commit()
+            detail = {'message':"Регистрация прошла успешно.", 'username': username, 'email': email}
+            return redirect(f"/profile/{username}")
         else:
-            message = "Пароли не совпадают."
-        detail = {'message': message, 'username': "none", 'email': email}
-        return render_template("login.html", context=detail)
+            detail = {'message': "Пароли не совпадают.", 'username': "none", 'email': email}
+            return render_template("login.html", context=detail)
     else:
         return jsonify({'error': 'Метод не разрешен'}), 405
 
-@app.route("/basket/<username>")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/basket/<username>", methods = ['GET'])
 def open_basket(username):
-    basket_items = []
-    try:
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT id FROM users WHERE name = %s", (username,))
-                user_record = cur.fetchone()
-                if user_record:
-                    user_id = user_record[0]
-                    cur.execute("""
-                        SELECT
-                            p.name AS product_name,
-                            p.price,
-                            b.added_date
-                        FROM
-                            product AS p
-                        INNER JOIN
-                            basket AS b ON p.id = b.product_id
-                        WHERE
-                            b.user_id = %s
-                            AND b.active = true;
-                    """, (user_id,)) 
-                    raw_items = cur.fetchall()
-                    for item in raw_items:
-                        basket_items.append({
-                            "product_name": item[0],
-                            "price": item[1],
-                            "added_date": item[2]
-                        })
-                        product_names = item[0]
-                        price = item[1]
-                        added_date = item[2]
-                        print(product_names, price, added_date)
-                else:
-                    detail = {"message":f"Пользователь '{username}' не найден."}
-                    return render_template("error.html", context=detail), 404
+    basket_items_data = []
+    if request.method == "GET":
+        try:
+            user = User.query.filter_by(username=username).first()
+            if not user:
+                return render_template("error.html",context={"message":"User not found"})
+            basket_records = Basket.query.filter_by(
+                user_id=user.id,
+                active=True
+            ).all()
 
-    except psycopg2.Error as e:
-        print(f"Ошибка базы данных при открытии корзины: {e}")
-        detail = {"message":"Ошибка при загрузке корзины. Пожалуйста, попробуйте позже."}
-        return render_template("error.html",context=detail ), 500
-    except Exception as e:
-        print(f"Неожиданная ошибка при открытии корзины: {e}")
-        detail = {"message":"Произошла непредвиденная ошибка."}
-        return render_template("error.html", context=detail), 500
+            for item in basket_records:
+                basket_items_data.append({
+                    "product_name": item.product.name,
+                    "price": item.product.price,
+                    "added_date": item.added_date
+                })
 
-    context = {
-        "message":"open_basket",
-        "basket_items": basket_items,
-        "total_items": len(basket_items) 
-    }
-    return render_template("login.html", context=context)
+            context = {
+                "username": username, 
+                "basket_items": basket_items_data,
+                "total_items": len(basket_items_data),
+                "message": "open_basket" 
+            }
+            return render_template("login.html", context=context)
+
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            print(f"Ошибка базы данных при открытии корзины для пользователя {username}: {e}")
+            detail = {"message": "Ошибка при загрузке корзины. Пожалуйста, попробуйте позже."}
+            return render_template("error.html", context=detail), 500
+        except Exception as e:
+            db.session.rollback()
+            print(f"Неожиданная ошибка при открытии корзины для пользователя {username}: {e}")
+            detail = {"message": "Произошла непредвиденная ошибка."}
+            return render_template("error.html", context=detail), 500
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 @app.route('/set_cookie/<key>/<value>')
@@ -230,69 +375,157 @@ def get_cookie_route(key):
     else:
         return jsonify({'status': 'error', 'message': f'Куки "{key}" не найдена'}), 404
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/admin',methods = ['GET'])
 def get_admin_page():
     if request.method == "GET":
         response = request.cookies.get('username')
         if response:
-            with get_db() as conn:
-                with conn.cursor() as cur:
-                    cur.execute("SELECT role from users WHERE name = %s",(response,))
-                    db = cur.fetchone()
-                    if db == ('user',):
-                        detail = {"message":"user","username": response}
-                        print(db)
-                        return render_template('home.html',context=detail)
-                    if db == ('admin',):
-                        detail = {"message":"admin","username": response}
-                        print(db)
-                        return render_template('admin.html',context=detail)
+            user = User.query.filter_by(username=response).first()
+            if user.username == 'admin':
+                detail = {"message":"admin","username": response}
+                print(user.username)
+                return render_template('admin.html',context=detail)
+            else:
+                detail = {"message":"user","username": response}
+                print(user.username)
+                return render_template('home.html',context=detail)
         else:
             detail= {"message":"user"}
             return render_template('home.html',context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
 
-@app.route('/samsung/phone/add_new', methods = ['GET', 'POST'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/samsung/phone/add_new', methods=['GET', 'POST'])
 def new_samsung_phone():
     if request.method == "GET":
-        detail = {"message":"add_samsung_phone"}
-        return render_template('admin.html',context=detail)
+        detail = {"message": "Для добавления нового Samsung телефона заполните форму."}
+        return render_template('admin.html', context=detail)
+
     if request.method == "POST":
         name = request.form.get('name')
-        price = request.form.get('price')
-        procesor = request.form.get('procesor')
+        price_str = request.form.get('price') 
+        processor = request.form.get('procesor') 
         description = request.form.get('description')
-        batarey = request.form.get('batarey')
-        ram = request.form.get('ram')
-        rom = request.form.get('rom')
+        battery_str = request.form.get('batarey') 
+        ram_str = request.form.get('ram')
+        rom_str = request.form.get('rom')
         camera = request.form.get('camera')
         display = request.form.get('display')
-        count = request.form.get('count')
-        print(name, price, description,procesor, batarey, ram, rom, camera, display)
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("""SELECT name, price, description, procesor, batarey, ram, rom, display, camera FROM samsung_mobile
-                            WHERE name = %s AND description = %s AND procesor = %s AND batarey = %s AND ram = %s AND rom = %s AND display = %s AND camera = %s;
-                            """,(name, description, procesor, batarey, ram, rom, display, camera))
-                db = cur.fetchone()
-                if db is None:
-                    cur.execute("INSERT INTO samsung_mobile ( name, price, description, procesor, batarey, ram, rom, display, camera, storage)  VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                                ( name, price, description, procesor, batarey, ram, rom, display, camera, count))
-                    print("added")        
-                    detail = {"message":"mobile_added",
-                            "name": name,
-                            "price": price,
-                            "procesor":procesor,
-                            "description":description,
-                            "batarey":batarey,
-                            "ram":ram,
-                            "rom":rom,
-                            "camera":camera,
-                            "display":display,
-                            "count":count}
-                    return render_template('admin.html',context=detail)
-                else:
-                    detail = {"message":"mobile_in_db",}
-                    return render_template('admin.html',context=detail)
+        count_str = request.form.get('count') 
+
+        required_fields = [name, price_str, processor, description, battery_str, ram_str, rom_str, camera, display, count_str]
+        if not all(required_fields):
+            return render_template('admin.html', context={"message": "Пожалуйста, заполните все поля."}), 400
+
+        try:
+            price = int(price_str)
+            battery = int(battery_str)
+            ram = int(ram_str)
+            rom = int(rom_str)
+            count = int(count_str) 
+        except ValueError:
+            return render_template('admin.html', context={"message": "Ошибка: Цена, батарея, RAM, ROM или количество должны быть числами."}), 400
+
+        try:
+            existing_product = Product.query.filter_by(name=name).first()
+            if existing_product:
+                existing_product.storage += count
+                db.session.commit()
+                message = f"Количество товара '{name}' успешно обновлено. Новое количество: {existing_product.storage}"
+            else:
+                new_product = Product(
+                    name=name,
+                    price=price,
+                    description=description,
+                    cpu=processor, 
+                    battery=battery, 
+                    ram=ram,
+                    rom=rom,
+                    display=display,
+                    camera=camera,
+                    storage=count 
+                )
+                db.session.add(new_product)
+                db.session.commit()
+                message = f"Новый продукт '{name}' успешно добавлен."
+            detail = {
+                "message": message,
+                "name": name,
+                "price": price,
+                "processor": processor,
+                "description": description,
+                "battery": battery, 
+                "ram": ram,
+                "rom": rom,
+                "camera": camera,
+                "display": display,
+                "count": count 
+            }
+            return render_template('admin.html', context=detail)
+        except IntegrityError as e:
+            db.session.rollback()
+            print(f"Ошибка целостности базы данных: {e}")
+            return render_template('admin.html', context={"message": "Ошибка базы данных: Продукт с таким именем уже существует (IntegrityError)."}), 409 # 409 Conflict
+
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            print(f"Ошибка SQLAlchemy при добавлении/обновлении продукта: {e}")
+            return render_template('admin.html', context={"message": "Ошибка базы данных. Пожалуйста, попробуйте позже."}), 500
+
+        except Exception as e:
+            db.session.rollback()
+            print(f"Непредвиденная ошибка при добавлении/обновлении продукта: {e}")
+            return render_template('admin.html', context={"message": "Произошла непредвиденная ошибка."}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/samsung/tablet/add_new', methods = ['GET', 'POST'])
 def new_samsung_tablet():
@@ -300,6 +533,17 @@ def new_samsung_tablet():
     if request.method == "GET":
         return render_template('admin.html',context=detail)
     #и тут не забудь написать логику для Пост запроса
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
 
 @app.route('/samsung/notebook/add_new', methods = ['GET', 'POST'])
 def new_samsung_notebook():
@@ -307,134 +551,252 @@ def new_samsung_notebook():
     if request.method == "GET":
         return render_template('admin.html',context=detail)
     #и тут не забудь написать логику для Пост запроса
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/about_us', methods = ['GET'])
 def get_info():
     detail = {"message":"about_us"}
     if request.method == "GET":
         return render_template('aboutus.html',context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/order', methods = ['POST'])
+def post_ordering():
+    detail = {"message":"order"}
+    return render_template('login.html',context=detail)
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/like/phone/<int:phone_id>', methods=['POST'])
 def like_phone(phone_id):
-    liked_status_str = request.args.get('liked') 
+    liked_status_str = request.args.get('liked')
+
     if liked_status_str is None:
-        return jsonify({"status": "error", "message": "Missing 'liked' query parameter."}), 400
+        return jsonify({"status": "error", "message": "Параметр 'liked' отсутствует."}), 400
+
     liked_status = liked_status_str.lower() == 'true'
-    with get_db() as conn:
-        with conn.cursor() as cur:
-            cur.execute("""SELECT "like" FROM samsung_mobile WHERE id = %s;""",(phone_id,))
-            likes = cur.fetchone()
-            like = likes[0]
 
-    if liked_status == True:
-        like+=1
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("""UPDATE samsung_mobile SET "like"=%s WHERE id = %s""",(like, phone_id))
-                success = True
-    if liked_status == False:
-        like -=1
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("""UPDATE samsung_mobile SET "like"=%s WHERE id = %s""",(like, phone_id))
-                success = True
-    if success:
-        action = "liked" if liked_status else "unliked"
-        return jsonify({"status": "success", "message": f"Phone {phone_id} {action} successfully."}), 200
-    else:
-        return jsonify({"status": "error", "message": f"Failed to update like status for phone {phone_id}."}), 500
+    try:
+        product = Product.query.get(phone_id)
 
-@app.route("/add_to_basket/<username_from_url>", methods=["POST"]) 
+        if not product:
+            return jsonify({"status": "error", "message": f"Телефон с ID {phone_id} не найден."}), 404
+
+        if liked_status:
+            product.liked_it += 1 
+            action_message = "понравился"
+        else:
+            if product.liked_it > 0:
+                product.liked_it -= 1
+            action_message = "не понравился"
+
+        db.session.commit()
+
+        return jsonify({
+            "status": "success",
+            "message": f"Телефон {phone_id} {action_message} успешно.",
+            "current_likes": product.liked_it 
+        }), 200
+
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        print(f"Ошибка базы данных при обновлении лайков для телефона {phone_id}: {e}")
+        return jsonify({"status": "error", "message": "Ошибка базы данных при обновлении лайков."}), 500
+    except Exception as e:
+        db.session.rollback()
+        print(f"Непредвиденная ошибка при обновлении лайков для телефона {phone_id}: {e}")
+        return jsonify({"status": "error", "message": "Произошла непредвиденная ошибка."}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/add_to_basket/<username_from_url>", methods=["POST"])
 def add_to_basket(username_from_url):
-    product_id = request.args.get("id")
-    if not product_id:
-        return jsonify({"status": "error", "message": "Product ID is missing"}), 400
-    user_id = None
-    try:
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT id FROM users WHERE name = %s", (username_from_url,)) 
-                user_record = cur.fetchone()
-                if user_record:
-                    user_id = user_record[0]
-                else:
-                    return jsonify({"status": "error", "message": "User not found"}), 404
-    except Exception as e:
-        print(f"Ошибка при поиске пользователя: {e}")
-        return jsonify({"status": "error", "message": "Database error while finding user"}), 500
-    try:
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                    "INSERT INTO basket(user_id, product_id) VALUES (%s, %s)",
-                    (user_id, product_id)
-                )
-                return jsonify({"status": "success", "message": "Product added to basket"}), 200
-    except psycopg2.IntegrityError as e:
-        print(f"Ошибка целостности базы данных: {e}")
-        return jsonify({"status": "error", "message": "Invalid product ID or user ID (Integrity error)"}), 400
-    except Exception as e:
-        print(f"Общая ошибка при добавлении в корзину: {e}")
-        return jsonify({"status": "error", "message": "Internal server error"}), 500
+    if request.method == "POST":
+        product_id_from_args = request.args.get("id")
 
-@app.route("/basket/delete_product/", methods = ['POST'])
-def delete_product_is_basket():
-    product_name = request.args.get('product_name')
-    if not product_name:
-        return jsonify({"status": "error", "message": "Product name is missing"}), 400
-    
-    user_name_from_query = request.args.get('username')
-    if not user_name_from_query:
-        return jsonify({"status": "error", "message": "Username is missing"}), 400
-    
-    current_user_id = None
-    try:
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT id FROM users WHERE name = %s", (user_name_from_query,))
-                user_record = cur.fetchone()
-                if user_record:
-                    current_user_id = user_record[0]
-                else:
-                    return jsonify({"status": "error", "message": "User not found"}), 404
-    except Exception as e:
-        print(f"Ошибка при поиске пользователя: {e}")
-        return jsonify({"status": "error", "message": "Database error while finding user"}), 500
-    if not current_user_id:
-        return jsonify({"status": "error", "message": "User ID not available (authentication issue)"}), 401
-    product_id = None
-    try:
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT id FROM product WHERE name = %s", (product_name,))
-                product_record = cur.fetchone()
-                if product_record:
-                    product_id = product_record[0]
-                else:
-                    return jsonify({"status": "error", "message": "Product not found"}), 404
-    except Exception as e:
-        print(f"Ошибка при поиске продукта: {e}")
-        return jsonify({"status": "error", "message": "Database error while finding product"}), 500
-    try:
-        with get_db() as conn:
-            with conn.cursor() as cur:
-                print(current_user_id, product_id)
-                cur.execute(
-                    "DELETE FROM basket WHERE user_id = %s AND product_id = %s;",
-                    (current_user_id, product_id)
-                )
-                if cur.rowcount == 0:
-                    return jsonify({"status": "error", "message": "Product not found in user's basket"}), 404
-                else:
-                    return jsonify({"status": "success", "message": "Product successfully removed from basket"}), 200
-    except psycopg2.Error as e: 
-        print(f"Ошибка базы данных при удалении из корзины: {e}")
-        return jsonify({"status": "error", "message": "Database error during deletion"}), 500
-    except Exception as e:
-        print(f"Общая непредвиденная ошибка при удалении из корзины: {e}")
-        return jsonify({"status": "error", "message": "Internal server error"}), 500
+        if not product_id_from_args:
+            return jsonify({"status": "error", "message": "Product ID is missing"}), 400
+
+        try:
+            product_id = int(product_id_from_args)
+        except ValueError:
+            return jsonify({"status": "error", "message": "Invalid Product ID format"}), 400
+
+        try:
+            user = User.query.filter_by(username=username_from_url).first()
+            if not user:
+                return jsonify({"status": "error", "message": "User not found"}), 404
+
+            product = Product.query.get(product_id) 
+            if not product:
+                return jsonify({"status": "error", "message": "Product with this ID does not exist"}), 404
+
+            existing_basket_item = Basket.query.filter_by(
+                user_id=user.id,
+                product_id=product_id
+            ).first()
+
+            if existing_basket_item:
+                return jsonify({"status": "info", "message": "Product already in basket"}), 200
+
+            new_line_in_basket = Basket(user_id=user.id, product_id=product_id)
+            db.session.add(new_line_in_basket)
+            db.session.commit()
+
+            return jsonify({"status": "success", "message": "Product added to basket"}), 200
+
+        except IntegrityError as e:
+            db.session.rollback()
+            print(f"Ошибка целостности базы данных при добавлении в корзину: {e}")
+            return jsonify({"status": "error", "message": "Database integrity error (e.g., user/product ID not found)"}), 400
+
+        except Exception as e:
+            db.session.rollback()
+            print(f"Общая ошибка при добавлении в корзину: {e}")
+            return jsonify({"status": "error", "message": "Internal server error"}), 500
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/basket/delete_product/", methods=['POST'])
+def delete_product_from_basket():
+    if request.method == "POST":
+        product_name = request.args.get('product_name')
+        user_name_from_query = request.args.get('username')
+
+        if not product_name:
+            return jsonify({"status": "error", "message": "Product name is missing"}), 400
+        if not user_name_from_query:
+            return jsonify({"status": "error", "message": "Username is missing"}), 400
+
+        try:
+            user = User.query.filter_by(username=user_name_from_query).first()
+            if not user:
+                return jsonify({"status": "error", "message": "User not found"}), 404
+
+            product = Product.query.filter_by(name=product_name).first()
+            if not product:
+                return jsonify({"status": "error", "message": "Product not found"}), 404
+
+            basket_item = Basket.query.filter_by(
+                user_id=user.id,
+                product_id=product.id
+            ).first()
+
+            if not basket_item:
+                return jsonify({"status": "error", "message": "Product not found in user's basket"}), 404
+
+            db.session.delete(basket_item)
+            db.session.commit()
+
+            return jsonify({"status": "success", "message": "Product successfully removed from basket"}), 200
+
+        except Exception as e:
+            db.session.rollback()
+            print(f"Ошибка при удалении из корзины: {e}")
+            return jsonify({"status": "error", "message": "Internal server error"}), 500
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.drop_all() 
+        db.create_all()
+        print("Таблицы базы данных успешно созданы или уже существуют.")
+        if User.query.filter_by(username='admin').first() is None:
+            admin_user = User(
+                username='admin',
+                email='admin@example.com',
+                password='123456789', 
+                role='admin'
+            )
+            db.session.add(admin_user)
+            db.session.commit()
+            print("Пользователь 'admin' добавлен.")
+        if User.query.filter_by(username='David').first() is None:
+            test_user = User(
+                username='David',
+                email='david@example.com',
+                password='1234567890',
+                role='user'
+            )
+            db.session.add(test_user)
+            db.session.commit()
+            print("Пользователь 'test_user' добавлен.")
     app.run(debug=True, port=7010,host="0.0.0.0")
 
 #git init

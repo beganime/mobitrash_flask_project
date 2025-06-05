@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/css/home.css">
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="shortcut icon" href="/static/images/galaxy-s25-ultra-features-privacy.jpg" type="image/x-icon">
     <title>login</title>
 </head>
 
@@ -155,39 +156,80 @@
             </div>
         </div>
     </div>
-    {% if context.basket_items %} {% for item in context.basket_items %}
-
-    <div class="busket_con">
-        <div class="charact">
-            <h1>{{ item.product_name }}</h1>
-            <div class="info">
-                <span>Дата добавления:</span>
-                <p>{{ item.added_date.strftime('%Y-%m-%d %H:%M') if item.added_date else 'Неизвестно' }}</p>
-                <h3 class="productname">{{ item.product_name }}</h3>
-                <span>price:</span>
-                <p class="price">{{ item.price }}$</p>
-            </div>
-            <div class="countDiv">
-                <div class="counter">
-                    <span>Количесвто:</span>
-                    <div class="countbtn minus">-</div>
-                    <p class="quantity-display">1</p>
-                    <div class="countbtn plus">+</div>
+    <div class="container bas" id="bas" style="display: none;">
+        {% if context.basket_items %} {% for item in context.basket_items %}
+        <div class="busket_con">
+            <div class="charact">
+                <h1>{{ item.product_name }}</h1>
+                <div class="info">
+                    <span>Дата добавления:</span>
+                    <p>{{ item.added_date.strftime('%Y-%m-%d %H:%M') if item.added_date else 'Неизвестно' }}</p>
+                    <h3 class="productname">{{ item.product_name }}</h3>
+                    <span>price:</span>
+                    <p class="price">{{ item.price }}$</p>
                 </div>
-                <div class="total">
-                    <p class="totalQ"></p>
+                <div class="countDiv">
+                    <div class="counter">
+                        <span>Количесвто:</span>
+                        <div class="countbtn minus">&minus;</div>
+                        <p class="quantity-display">1</p>
+                        <div class="countbtn plus">&plus;</div>
+                    </div>
+                    <div class="total">
+                        <p class="totalQ"></p>
+                    </div>
+                </div>
+                <div class="delete">
+                    удалить с корзины
                 </div>
             </div>
-            <div class="delete">
-                удалить с корзины
+        </div>
+        {% endfor %} {% else %}
+        <div class="basketnone">
+            <p>Ваша корзина пуста.</p>
+        </div>
+        {% endif %}
+        <div class="orderbtn" id="orderok">Заказать всё</div>
+    </div>
+    <div class="orderok">
+        <div class="wrapper" id="wrapper">
+            <h1>Заказ</h1>
+            <form method="POST" action="/order" enctype="application/x-www-form-urlencoded" id="formreg">
+                <div class="group">
+                    <input type="text" required title="Введите ваше имя">
+                    <label>Имя</label>
+                </div>
+                <div class="group">
+                    <input type="email" required title="example@gmail.com">
+                    <label>Почта</label>
+                </div>
+                <div class="group">
+                    <input type="text" required title="Введите ваш город">
+                    <label>Город</label>
+                </div>
+                <div class="group">
+                    <input type="text" required title="(Микрарайон/Дом)">
+                    <label>Аддрес</label>
+                </div>
+                <div class="group">
+                    <input type="number" required title="+993...">
+                    <label>Номер</label>
+                </div>
+                <div class="group">
+                    <input type="text" required title="message...">
+                    <label>Сообщение</label>
+                </div>
+                <div class="buttons">
+                    <div class="orderbuy" id="orderbuy">
+                        Заказать
+                    </div>
+                    <div class="orderclose" id="orderclose">
+                        Закрыть
+                    </div>
+            </form>
             </div>
         </div>
     </div>
-    {% endfor %} {% else %}
-    <div class="basketnone" style="display: none;">
-        <p>Ваша корзина пуста.</p>
-    </div>
-    {% endif %}
     <footer>
         <div class="end">
             <nav class="navsa">
@@ -236,6 +278,11 @@
     var profiletext = document.getElementById("profiletext")
     var alog = document.getElementById("alog")
     var ahom = document.getElementById("ahom")
+    var bas = document.getElementById("bas")
+    var orderok = document.getElementById("orderok")
+    var wrapper = document.getElementById("wrapper")
+    var orderbuy = document.getElementById("orderbuy")
+    var orderclose = document.getElementById("orderclose")
     let username = document.getElementById("username").textContent
     let email = document.getElementById("email").textContent
     let message = document.getElementById("message").textContent
@@ -254,6 +301,7 @@
                 }
                 return;
             } else if (productItemContainers.length > 0 && document.getElementById("log")) {
+                bas.style.display = "flex";
                 document.getElementById("log").style.display = "none";
             }
         }
@@ -392,6 +440,16 @@
         console.log("username not found")
     }
 
+    orderok.addEventListener("click", function() {
+        wrapper.style.display = "flex"
+        bas.style.display = "none"
+    })
+
+    orderclose.addEventListener("click", function() {
+        wrapper.style.display = "none"
+        bas.style.display = "flex"
+    })
+
     function openProfile() {
         const cookieUsername = getCookie('username')
         const response = window.location.href = `/profile/${cookieUsername}`
@@ -403,6 +461,7 @@
         log_con.style.display = "none"
         reg_con.style.display = "flex"
         bus_con.style.display = "none"
+        bas.style.display = "none"
     }
 
     function showlog() {
@@ -410,6 +469,7 @@
         log_con.style.display = "flex"
         reg_con.style.display = "none"
         bus_con.style.display = "none"
+        bas.style.display = "none"
     }
     async function setCookie(key, value) {
         const response = await fetch(`/set_cookie/${key}/${value}`)

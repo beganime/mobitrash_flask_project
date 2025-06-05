@@ -1,9 +1,12 @@
 bcrypt==4.2.0
+python-dotenv==1.0.1
 Flask==3.0.3
-geoip2==5.1.0
+Flask-Migrate==4.1.0
+Flask-SQLAlchemy==3.1.1
 gitdb==4.0.11
 Jinja2==3.1.4
 passlib==1.7.4
 psycopg2==2.9.9
 psycopg2-binary==2.9.9
 requests==2.32.3
+SQLAlchemy==2.0.32
