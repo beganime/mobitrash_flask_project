@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const phoneId = phoneCompactDiv.dataset.phoneId;
-
+            console.log(phoneId)
             if (!phoneId) {
                 console.error('Не удалось получить data-phone-id для товара.', phoneCompactDiv);
                 return;

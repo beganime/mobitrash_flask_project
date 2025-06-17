@@ -212,6 +212,7 @@
 }
 
 .more {
+    width: auto;
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -349,7 +350,7 @@
     width: 400px;
     border: 1px solid #ccc;
     padding: 20px;
-    text-align: start;
+    text-align: center;
     line-height: 20px;
 }
 
@@ -389,6 +390,12 @@
     text-align: center;
 }
 
+.phone-compact img {
+    width: auto;
+    height: 300px;
+    border-radius: 20px;
+}
+
 .phone-compact .info {
     display: flex;
     flex-direction: column;
@@ -415,12 +422,6 @@
 .phone-compact .info span.more:hover {
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: none;
-}
-
-.pages {
-    position: relative;
-    display: flex;
-    gap: 10px;
 }
 
 .error {
@@ -513,6 +514,7 @@
         align-items: center;
     }
     .samsung {
+        width: 400px;
         margin-top: 20px;
         margin-bottom: 10px;
         display: flex;
@@ -524,7 +526,11 @@
         margin-top: 20px;
         margin-bottom: 10px;
     }
+    .like {
+        top: -50px;
+    }
     .more {
+        width: auto;
         margin-top: 10px;
         margin-bottom: 10px;
     }
@@ -549,6 +555,7 @@
         font-size: 40px
     }
     .category_samsung_mobile {
+        margin-right: 10px;
         margin-top: 100px;
         margin-bottom: 100px;
     }
@@ -586,8 +593,11 @@
         font-size: 14px;
         margin: 10px auto;
     }
+    .infomodel {
+        border-radius: 10px;
+    }
     .samsung {
-        width: 100%;
+        width: 410px;
         margin: 10px 0;
         padding: 15px;
     }

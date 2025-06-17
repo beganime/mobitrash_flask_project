@@ -83,7 +83,7 @@
         </div>
     </div>
     <div class="body" id="body">
-        <div class="container">
+        <!-- <div class="container">
             <h1>Welcome {{context.username}}</h1>
             <div class="questions">
                 <a href="/samsung/phone/add_new">1. Хотите добавить новый телефон Samsung?</a>
@@ -93,12 +93,82 @@
                 <a href="/apple/tablet/add_new">5. Хотите добавить новый планшет Apple?</a>
                 <a href="/apple/notebook/add_new">6. Хотите добавить новый ноутбук Apple?</a>
             </div>
+        </div> -->
+        <div class="center">
+            {% if context.orders %} {% for item in context.orders %}
+            <table class="tableorders">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                        <th><button id="ordbtn">▼</button></th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ item.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ item.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td>{{ item.city }}</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>{{ item.address }}</td>
+                    </tr>
+                    <tr>
+                        <td>Number</td>
+                        <td>{{ item.number }}</td>
+                    </tr>
+                    <tr>
+                        <td>Message</td>
+                        <td>{{ item.mess }}</td>
+                    </tr>
+                    <tr>
+                        <td>Product Name</td>
+                        <td>{{ item.product_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Price</td>
+                        <td>{{ item.total_price }} $</td>
+                    </tr>
+                    <tr>
+                        <td>Added_date:</td>
+                        <td>{{ item.added_date.strftime('%Y-%m-%d %H:%M') if item.added_date else 'Неизвестно' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Одобрить</td>
+                        <td></td>
+                        <td><button data-order-id="{{ item.order_id }}">OK</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %} {% else %}
+            <div class="ordersnone">
+                <p id="error">{{ context.error }}</p>
+            </div>
+            {% endif %}
+        </div>
+        <div class="right">
+            <div class="questions">
+                <a href="/samsung/phone/add_new">1. Добавить новый телефон Samsung</a>
+                <a href="/samsung/tablet/add_new">2. Добавить новый планшет Samsung</a>
+                <a href="/samsung/notebook/add_new">3. Добавить новый ноутбук Samsung</a>
+                <a href="/apple/phone/add_new">4. Добавить новый телефон Apple</a>
+                <a href="/apple/tablet/add_new">5. Добавить новый планшет Apple</a>
+                <a href="/apple/notebook/add_new">6. Добавить новый ноутбук Apple</a>
+            </div>
         </div>
     </div>
     <div class="cn samsung_phone_addnew" id="samsung_phone_addnew">
         <div class="wrapper add">
             <a class="back" href="/admin">←</a>
-            <form action="/samsung/phone/add_new" method="post" enctype="application/x-www-form-urlencoded" id="addsamsungphone">
+            <form action="/samsung/phone/add_new" method="post" enctype="multipart/form-data" id="addsamsungphone">
                 <h1>Samsung info:</h1>
                 <div class="maininput">
                     <div class="group">
@@ -108,6 +178,10 @@
                     <div class="group">
                         <input type="number" name="price" required title="Введите цену">
                         <label>Цена</label>
+                    </div>
+                    <div class="group_img">
+                        <input type="file" name="img_url" required>
+                        <label>img</label>
                     </div>
                 </div>
                 <span id="chinput">open more info</span>
@@ -150,7 +224,7 @@
             <div id="mobile_update">
                 <div class="charact" id="charact">
                     <h1>Mobile added</h1>
-                    <img src="/static/images/galaxy-z-fold6.avif" alt="samsung sfold6">
+                    <img src="{{context.img_url}}" alt="samsung sfold6">
                     <div class="info">
                         <h3>{{context.name}}</h3>
                         <span>price:</span>
@@ -162,9 +236,9 @@
                     </div>
                     <div class="infomodel">
                         <span> Процессор:</span>
-                        <p> {{context.procesor}}</p>
+                        <p> {{context.processor}}</p>
                         <span>Емкость аккумулятора:</span>
-                        <p> {{context.batarey}} мАч</p>
+                        <p> {{context.battery}} мАч</p>
                         <span>Память ОЗУ:</span>
                         <p> {{context.ram}} GB</p>
                         <span>Память ROM:</span>
@@ -235,5 +309,62 @@
 </body>
 
 <script src="/static/js/menu.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButtons = document.querySelectorAll('#ordbtn');
+        const okButtons = document.querySelectorAll('td button');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const table = this.closest('.tableorders');
+                if (table) {
+                    const tbody = table.querySelector('.tbody');
+                    if (tbody) {
+                        if (tbody.style.display === 'none' || tbody.style.display === '') {
+                            tbody.style.display = 'table-row-group';
+                            this.textContent = '▲';
+                        } else {
+                            tbody.style.display = 'none';
+                            this.textContent = '▼';
+                        }
+                    }
+                }
+            });
+        });
+        okButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const table = this.closest('.tableorders');
+                if (table) {
+                    const orderId = this.dataset.orderId;
+
+                    if (orderId) {
+                        const url = `/admin/order/shipped/?id=${orderId}`;
+
+                        fetch(url)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Заказ успешно отправлен:', data);
+                                alert(`Заказ ${orderId} успешно помечен как отправленный!`);
+                                table.style.display = "none"
+                                this.closest('tr').remove();
+                            })
+                            .catch(error => {
+                                console.error('Ошибка при отправке заказа:', error);
+                                alert('Произошла ошибка при отправке заказа.');
+                            });
+                    } else {
+                        console.warn('ID заказа не найден для этой кнопки.');
+                        alert('Не удалось определить ID заказа.');
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 </html>

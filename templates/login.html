@@ -102,6 +102,7 @@
                 <div class="reg_log_link" onclick="showreg()">
                     <p>Нет аккаунта? <span>Зарегистрироваться</span></p>
                 </div>
+                <div id="errorlog" style="color:red;">{{ context.errorlog }}</div>
             </form>
         </div>
 
@@ -129,6 +130,7 @@
                 <div class="reg_log_link" onclick="showlog()">
                     <p>Есть аккаунта? <span>Войти</span></p>
                 </div>
+                <div id="errorreg" style="color:red;">{{ context.errorreg }}</div>
             </form>
         </div>
 
@@ -145,13 +147,21 @@
                 <div class="details">
                     <p>Имя: <span id="username">{{context.username}}</span></p>
                     <p>Email: <span id="email">{{context.email}}</span></p>
-                    <p id="role">role:<span><a href="/admin" id="roleinfo">{{context.role}}</a></span></p>
+                    <p id="role"><span><a href="/admin" id="roleinfo">{{context.role}}</a></span></p>
                     <p><span id="message"> {{context.message}}</span></p>
                     <a href="/basket/{{context.username}}">
-                        <div class="basbtn">
+                        <div class="btnprofile basket">
                             basket
                         </div>
                     </a>
+                    <!-- <a href="/basket/order_ok">
+                        <div class="btnprofile basket">
+                            order
+                        </div>
+                    </a> -->
+                    <div class="btnprofile logout" onclick="clearCookie()">
+                        logout
+                    </div>
                 </div>
             </div>
         </div>
@@ -186,48 +196,65 @@
         </div>
         {% endfor %} {% else %}
         <div class="basketnone">
-            <p>Ваша корзина пуста.</p>
+            <p id="errorbas">{{ context.errorbas }}</p>
         </div>
         {% endif %}
         <div class="orderbtn" id="orderok">Заказать всё</div>
     </div>
-    <div class="orderok">
-        <div class="wrapper" id="wrapper">
+    <div class="orderok" id="wrapper">
+        <div class="wrapper">
             <h1>Заказ</h1>
-            <form method="POST" action="/order" enctype="application/x-www-form-urlencoded" id="formreg">
+            <form method="POST" action="/basket/order_ok" enctype="application/x-www-form-urlencoded" id="formreg">
                 <div class="group">
-                    <input type="text" required title="Введите ваше имя">
+                    <input type="text" name="name" required title="Введите ваше имя">
                     <label>Имя</label>
                 </div>
                 <div class="group">
-                    <input type="email" required title="example@gmail.com">
+                    <input type="email" name="email" required title="example@gmail.com">
                     <label>Почта</label>
                 </div>
                 <div class="group">
-                    <input type="text" required title="Введите ваш город">
+                    <input type="text" name="city" required title="Введите ваш город">
                     <label>Город</label>
                 </div>
                 <div class="group">
-                    <input type="text" required title="(Микрарайон/Дом)">
+                    <input type="text" name="addres" required title="(Микрарайон/Дом)">
                     <label>Аддрес</label>
                 </div>
                 <div class="group">
-                    <input type="number" required title="+993...">
+                    <input type="number" name="number" required title="+993...">
                     <label>Номер</label>
                 </div>
-                <div class="group">
-                    <input type="text" required title="message...">
+                <div class="group mes">
+                    <textarea name="mess" required title="message"></textarea>
                     <label>Сообщение</label>
                 </div>
-                <div class="buttons">
-                    <div class="orderbuy" id="orderbuy">
-                        Заказать
+                <div class="group">
+                    <p>Total price: <span id="totalpricespan" name="totol_price">0</span>$</p>
+                    <input type="hidden" id="totalpricespanform" name="total_price">
+                </div>
+                <div class="group" style="display: none;">
+                    <p>Products: <span id="totalnamespan" name="product_name">0</span></p>
+                    <input type="hidden" id="totalnamespanform" name="product_name">
+                </div>
+                <div class="group">
+                    <div class="buttons">
+                        <button class="orderbuy" id="orderbuy" type="submit">Заказать</button>
                     </div>
-                    <div class="orderclose" id="orderclose">
-                        Закрыть
+                </div>
+                <div class="group">
+                    <div class="buttons">
+                        <button class="orderclose" id="orderclose">Закрыть</button>
                     </div>
+                </div>
             </form>
-            </div>
+        </div>
+    </div>
+    <div class="shipped" id="shipped">
+        <div class="wrapper">
+            <h4>Заказ находится в состоянии:</h4>
+            <p>status - <span id="status">{{ context.status }}</span></p>
+            <div class="orderclose" id="ok">Ok</div>
         </div>
     </div>
     <footer>
@@ -286,9 +313,17 @@
     let username = document.getElementById("username").textContent
     let email = document.getElementById("email").textContent
     let message = document.getElementById("message").textContent
+    let errorreg = document.getElementById("errorreg").textContent
     let role = document.getElementById("role")
     let roleinfo = document.getElementById("roleinfo").textContent
     let avatar = document.getElementById("avatar")
+    let shipped = document.getElementById("shipped")
+    let ok = document.getElementById("ok")
+    let totalpricespan = document.getElementById("totalpricespan")
+    let totalpricespanform = document.getElementById("totalpricespanform")
+    let totalnamespan = document.getElementById("totalnamespan")
+    let totalnamespanform = document.getElementById("totalnamespanform")
+    let status = document.getElementById("status").textContent
     document.addEventListener('DOMContentLoaded', () => {
         const productItemContainers = document.querySelectorAll('.busket_con');
         const basketnone = document.querySelector(".basketnone");
@@ -302,9 +337,11 @@
                 return;
             } else if (productItemContainers.length > 0 && document.getElementById("log")) {
                 bas.style.display = "flex";
+                orderok.style.display = "block"
                 document.getElementById("log").style.display = "none";
             }
         }
+        let totalpr = {}
         productItemContainers.forEach(itemContainer => {
             const priceElement = itemContainer.querySelector('.info .price');
             const productnameElement = itemContainer.querySelector('.info .productname'); // Получаем элемент имени продукта
@@ -312,14 +349,14 @@
             const minusButton = itemContainer.querySelector('.countbtn.minus');
             const plusButton = itemContainer.querySelector('.countbtn.plus');
             const totalQElement = itemContainer.querySelector('.totalQ');
-            const deleteButton = itemContainer.querySelector('.delete'); // Получаем кнопку "удалить"
+            const deleteButton = itemContainer.querySelector('.delete');
 
             if (!priceElement || !quantityDisplay || !minusButton || !plusButton || !totalQElement || !productnameElement || !deleteButton) {
                 console.warn('Не все необходимые элементы для обработки корзины найдены в одном из блоков товара. Проверьте HTML-структуру.', itemContainer);
                 return;
             }
 
-            const productName = productnameElement.textContent.trim(); // Получаем текстовое имя продукта
+            const productName = productnameElement.textContent.trim();
             const priceText = priceElement.textContent.replace('$', '').trim();
             const price = parseFloat(priceText);
 
@@ -327,6 +364,8 @@
                 console.error('Не удалось распарсить цену для товара:', priceText, itemContainer);
                 return;
             }
+            totalpr[productName] = price
+            console.log(totalpr)
 
             let currentQuantity = parseInt(quantityDisplay.textContent);
             if (isNaN(currentQuantity) || currentQuantity < 1) {
@@ -344,6 +383,10 @@
                 if (currentQuantity > 1) {
                     currentQuantity--;
                     quantityDisplay.textContent = currentQuantity;
+                    delete totalpr["Quantity:" + productName + `(${currentQuantity+1}x)`]
+                    delete totalpr["Quantity:" + productName + `(${currentQuantity-1}x)`]
+                    totalpr["Quantity:" + productName + `(${currentQuantity}x)`] = currentQuantity * price
+                    console.log(totalpr)
                     updateTotalPrice();
                 } else {
                     console.log('Количество не может быть меньше 1.');
@@ -353,8 +396,36 @@
             plusButton.addEventListener('click', () => {
                 currentQuantity++;
                 quantityDisplay.textContent = currentQuantity;
+                delete totalpr[productName]
+                delete totalpr["Quantity:" + productName + `(${currentQuantity-1}x)`]
+                totalpr["Quantity:" + productName + `(${currentQuantity}x)`] = currentQuantity * price
+                console.log(totalpr)
                 updateTotalPrice();
             });
+
+
+            orderok.addEventListener("click", function() {
+                wrapper.style.display = "flex"
+                bas.style.display = "none"
+                const keys = Object.keys(totalpr)
+                const values = Object.values(totalpr)
+                console.log(keys)
+                let sum = 0
+                for (let i = 0; i < values.length; i++) {
+                    sum += values[i]
+                }
+                totalpricespanform.value = sum
+                totalpricespan.innerHTML = sum
+                totalnamespan.innerHTML = keys
+                totalnamespanform.value = keys
+                console.log("Общая цена", sum)
+            })
+
+            orderclose.addEventListener("click", function() {
+                wrapper.style.display = "none"
+                bas.style.display = "flex"
+            })
+
             deleteButton.addEventListener('click', async() => {
                 const currentusername = getCookie('username')
                 const url = `/basket/delete_product/?product_name=${encodeURIComponent(productName)}&username=${currentusername}`;
@@ -371,6 +442,12 @@
 
                     if (response.ok) {
                         console.log('Ответ сервера:', data);
+                        if (totalpr[productName]) {
+                            console.log("sd", totalpr)
+
+                            delete totalpr[productName]
+                        }
+                        console.log(totalpr)
                         alert(`Товар "${productName}" успешно удалён из корзины!`);
                         itemContainer.remove();
 
@@ -423,8 +500,8 @@
             comapple.style.display = "none"
         }
     })
-    if (username) {
-        console.log(username)
+    console.log(message)
+    if (message == " Welcome") {
         profile_con.style.display = "block"
         con_prof.style.display = "flex"
         log.style.display = "none"
@@ -439,15 +516,33 @@
     } else {
         console.log("username not found")
     }
-
-    orderok.addEventListener("click", function() {
-        wrapper.style.display = "flex"
-        bas.style.display = "none"
-    })
-
-    orderclose.addEventListener("click", function() {
-        wrapper.style.display = "none"
+    if (message == " open_basket") {
+        console.log(message)
+        log_con.style.display = "none"
+        reg_con.style.display = "none"
         bas.style.display = "flex"
+        if (errorlog) {
+            orderok.style.display = "none"
+        }
+    }
+    if (message == " error" || message == " openreg") {
+        console.log(message)
+        log_con.style.display = "none"
+        reg_con.style.display = "flex"
+        bus_con.style.display = "none"
+        bas.style.display = "none"
+    }
+    if (message == " pending") {
+        console.log("pending")
+        log_con.style.display = "none"
+        reg_con.style.display = "none"
+        shipped.style.display = "flex"
+    }
+
+    ok.addEventListener('click', function() {
+        console.log("ok")
+        shipped.style.display = "none"
+        window.location.href = "/"
     })
 
     function openProfile() {
@@ -476,7 +571,11 @@
         const data = await response.json()
         console.log(data)
     }
-    // document.cookie = "username" + "=;expires=Thu, 01 Jan 00:00:01 GMT; path=/;"
+
+    function clearCookie() {
+        document.cookie = "username" + "=;expires=Thu, 01 Jan 00:00:01 GMT; path=/;"
+        window.location.href = `/profile/login`
+    }
 
     function getCookie(key) {
         const name = key + "="

@@ -173,8 +173,9 @@
     }
     if (message == "user") {
         body.style.display = "none"
-        error.style.display = "flex"
+        window.location.href = "/error"
     }
+
 
     const scrollToTop = document.getElementById("scrollToTop")
     window.onscroll = function() {
