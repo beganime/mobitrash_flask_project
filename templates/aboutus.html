@@ -4,8 +4,29 @@
 <div class="logo">WELCOME &#9829 &#9733</div>
 {% endblock %} {% block body %}
 <div class="body" id="body">
-    <div class="container">
-        Здесь пока ничего нету
+    <div class="form">
+        <form action="/about_us/message" method="post">
+            <h1>Написать нам</h1>
+            <div class="groups">
+                <div class="group">
+                    <input type="text" name="name" placeholder="name" required>
+                    <label for="name">name</label>
+                </div>
+                <div class="group">
+                    <input type="number" name="number" placeholder="+993..." required>
+                    <label for="number">number</label>
+                </div>
+                <div class="group">
+                    <input type="email" name="email" placeholder="email" required>
+                    <label for="email">email</label>
+                </div>
+            </div>
+            <div class="group">
+                <textarea name="textmessage" placeholder="message..."></textarea>
+                <label for="textmessage">message</label>
+            </div>
+            <button class="bttn" onclick="alert('Письмо было отправлено')" type="submit">Отправить</button>
+        </form>
     </div>
 </div>
 {% endblock %}

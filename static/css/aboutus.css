@@ -1,23 +1,66 @@
+#headhome {
+    border-bottom: none;
+}
+
+#headhome:hover {
+    border-bottom: 5px solid #DC7000;
+}
+
+#about_us {
+    border-bottom: 5px solid #DC7000;
+}
+
 .body {
     margin: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: start;
     height: auto;
 }
 
-.container {
-    display: flex;
-    margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-bottom: 50px;
-    padding: 20px;
-    align-self: center;
-    justify-content: center;
-    width: auto;
-    height: auto;
-    box-shadow: 0 2px 10px #ffffff;
+.group input {
     border-radius: 10px;
+    background: #282828;
+}
+
+.group textarea {
+    border-radius: 10px;
+    background: #282828;
+    width: 900px;
+    height: 300px;
+}
+
+label {
+    top: -25px;
+    font-size: 14px;
+    color: #d54400;
+}
+
+h1 {
+    padding-bottom: 30px;
+}
+
+.form {
+    width: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 20px 25px;
+}
+
+.groups {
+    gap: 10px;
+    display: flex;
+}
+
+form {
+    padding: 30px 20px;
+    box-shadow: 0 2px 10px #DC7000;
+    border-radius: 10px;
+}
+
+.bttn {
+    display: flex;
+    justify-self: center;
+    margin: 0;
 }

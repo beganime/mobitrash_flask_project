@@ -44,7 +44,7 @@
             <div class="line" id="mobileP">
                 <p>mobiles</p> <span>→</span>
             </div>
-            <a href="/samsung/phone/page/1">
+            <a href="/samsung/phone">
                 <div class="lineM" id="mobsamsung">
                     samsung
                 </div>
@@ -97,9 +97,10 @@
         <div class="center">
             {% if context.orders %} {% for item in context.orders %}
             <table class="tableorders">
+                <h1>Заказы:</h1>
                 <thead>
                     <tr>
-                        <th>Field</th>
+                        <th>Заказ</th>
                         <th>Value</th>
                         <th><button id="ordbtn">▼</button></th>
                     </tr>
@@ -150,7 +151,50 @@
             </table>
             {% endfor %} {% else %}
             <div class="ordersnone">
-                <p id="error">{{ context.error }}</p>
+                <p id="error">{{ context.error1 }}</p>
+            </div>
+            {% endif %} {% if context.messages %} {% for userinfo in context.messages %}
+            <table class="tableorders">
+                <h1>Письма:</h1>
+                <thead>
+                    <tr>
+                        <th>Письмо</th>
+                        <th>Value</th>
+                        <th><button id="ordbtn">▼</button></th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ userinfo.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ userinfo.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Number</td>
+                        <td>{{ userinfo.number }}</td>
+                    </tr>
+                    <tr>
+                        <td>Message</td>
+                        <td>{{ userinfo.textmessage }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Added_date:</td>
+                        <td>{{ userinfo.added_date.strftime('%Y-%m-%d %H:%M') if userinfo.added_date else 'Неизвестно' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Прочитано</td>
+                        <td></td>
+                        <td><button data-message-id="{{ userinfo.id }}">OK</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %} {% else %}
+            <div class="ordersnone">
+                <p>Писем нету</p>
             </div>
             {% endif %}
         </div>
@@ -336,7 +380,7 @@
                 const table = this.closest('.tableorders');
                 if (table) {
                     const orderId = this.dataset.orderId;
-
+                    const messageId = this.dataset.messageId;
                     if (orderId) {
                         const url = `/admin/order/shipped/?id=${orderId}`;
 
@@ -357,8 +401,29 @@
                                 console.error('Ошибка при отправке заказа:', error);
                                 alert('Произошла ошибка при отправке заказа.');
                             });
+                    } else if (messageId) {
+                        const url = `/admin/message/ok/?id=${messageId}`;
+
+                        fetch(url)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Письмо прочитано вами');
+                                alert(`Письмо ${messageId} успешно помечено как прочитанный!`);
+                                table.style.display = "none"
+                                this.closest('tr').remove();
+                            })
+                            .catch(error => {
+                                console.error('Ошибка при отправке запроса:', error);
+                                alert('Произошла ошибка при отправке запроса.');
+                            })
+
                     } else {
-                        console.warn('ID заказа не найден для этой кнопки.');
+                        console.warn('ID не найден для этой кнопки.');
                         alert('Не удалось определить ID заказа.');
                     }
                 }

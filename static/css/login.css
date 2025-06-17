@@ -290,7 +290,7 @@ label {
     background-color: #b10202;
 }
 
-.orderbtn {
+.bttn {
     width: auto;
     margin: 30px auto;
     text-align: center;
@@ -301,7 +301,7 @@ label {
     transition: all 500ms ease;
 }
 
-.orderbtn:hover {
+.bttn:hover {
     background-color: #d54400;
 }
 

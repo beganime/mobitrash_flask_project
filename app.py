@@ -41,7 +41,7 @@ def allowed_file(filename):
 
 db.init_app(app)
 
-User, Product, Category, Basket, Order = init_models(db_instance=db)
+User, Product, Category, Basket, Order, Message = init_models(db_instance=db)
 
 
 
@@ -92,13 +92,13 @@ def error():
 
 
 
-@app.route('/samsung/phone/', methods=['GET'])
+@app.route('/samsung/phone', methods=['GET'])
 def get_samsung_phone():
     products = Product.query.filter_by().all()
 
     context = {
-        "message": "samsung_phone", # Ваше сообщение, как вы просили
-        "products": products           # Список объектов Product
+        "message": "samsung_phone",
+        "products": products          
     }
     
     return render_template("home.html", context=context)
@@ -483,6 +483,7 @@ def get_cookie_route(key):
 @app.route('/admin',methods = ['GET'])
 def get_admin_page():
     orders_item_data = []
+    messages_data = []
     if request.method == "GET":
         response = request.cookies.get('username')
         if response:
@@ -490,7 +491,7 @@ def get_admin_page():
             if user.username == 'admin':
                 orders = Order.query.filter_by(status = "pending").all()
                 if not orders:
-                    return render_template("admin.html",context={"error":"Заказов нету"})
+                    error1 ="Заказов нету"
                 for item in orders:
                     orders_item_data.append({
                         "order_id":item.id,
@@ -504,9 +505,24 @@ def get_admin_page():
                         "total_price": item.total_price,
                         "added_date": item.added_date
                     })
+                messages = Message.query.filter_by(status = "non").all()
+                # if not messages:
+                    # error2 = "Писем нету"
+                for userinfo in messages:
+                    messages_data.append({
+                        "id":userinfo.id,
+                        "name": userinfo.name,
+                        "email":userinfo.email,
+                        "number":userinfo.number,
+                        "textmessage":userinfo.message,
+                        "added_date":userinfo.added_date
+                    })
+                print(messages_data)
                 detail = {"message":"admin",
                         "username": response,
-                        "orders":orders_item_data}
+                        "orders":orders_item_data,
+                        "messages":messages_data,
+                        "error1":error1}
                 print(user.username)
                 return render_template('admin.html',context=detail)
             else:
@@ -540,18 +556,63 @@ def order_approved():
     if request.method == "GET":
         response = request.cookies.get('username')
         if response:
-            orders = Order.query.filter_by(id = id,status = "pending").first()
-            if not orders:
-                return render_template("error.html",context={"error":"Заказов нету"})
-            orders.status = "shipped"
+            user = User.query.filter_by(username=response).first()
+            if user.username == 'admin':
+                orders = Order.query.filter_by(id = id,status = "pending").first()
+                if not orders:
+                    return render_template("error.html",context={"error":"Заказов нету"})
+                orders.status = "shipped"
 
-            db.session.commit()
-            return jsonify({"message":"Ok"})
-        else:
-            detail= {"message":"user"}
-            return render_template('home.html',context=detail)
+                db.session.commit()
+                return jsonify({"message":"Ok"})
+            else:
+                detail= {"message":"user"}
+                return render_template('home.html',context=detail)
     else:
         return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/admin/message/ok/",methods = ["GET"])
+def message_ok():
+    id = request.args.get("id")
+    if request.method == "GET":
+        response = request.cookies.get('username')
+        if response:
+            user = User.query.filter_by(username=response).first()
+            if user.username == 'admin':
+                messages = Message.query.filter_by(id = id,status = "non").first()
+                if not messages:
+                    return render_template("error.html",context={"error":"Писем нету"})
+                messages.status = "ok"
+
+                db.session.commit()
+                return jsonify({"message":"Ok"})
+            else:
+                detail= {"message":"user"}
+                return render_template('home.html',context=detail)
+    else:
+        return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
 
 
 
@@ -756,6 +817,35 @@ def get_info():
 
 
 
+@app.route("/about_us/message",methods = ['POST'])
+def message_to_admin():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    number = request.form.get("number")
+    textmessage = request.form.get("textmessage")
+    required_fields = [name, email, number, textmessage]
+    print(name,email,number,textmessage)
+    if not all(required_fields):
+        return render_template("error.html",context={"error":"Заполните все поля!"})
+    new_message = Message(
+        name = name,
+        email = email,
+        number = number,
+        message = textmessage
+    )
+    db.session.add(new_message)
+    db.session.commit()
+    return redirect("/about_us")
+
+
+
+
+
+
+
+
+
+
 @app.route('/order', methods = ['POST'])
 def post_ordering():
     detail = {"message":"order"}
@@ -950,11 +1040,10 @@ def delete_product_from_basket():
 
 
 
-
 if __name__ == '__main__':
     with app.app_context():
-        db.drop_all() 
-        db.create_all()
+        # db.drop_all() 
+        # db.create_all()
         print("Таблицы базы данных успешно созданы или уже существуют.")
         if User.query.filter_by(username='admin').first() is None:
             admin_user = User(
@@ -976,49 +1065,86 @@ if __name__ == '__main__':
             db.session.add(test_user)
             db.session.commit()
             print("Пользователь 'test_user' добавлен.")
-            if Product.query.filter_by(name='Samsung s25 Ultra').first() is None:
+            if Product.query.filter_by(name='Samsung Galaxy S25+').first() is None:
                 test_product = Product(
-                    name = "Samsung s25 Ultra",
+                    name = "Samsung Galaxy S25+",
                     price = 544,
-                    description = "blablabla",
-                    cpu = "qualcom 250G",
+                    description = """В линейке S25 модель с приставкой «плюс» должна была стать основным предложением по соотношению цена/качество. Не такой компактный аппарат, как базовый S25, но и не такой большой, как S25 Ultra, этакая золотая середина. По стоимости модель
+                    также выглядела интереснее, чем Ultra, выступала прямым конкурентом для iPhone 16 Pro. Надо учитывать, что модель мало чем отличается от прошлогоднего S24+, который все еще присутствует на рынке. Серые аппараты стоят около 45-50 тысяч
+                    рублей, соотношение цена/качество запредельное, отличный выбор в любом аспекте. При этом никаких серьезных недостатков по сравнению с новинкой у этой модели нет, она выглядит отлично. Возникает сакраментальный вопрос: насколько выгодно
+                    покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением флагманов, они не так интересны по соотношению цена/качество, как устройства, уходящие с рынка. Получается странная ситуация: с одной стороны — реклама, продвижение
+                    и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy S25+ станет востребован в больших объемах в следующем году, когда цены упадут, а новая модель не продемонстрирует
+                    огромных отличий. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги.
+                    Возможно, вам нужен подарок, тогда прошлогодняя модель не выглядит престижно для такого случая. С другой стороны, последние модели быстрее получают софт, который может вас порадовать (тот же OneUI 7 — очень классная штука, одна из
+                    лучших систем на рынке). Давайте посмотрим на аппарат и оценим его.""",
+                    cpu = "Snapdragon 8 Gen 8 ядер",
                     battery = 5000,
-                    ram = 10,
-                    rom = 512,
-                    display = "amoled",
-                    camera = "50 MP",
+                    ram = 8,
+                    rom = 256,
+                    display = "Dynamic AMOLED – 1440 x 3120",
+                    camera = "3 (100 MP + 16 MP + 16 MP)",
                     storage = 10,
-                    category_id = 1
+                    category_id = 1,
+                    img_url = "/static/images/phone/galaxy-s25 plus.jpg"
                 )
             db.session.add(test_product)
             db.session.commit()
-            print("Продукт 'test_product' добавлен.")
-            if Product.query.filter_by(name='Samsung s25 plus').first() is None:
+            print(f"Продукт {test_product} добавлен.")
+            if Product.query.filter_by(name='Samsung Galaxy S25 Ultra').first() is None:
                 test_product = Product(
-                    name = "Samsung s25 plus",
-                    price = 499,
-                    description = "blablabla",
-                    cpu = "qualcom 110+",
+                    name = "Samsung Galaxy S25 Ultra",
+                    price = 670,
+                    description = """В линейке S25 модель с приставкой «Ultra» традиционно становится флагманом, воплощающим все самые передовые технологии и инновации, доступные на момент выхода. S25 Ultra — это бескомпромиссный аппарат для тех, кто ищет максимум функциональности,
+                    мощную камеру и огромный экран, а также ценит наличие стилуса S Pen. Он выступает прямым конкурентом для iPhone 16 Pro Max, а также другим топовым Android-флагманам. Надо учитывать, что модель мало чем отличается от прошлогоднего S24
+                    Ultra, который все еще присутствует на рынке. Серые аппараты стоят около 70-80 тысяч рублей, соотношение цена/качество запредельное, отличный выбор в любом аспекте. При этом никаких серьезных недостатков по сравнению с новинкой у этой
+                    модели нет, она выглядит отлично. Возникает сакраментальный вопрос: насколько выгодно покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением флагманов, они не так интересны по соотношению цена/качество, как устройства,
+                    уходящие с рынка. Получается странная ситуация: с одной стороны — реклама, продвижение и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy S25 Ultra станет
+                    востребован в больших объемах в следующем году, когда цены упадут, а новая модель не продемонстрирует огромных отличий. Разница между аппаратами определенно присутствует, но она не настолько ошеломляющая, чтобы отличия в стоимости
+                    были так разительны. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги. Возможно, вам нужен подарок, тогда прошлогодняя модель не выглядит престижно для такого случая. С другой стороны, последние
+                    модели быстрее получают софт, который может вас порадовать (тот же OneUI 7 — очень классная штука, одна из лучших систем на рынке, а новые функции Galaxy AI могут быть эксклюзивны или работать лучше на новом железе). Давайте посмотрим
+                    на аппарат и оценим его.""",
+                    cpu = "Qualcom Snapdragon 8 Elite 8 ядер",
                     battery = 5000,
                     ram = 10,
                     rom = 512,
-                    display = "amoled",
-                    camera = "49 MP",
+                    display = "Dynamic AMOLED – 1440 x 3120",
+                    camera = "4 (200 MP + 50 MP + 50 MP + 10 MP)",
                     storage = 10,
-                    category_id = 1
+                    category_id = 1,
+                    img_url = "/static/images/phone/galaxy-s25 ultra.avif"
                 )
             db.session.add(test_product)
             db.session.commit()
-            if Basket.query.filter_by(user_id = "2",product_id="1").first() is None:
-                new_line_in_basket = Basket(user_id="2", product_id="1")
-            db.session.add(new_line_in_basket)
+            print(f"Продукт {test_product} добавлен.")
+            if Product.query.filter_by(name='Samsung Galaxy S25').first() is None:
+                test_product = Product(
+                    name = "Samsung Galaxy S25",
+                    price = 499,
+                    description = """В линейке S25 модель стала базовым флагманским предложением, призванным обеспечить премиальный опыт в более компактном форм-факторе. Этот аппарат ориентирован на тех, кто ищет сбалансированное сочетание мощной производительности, качественных
+                    камер и флагманских функций, но при этом ценит удобство использования одной рукой и не нуждается в гигантском экране или сверх-продвинутом зуме. Он выступает прямым конкурентом для iPhone 16 и других компактных флагманов от различных
+                    производителей. Надо учитывать, что модель была официально представлена 22 января 2025 года и поступила в продажу 7 февраля 2025 года. Хотя это новинка, на рынке все еще активно присутствует ее предшественник – Galaxy S24. Серые аппараты
+                    или устройства в отличном состоянии на вторичном рынке Galaxy S24 могут предлагаться по существенно более выгодным ценам (ориентировочно от 50-60 тысяч рублей), и они по-прежнему демонстрируют очень достойное соотношение цена/качество.
+                    При этом, хоть S25 и предлагает ряд важных улучшений, серьезных недостатков у S24 нет, и он все еще выглядит отлично, особенно если вы ищете полноценный флагман по более доступной цене. Возникает сакраментальный вопрос: насколько выгодно
+                    покупать новый аппарат? Ответ ровно такой же, как с любым новым поколением флагманов: они не так интересны по соотношению цена/качество, как устройства, уходящие с рынка. Получается странная ситуация: с одной стороны — реклама, продвижение
+                    и фокус на новых моделях, но лучше продаются предыдущие аппараты (в федеральной рознице они также присутствуют). Понятно, что Galaxy S25 будет оставаться флагманом продаж в своем сегменте до выхода следующего поколения. Разница между
+                    аппаратами определенно присутствует, но она не настолько ошеломляющая, чтобы отличия в стоимости были так разительны для всех. Так что покупка этого аппарата напрямую зависит от того, насколько вы экономите деньги и что для вас приоритетнее.
+                    Возможно, вам нужен самый свежий смартфон с новейшей версией Android "из коробки" (Android 15 с One UI 7) и максимально длительной поддержкой обновлений (Samsung обещает до 7 лет основных обновлений Android и 7 лет патчей безопасности),
+                    а также полноценной интеграцией всех функций Galaxy AI. С другой стороны, если вам нужен функциональный, мощный и уникальный аппарат за меньшие деньги, Galaxy S24 может быть очень выгодным выбором. Давайте посмотрим на аппарат и оценим
+                    его.""",
+                    cpu = "Qualcom Snapdragon 8 Elite",
+                    battery = 5000,
+                    ram = 8,
+                    rom = 256,
+                    display = "Dynamic AMOLED – 1080 x 2340",
+                    camera = "3 (50 MP + 10 MP + 12 MP)",
+                    storage = 10,
+                    category_id = 1,
+                    img_url = "/static/images/phone/galaxy-s25.avif"
+                )
+            db.session.add(test_product)
             db.session.commit()
-            print("Продукт '1' добавлен в корзину пользователя 1.")
-            if Basket.query.filter_by(user_id = "2",product_id="2").first() is None:
-                new_line_in_basket = Basket(user_id="2", product_id="2")
-            db.session.add(new_line_in_basket)
-            db.session.commit()
-            print("Продукт '2' добавлен в корзину пользователя 1.")
+            print(f"Продукт {test_product} добавлен.")
+            
     app.run(debug=True, port=7010,host="0.0.0.0")
 
 # git init

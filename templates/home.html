@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <div class="logo">WELCOME &#9829 &#9733</div>
+        <div class="logo">Logo &#9829 &#9733</div>
         <nav>
             <ul>
                 <a href="/">
@@ -20,7 +20,7 @@
                 </a>
                 <li>
                     <a href="/about_us">
-                        <p>About us</p>
+                        <p id="about_us">About us</p>
                     </a>
                 </li>
                 <li>
@@ -44,7 +44,7 @@
             <div class="line" id="mobileP">
                 <p>mobiles</p> <span>→</span>
             </div>
-            <a href="/samsung/phone/?page=1">
+            <a href="/samsung/phone">
                 <div class="lineM" id="mobsamsung">
                     samsung
                 </div>
@@ -91,28 +91,31 @@
         <div class="container">
             <div class="mob">
                 <div class="samsung">
-                    <img src="/static/images/sa06.jpg" alt="samsung a06" width="200px" height="200px">
+                    <img src="/static/images/phone/sa06.jpg" alt="samsung a06" width="200px" height="200px">
                     <div class="info">
                         <p>Samsung A06</p>
+                        <p>99.00 $</p>
                         <span class="more">more</span>
                     </div>
                 </div>
                 <div class="samsung">
-                    <img src="/static/images/sa16.jpg" alt="samsung a16" width="200px" height="200px">
+                    <img src="/static/images/phone/sa16.jpg" alt="samsung a16" width="200px" height="200px">
                     <div class="info">
                         <p>Samsung A16</p>
+                        <p>149.00 $</p>
                         <span class="more">more</span>
                     </div>
                 </div>
                 <div class="samsung">
-                    <img src="/static/images/samsung s21.jpg" alt="samsung a16" width="200px" height="200px">
+                    <img src="/static/images/phone/samsung s21.jpg" alt="samsung a16" width="200px" height="200px">
                     <div class="info">
                         <p>Samsung S21</p>
+                        <p>299.99 $</p>
                         <span class="more">more</span>
                     </div>
                 </div>
                 <div class="more">
-                    <a href="/samsung/phone/?page=1">Узнать больше</a>
+                    <a href="/samsung/phone">Узнать больше</a>
                 </div>
             </div>
         </div>
@@ -191,21 +194,21 @@
         <div class="container2">
             <div class="mob">
                 <div class="apple">
-                    <img src="/static/images/iPhone-16-Pro-11.jpg" alt="samsung a06" width="200px" height="200px">
+                    <img src="/static/images/phone/iPhone-16-Pro-11.jpg" alt="samsung a06" width="200px" height="200px">
                     <div class="info">
                         <p>iPhone 16 Pro</p>
                         <span class="more">more</span>
                     </div>
                 </div>
                 <div class="apple">
-                    <img src="/static/images/iPhone-15-10.jpg" alt="samsung a16" width="200px" height="200px">
+                    <img src="/static/images/phone/iPhone-15-10.jpg" alt="samsung a16" width="200px" height="200px">
                     <div class="info">
                         <p>iPhone 15 Pro</p>
                         <span class="more">more</span>
                     </div>
                 </div>
                 <div class="apple">
-                    <img src="/static/images/iPhone-14 Pro.jpg" alt="samsung a16" width="200px" height="200px">
+                    <img src="/static/images/phone/iPhone-14 Pro.jpg" alt="samsung a16" width="200px" height="200px">
                     <div class="info">
                         <p>iPhone 14 Pro</p>
                         <span class="more">more</span>
@@ -323,7 +326,7 @@
                             <p>{{ product.display }}</p>
                             <span>Камера:</span>
                             <p>{{ product.camera }}</p>
-                            <span>Количество:</span>
+                            <span>Количество на складе:</span>
                             <p>{{ product.storage }} шт.</p>
                         </div>
                         <div class="more js-hide-toggle">hide</div>
@@ -338,7 +341,6 @@
     </div>
 
 
-    </div>
     <div class="cm category_samsung_tablet" id="category_samsung_tablet">
         <div class="mob category">
             <p>Страничка в разработке</p>
@@ -371,7 +373,7 @@
             <nav class="navsa">
                 <span>samsung</span>
                 <a href="#">News</a>
-                <a href="/samsung/phone/?page=1">Phones</a>
+                <a href="/samsung/phone">Phones</a>
                 <a href="/samsung/tablet">Tablets</a>
                 <a href="/samsung/notebook">Computers</a>
             </nav>
@@ -379,7 +381,7 @@
                 <p>
                     © 2025 All Rights Reserved
                 </p>
-                <a href="/">Обратная связь</a>
+                <a href="/about_us">Обратная связь</a>
                 <p><span>{{context.city}}</span></p>
                 <p> <span>{{context.country}}</span></p>
             </div>

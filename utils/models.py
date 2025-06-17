@@ -72,7 +72,7 @@ def init_models(db_instance):
         email = db_instance.Column(db_instance.String(100),nullable=False)
         city = db_instance.Column(db_instance.String(100),nullable=False)
         address = db_instance.Column(db_instance.String(100),nullable=False)
-        number = db_instance.Column(db_instance.Integer,nullable=False)
+        number = db_instance.Column(db_instance.BigInteger,nullable=False)
         message = db_instance.Column(db_instance.String(200),nullable=False)
         product_name = db_instance.Column(db_instance.String(500), nullable=False)
         added_date = db_instance.Column(db_instance.TIMESTAMP(timezone=False), nullable=False, default=func.timezone('utc', func.now()))
@@ -83,4 +83,17 @@ def init_models(db_instance):
             return f'<Order {self.username} - {self.product_id}>' 
 
 
-    return User, Product, Category, Basket, Order
+    class Message(db_instance.Model):
+            __tablename__ = 'messages'
+            id = db_instance.Column(db_instance.Integer, primary_key=True)
+            name = db_instance.Column(db_instance.String(80), nullable=False)
+            email = db_instance.Column(db_instance.String(100),nullable=False)
+            number = db_instance.Column(db_instance.Integer,nullable=False)
+            message = db_instance.Column(db_instance.String(1000),nullable=False)
+            added_date = db_instance.Column(db_instance.TIMESTAMP(timezone=False), nullable=False, default=func.timezone('utc', func.now()))
+            status = db_instance.Column(db_instance.String(50), nullable=False, server_default='non')
+
+            def __repr__(self):
+                return f'<Message {self.name} - {self.email}>' 
+
+    return User, Product, Category, Basket, Order, Message
