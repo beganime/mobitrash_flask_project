@@ -1021,10 +1021,10 @@ if __name__ == '__main__':
             print("Продукт '2' добавлен в корзину пользователя 1.")
     app.run(debug=True, port=7010,host="0.0.0.0")
 
-#git init
-#git status
-#git add .
-#git commit -m "обновил ещё несколько вещей"
-#git push
+# git init
+# git status
+# git add .
+# git commit -m "новое обновление"
+# git push
 
 #opencart
