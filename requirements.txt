@@ -11,4 +11,3 @@ psycopg2==2.9.9
 psycopg2-binary==2.9.9
 requests==2.32.3
 SQLAlchemy==2.0.32
-pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
