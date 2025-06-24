@@ -41,7 +41,7 @@ def allowed_file(filename):
 
 db.init_app(app)
 
-User, Product, Category, Basket, Order, Message = init_models(db_instance=db)
+User, Product, Category, Basket, Order, Message, News = init_models(db_instance=db)
 
 
 
@@ -66,6 +66,37 @@ def get_page():
             return render_template('home.html',context=detail)
     else:
         return jsonify({'error': 'Метод не разрешен'}), 405
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/news',methods = ['GET'])
+def get_news():
+    bignews = News.query.filter_by(size = "big").all()
+    midnews = News.query.filter_by(size = "medium").all()
+    smallnews = News.query.filter_by(size = "small").all()
+
+    detail = {
+        "message": "open_news",
+        "bignews":bignews,
+        "midnews":midnews,  
+        "smallnews":smallnews  
+    }
+    return render_template("news.html",context=detail)
+
+
+
+
+
+
 
 
 
@@ -622,6 +653,77 @@ def message_ok():
 
 
 
+@app.route("/admin/add_news/",methods = ['GET','POST'])
+def add_news():
+    size = request.args.get("size")
+    if request.method == 'GET':
+        detail = {"message":"add_big_news","size":size}
+        return render_template("admin.html",context=detail)
+    if request.method == "POST":
+        img_url = None
+        
+        print(f"Request Files: {request.files}")
+        print(f"Request Form: {request.form}")
+
+        if 'img_url' not in request.files:
+            return render_template('admin.html', context={"message":"error","error": "Файл изображения отсутствует в запросе."}), 400
+        
+        file = request.files['img_url']
+        if file.filename == '':
+            print("Поле img_url присутствует, но файл не выбран.")
+            return render_template('admin.html', context={"message":"error","error": "Файл изображения обязателен для загрузки."}), 400
+        
+        if not allowed_file(file.filename):
+            return render_template('admin.html', context={"message":"error","error": "Недопустимое расширение файла изображения. Разрешены: png, jpg, jpeg, gif."}), 400
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        try:
+            file.save(filepath)
+            img_url = url_for('uploaded_file', filename=filename, _external=True) 
+            print(f"Изображение успешно сохранено: {filepath}, доступно по URL: {img_url}")
+        except Exception as e:
+            print(f"Ошибка при сохранении файла: {e}")
+            return render_template('admin.html', context={"message":"error","error": f"Ошибка при сохранении файла: {e}"}), 500
+
+        title = request.form.get("title")
+        text = request.form.get("text")
+
+        print(f"Собранные данные: Title='{title}', Size='{size}', Text='{text}', Img_URL='{img_url}'")
+
+        if not title or not text:
+            return render_template('admin.html', context={"message":"error","error": "Поля 'Название' и 'Текст' новости обязательны для заполнения."}), 400
+
+        try:
+            new_line = News(
+                title=title,
+                size=size,
+                text=text,
+                img_url=img_url
+            )
+            db.session.add(new_line)
+            db.session.commit()
+            print("Новость успешно добавлена в базу данных.")
+            return redirect(url_for("get_admin_page"))
+        except IntegrityError as e:
+            db.session.rollback() 
+            print(f"Ошибка базы данных (IntegrityError): {e}")
+            return render_template('admin.html', context={"message":"error","error": "Ошибка базы данных: Возможно, новость с таким названием уже существует."}), 409
+        except SQLAlchemyError as e:
+            db.session.rollback() 
+            print(f"Ошибка SQLAlchemy: {e}")
+            return render_template('admin.html', context={"message":"error","error": "Ошибка базы данных. Пожалуйста, попробуйте позже."}), 500
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1042,8 +1144,8 @@ def delete_product_from_basket():
 
 if __name__ == '__main__':
     with app.app_context():
-        # db.drop_all() 
-        # db.create_all()
+        db.drop_all() 
+        db.create_all()
         print("Таблицы базы данных успешно созданы или уже существуют.")
         if User.query.filter_by(username='admin').first() is None:
             admin_user = User(
@@ -1144,6 +1246,42 @@ if __name__ == '__main__':
             db.session.add(test_product)
             db.session.commit()
             print(f"Продукт {test_product} добавлен.")
+            if News.query.filter_by(title='Обзор Samsung Galaxy S25 Edge: эксклюзивный сверхтонкий флагман-пушинка').first() is None:
+                test_news = News(
+                title="Обзор Samsung Galaxy S25 Edge: эксклюзивный сверхтонкий флагман-пушинка",
+                size="big",
+                text="""Samsung Galaxy S25 Edge – самый тонкий смартфон 2025 года. Насколько оправдан новый тренд, при чем тут iPhone 17 Air, и чем Samsung пришлось пожертвовать ради достижения такого тонкого корпуса – разбираемся в обзоре Hi-Tech Mail.«Вау! А он точно настоящий?» — первое, о чем я подумал после распаковки Samsung Galaxy S25 Edge. Все дело в том, что при вполне большой диагонали в 6,7 дюймов новинка весит смехотворные 163 грамма, а толщина устройства составляет всего 5,8 мм.Держа его в руках, даже не понимаешь, как Samsung удалось уместить всю начинку в такой гаджет. Для сравнения, мой основной смартфон, iPhone 16 Pro, имеет 6,3-дюймовый экран и при толщине 8,3 мм весит 199 граммов. Оттого и в голове происходит диссонанс — вроде модель от Samsung больше, но при этом тоньше и легче.
+И самое забавное, тактильно ощущается не столько его толщина, сколько его вес — буквально пушинка.Samsung Galaxy S25 Edge настолько тонкий и легкий, что даже сложно поверить, что это флагманский смартфон — что у меня, что у знакомых возникало ощущение, будто это какой-то сверхдешевый гаджет от ноунейм-бренда. При этом тут титановые рамки, есть влагозащита, а корпус и экран прикрыты закаленным стеклом Gorilla Glass Victus 2 и Gorilla Glass Ceramic 2 соответственно.
+В общем, исполнение и материалы — флагманские.""",
+                img_url="/static/images/news/AQAK5eTzth_XkPUQPwSa3873fPOzPbe45APJY87Vqawa_iVwMeGa0NNjnTkU2rRGXv7B0D2XL3rxfcj1dc58zfRWbrc.jpg"
+                )
+            db.session.add(test_news)
+            db.session.commit()
+            print(f"Новость {test_news} добавлена.")
+            if News.query.filter_by(title='Обзор Nintendo Switch 2: игр нет, но вы держитесь').first() is None:
+                test_news = News(
+                title="Обзор Nintendo Switch 2: игр нет, но вы держитесь",
+                size="medium",
+                text="""Nintendo Switch 2 — это продолжение культовой и одной из самых популярных в мире консолей, Nintendo Switch 2017 года. Японцы значительно прокачали производительность, сделали новинку больше, повысили разрешение и даже завезли поддержку DLSS.
+                Казалось бы, чего тут может не хватать?Как оказалось, многого. Почему не стоит бежать и покупать новую гибридную консоль от большой «N» — разбираемся в обзоре Hi-Tech Mail.В России купить гибридную консоль Nintendo можно в отечественной рознице, на маркетплейсах и у «серых» продавцов. В зависимости от выбора продавца цена может значительно отличаться.На текущий момент крупные сети еще не запустили свободные продажи Nintendo Switch 2, из-за чего цены на консоль хаотичны. Купить здесь и сейчас в магазинах, в том числе «серых», можно от 62 до 94 тысяч рублей! Это дороже, чем у ритейлеров, хоть они пока и предлагают лишь предзаказы.
+                Также можно рассмотреть покупку на маркетплейсах, но имейте в виду, что зачастую это товар из-за границы, а значит, придется оплатить таможенную пошлину (около 7 тысяч рублей). Если новинка нужна здесь и сейчас, можно обратиться в магазин GIX, который предоставил Nintendo Switch 2 на обзор.""",
+                img_url="/static/images/news/AQAKTqfSxlfRUlG6aTLDI-SyKByPUMPSADv636jqoBitss2Z1LRvKN68Y0qnoFwtqYRwTtxz_dFYF9Fo9diy4zWTeZU.jpg"
+                )
+            db.session.add(test_news)
+            db.session.commit()
+            print(f"Новость {test_news} добавлена.")
+            if News.query.filter_by(title='Обзор Google Pixel 9a: достойная камера, а к остальному вопросы Google').first() is None:
+                test_news = News(
+                title="Обзор Google Pixel 9a: достойная камера, а к остальному вопросы Google",
+                size="small",
+                text="""Google Pixel 9a — один из самых странных смартфонов 2025 года. За время тестов он постоянно вызывал у меня вопросы, а скорость зарядки и вовсе вгоняла в депрессию. В обзоре рассказываю, к чему готовиться, если хотите себе этот смартфон. И почему его лучше не хотеть.
+                По сравнению с прошлым поколением Pixel 9a изменился не сильно: внутри многое осталось на том же уровне. Это самый младший и бюджетный представитель линейки, который вроде бы позиционируется как субфлагман, но таких ощущений лично у меня не вызывает. Все протестировал, разобрался с главными плюсами и минусами устройства, а также сравнил его с Pixel 8a и базовым Pixel 9.В США смартфон представили 19 марта 2025 года, однако из-за необходимости пофиксить проблемные компоненты в продажу аппарат вышел только 10 апреля. В течение недели после этого новый «пиксель» стал доступен в странах Европы и Азии. До России добрался в середине мая.Официально в России смартфон не продается, но его можно заказать на уже упомянутых маркетплейсах. Правда, высока вероятность, что придется долго ждать доставку. Или платить сверху пошлину, если товар везут из-за границы. Более удобный вариант — купить Google Pixel 9a в магазине BigGeek: с быстрой доставкой и без всяких пошлин.
+                """,
+                img_url="/static/images/news/AQAKDi3oAkir_lPJ2NqbEDxCjvn2j4ErxyKvDffqHtlnkGixC8y9qJfAvyUT-ZgVa7lJlibFlEzZ64ratwvdC5wWkzo.jpg"
+                )
+            db.session.add(test_news)
+            db.session.commit()
+            print(f"Новость {test_news} добавлена.")
             
     app.run(debug=True, port=7010,host="0.0.0.0")
 

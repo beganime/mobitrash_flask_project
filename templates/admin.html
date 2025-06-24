@@ -27,8 +27,8 @@
                     <p id="menubtn">Menu</p>
                 </li>
                 <li>
-                    <a href="#">
-                        <p>News</p>
+                    <a href="/news">
+                        <p id="news">News</p>
                     </a>
                 </li>
                 <li class="btn" id="logbtn"><a href="/profile/login">Login</a></li>
@@ -83,19 +83,10 @@
         </div>
     </div>
     <div class="body" id="body">
-        <!-- <div class="container">
-            <h1>Welcome {{context.username}}</h1>
-            <div class="questions">
-                <a href="/samsung/phone/add_new">1. Хотите добавить новый телефон Samsung?</a>
-                <a href="/samsung/tablet/add_new">2. Хотите добавить новый планшет Samsung?</a>
-                <a href="/samsung/notebook/add_new">3. Хотите добавить новый ноутбук Samsung?</a>
-                <a href="/apple/phone/add_new">4. Хотите добавить новый телефон Apple?</a>
-                <a href="/apple/tablet/add_new">5. Хотите добавить новый планшет Apple?</a>
-                <a href="/apple/notebook/add_new">6. Хотите добавить новый ноутбук Apple?</a>
-            </div>
-        </div> -->
-        <div class="center">
-            {% if context.orders %} {% for item in context.orders %}
+        <div class="center" id="center">
+            {% if context.error %}
+            <h1 style="text-align: center;">{{context.error}}</h1>
+            {% endif %} {% if context.orders %} {% for item in context.orders %}
             <table class="tableorders">
                 <h1>Заказы:</h1>
                 <thead>
@@ -180,7 +171,6 @@
                         <td>Message</td>
                         <td>{{ userinfo.textmessage }}</td>
                     </tr>
-
                     <tr>
                         <td>Added_date:</td>
                         <td>{{ userinfo.added_date.strftime('%Y-%m-%d %H:%M') if userinfo.added_date else 'Неизвестно' }}</td>
@@ -198,6 +188,25 @@
             </div>
             {% endif %}
         </div>
+        <div class="news_con" id="news_con">
+            <h1>Панель добавления новости</h1>
+            <form action="/admin/add_news/?size={{ context.size }}" method="post" id="news_form" enctype="multipart/form-data">
+                <h3>size: {{ context.size }}</h3>
+                <div class="group">
+                    <input type="text" required name="title" title="введите название новости">
+                    <label for="title">title</label>
+                </div>
+                <div class="group">
+                    <textarea name="text" title="Введите информацию/новость" id="textarea"></textarea>
+                    <label for="title">text</label>
+                </div>
+                <div class="group">
+                    <input type="file" name="img_url" required class="hiddenInputFile">
+                    <label class="labelbtn">Выбрать фото</label>
+                </div>
+                <button class="submit-btn" onclick="alert('Новость была добавлена')" type="submit">Отправить</button>
+            </form>
+        </div>
         <div class="right">
             <div class="questions">
                 <a href="/samsung/phone/add_new">1. Добавить новый телефон Samsung</a>
@@ -206,6 +215,9 @@
                 <a href="/apple/phone/add_new">4. Добавить новый телефон Apple</a>
                 <a href="/apple/tablet/add_new">5. Добавить новый планшет Apple</a>
                 <a href="/apple/notebook/add_new">6. Добавить новый ноутбук Apple</a>
+                <a href="/admin/add_news/?size=big">7.Добавить новость size: big</a>
+                <a href="/admin/add_news/?size=medium">8.Добавить новость size: medium</a>
+                <a href="/admin/add_news/?size=small">9.Добавить новость size: small</a>
             </div>
         </div>
     </div>
@@ -354,6 +366,16 @@
 
 <script src="/static/js/menu.js"></script>
 <script>
+    var message = document.getElementById("message").textContent
+    let news_con = document.getElementById("news_con")
+    let center = document.getElementById("center")
+    if (message == "add_big_news") {
+        console.log("adminconsole", message)
+        news_con.style.display = "block"
+        center.style.display = "none"
+    }
+
+
     document.addEventListener('DOMContentLoaded', function() {
         const toggleButtons = document.querySelectorAll('#ordbtn');
         const okButtons = document.querySelectorAll('td button');

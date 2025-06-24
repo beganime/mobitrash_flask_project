@@ -596,3 +596,250 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends 'base.html' %} {% block title %}
+<title>News</title>
+{% endblock %} {% block logo %}
+<div class="logo">News</div>
+<style>
+    body {
+        background-color: #f7f7f7;
+        color: #000;
+    }
+    
+    header nav ul li a {
+        background-color: #ff9525;
+    }
+    
+    header nav {
+        background-color: #fff;
+        float: right;
+        height: 80px;
+        margin-bottom: 50px;
+        border-radius: 20px;
+        box-shadow: 0 2px 10px #0000005e;
+    }
+    
+    .logo {
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0 2px 10px #0000005e;
+        animation: none;
+    }
+    
+    * {
+        color: #000;
+    }
+    
+    .end {
+        background-color: #fff;
+        border-top: 2px solid #00000044;
+        box-shadow: 0 0 10px #0000005e;
+    }
+    
+    .nava a {
+        color: #000;
+    }
+    
+    .nava p {
+        color: #00000099;
+    }
+    
+    .navsa a {
+        color: #00000090;
+    }
+    
+    .navsa a:hover {
+        border-bottom: 2px solid #ff8400;
+        color: #000;
+    }
+    
+    footer p {
+        color: #000;
+    }
+    
+    .news_lent {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin: 50px 0px;
+        justify-content: center;
+    }
+    
+    .news img {
+        border-radius: 30px;
+        width: 300px;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .imagewrap {
+        display: flex;
+        margin: 15px 0;
+        justify-self: center;
+        justify-content: center;
+        border-radius: 20px;
+        width: 280px;
+        height: 180px;
+        overflow: hidden;
+    }
+    
+    .news img:hover {
+        transform: scale(1.10);
+    }
+    
+    .news {
+        background-color: #fff;
+        cursor: pointer;
+        width: 320px;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 5px 10px #0000008d;
+        margin: 10px;
+    }
+    
+    .news:hover h3 {
+        color: #7d7d7d;
+    }
+    
+    .text {
+        margin: 0 10px;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .bignews img {
+        border-radius: 30px;
+        width: 1000px;
+        height: 300px;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .bignews .imagewrap {
+        border-radius: 30px;
+        width: 98%;
+        height: auto;
+    }
+    
+    .bignews img:hover {
+        transform: scale(1.05);
+    }
+    
+    .bignews {
+        background-color: #fff;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 5px 10px #0000008d;
+        margin: 10px;
+    }
+    
+    .middlenews img {
+        border-radius: 30px;
+        width: 500px;
+        height: auto;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .middlenews .imagewrap {
+        border-radius: 30px;
+        width: 500px;
+        height: 240px;
+    }
+    
+    .middlenews img:hover {
+        transform: scale(1.08);
+    }
+    
+    .middlenews {
+        background-color: #fff;
+        cursor: pointer;
+        overflow: hidden;
+        width: 570px;
+        height: 310px;
+        border-radius: 20px;
+        box-shadow: 0 5px 10px #0000008d;
+        margin: 10px 40px;
+    }
+</style>
+{% endblock %} {% block body %}
+<div class="news_lent">
+    <div class="bignews">
+        <div class="imagewrap">
+            <img src="/static/images/news/AQAK5eTzth_XkPUQPwSa3873fPOzPbe45APJY87Vqawa_iVwMeGa0NNjnTkU2rRGXv7B0D2XL3rxfcj1dc58zfRWbrc.webp" alt="">
+        </div>
+        <div class="text">
+            <h3>Обзор Samsung Galaxy S25 Edge: эксклюзивный сверхтонкий флагман-пушинка</h3>
+            <p style="display: none;">Samsung Galaxy S25 Edge – самый тонкий смартфон 2025 года. Насколько оправдан новый тренд, при чем тут iPhone 17 Air, и чем Samsung пришлось пожертвовать ради достижения такого тонкого корпуса – разбираемся в обзоре Hi-Tech Mail.</p>
+        </div>
+    </div>
+    <div class="news n1">
+        <div class="imagewrap">
+            <img src="/static/images/news/AQAKb0o79iFB3ccKOYoxEUw_M7oWW7DLK2JmwcxszRNa4fxO2e1NcZlVAunD4-hOaRMIHowcijo4qOySNxIxR_1QTII.jpg" alt="">
+        </div>
+        <div class="text">
+            <h3>TRUMP T1: Дональд Трамп представил собственный смартфон </h3>
+            <p>Компания президента США подала заявки на регистрацию «мобильных» товарных знаков, а после представила новый смартфон и собственного оператора связи.
+            </p>
+        </div>
+    </div>
+    <div class="news n2">
+        <div class="imagewrap">
+            <img src="/static/images/news/AQAKn6QbH_J2avA68C7clIMV3n6Vd5jJocK20tYn4OVvGiDbcKXRRzTipURvkUFfAkH4-LlMUizlrOS0xAjfmLhDi4w.webp" alt="">
+        </div>
+        <div class="text">
+            <h3>Топ-8 фишек Honor MagicBook Pro 14: огромная батарея, OLED-дисплей и другие </h3>
+            <p>Honor амбициозно обновила линейку ультрабуков. Honor MagicBook Pro 14 — это коктейль из рекордной автономности, флагманской производительности и умной экосистемы, упакованный в ультратонкий металлический корпус. Собрали 8 ключевых фишек ультрабука,
+                которые выделяют его на фоне многих конкурентов.
+            </p>
+        </div>
+    </div>
+    <div class="news n3">
+        <div class="imagewrap">
+            <img src="/static/images/news/AQAKl2GHKQGBU20v8u400h8B-vYTYgYVfytiAjYITQExS7zC-TMqgOp8RdfKxmQt8VoXu9EilSbf45ujmro7zD5ey0s.webp" alt="">
+        </div>
+        <div class="text">
+            <h3>Китай официально представил гибридный летающий байк Skyrider X6</h3>
+            <p>Мотоцикл оснащен автоматизированной навигацией и поддерживает ручное управление через джойстик.Китайская компания Kuickwheel официально запустила в производство летающий мотоцикл Skyrider X6. Устройство, впервые показанное на выставке CES
+                2025, сочетает в себе функции трицикла и мультикоптера, способно развивать скорость до 72 километров в час и преодолевать 50 километров на одном заряде.
+            </p>
+        </div>
+    </div>
+    <div class="middlenews">
+        <div class="imagewrap">
+            <img src="/static/images/news/AQAKTqfSxlfRUlG6aTLDI-SyKByPUMPSADv636jqoBitss2Z1LRvKN68Y0qnoFwtqYRwTtxz_dFYF9Fo9diy4zWTeZU.webp" alt="">
+        </div>
+        <div class="text">
+            <h3>Обзор Nintendo Switch 2: игр нет, но вы держитесь</h3>
+            <p>Nintendo Switch 2 — это продолжение культовой и одной из самых популярных в мире консолей, Nintendo Switch 2017 года. Японцы значительно прокачали производительность, сделали новинку больше, повысили разрешение и даже завезли поддержку DLSS.
+                Казалось бы, чего тут может не хватать?</p>
+        </div>
+    </div>
+    <div class="news n4">
+        <div class="imagewrap">
+            <img src="/static/images/news/AQAKDi3oAkir_lPJ2NqbEDxCjvn2j4ErxyKvDffqHtlnkGixC8y9qJfAvyUT-ZgVa7lJlibFlEzZ64ratwvdC5wWkzo.webp" alt="">
+        </div>
+        <div class="text">
+            <h3>Обзор Google Pixel 9a: достойная камера, а к остальному вопросы Google</h3>
+            <p>Google Pixel 9a — один из самых странных смартфонов 2025 года. За время тестов он постоянно вызывал у меня вопросы, а скорость зарядки и вовсе вгоняла в депрессию. В обзоре рассказываю, к чему готовиться, если хотите себе этот смартфон. И
+                почему его лучше не хотеть.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

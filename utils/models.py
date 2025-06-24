@@ -96,4 +96,14 @@ def init_models(db_instance):
             def __repr__(self):
                 return f'<Message {self.name} - {self.email}>' 
 
-    return User, Product, Category, Basket, Order, Message
+    class News(db_instance.Model):
+        __tablename__ = 'news'
+        id = db_instance.Column(db_instance.Integer, primary_key=True)
+        title = db_instance.Column(db_instance.String(255),nullable=False)
+        size = db_instance.Column(db_instance.String(100), nullable=False)
+        text = db_instance.Column(db_instance.String(4000),nullable=False)
+        img_url = db_instance.Column(db_instance.String(255))
+        added_date = db_instance.Column(db_instance.TIMESTAMP(timezone=False), nullable=False, default=func.timezone('utc', func.now()))
+        
+
+    return User, Product, Category, Basket, Order, Message, News
