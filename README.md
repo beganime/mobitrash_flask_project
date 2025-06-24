@@ -16,14 +16,14 @@
    * Создайте базу данных и пользователя в PostgreSQL (например, `myapp_db` и `myapp_user`).
    * Создайте файл `.env` в корне проекта со строкой подключения к вашей БД и секретным ключом:
      ```
-     SECRET_KEY="ваш_секретный_ключ"
-     DATABASE_URL="postgresql://myapp_user:ваш_пароль@localhost:5432/myapp_db"
+      DB_USER=postgres
+      DB_PASSWORD=12345
+      DB_HOST=localhost
+      DB_PORT=5432
+      DB_NAME=mobitrash
      ```
 
-5. Инициализируйте базу данных (создайте таблицы):
-   `python init_db.py`
-
-6. Запустите Flask-приложение:
+5. Запустите Flask-приложение:
    `python app.py`
 
    (Установите PostgreSQL: Если его нет, вам нужно будет установить PostgreSQL на этот компьютер. Инструкции зависят от вашей ОС (Ubuntu/Debian: sudo apt install postgresql postgresql-contrib, Windows: скачать инсталлятор с postgresql.org).

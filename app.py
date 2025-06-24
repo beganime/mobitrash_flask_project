@@ -16,8 +16,9 @@ db_port = os.getenv('DB_PORT')
 db_name = os.getenv('DB_NAME')
 
 db = SQLAlchemy()
-
-app = Flask(__name__)
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
+static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'static'))
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 
 UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'uploads'))
@@ -71,6 +72,15 @@ def get_page():
 
 
 
+
+
+
+
+
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(static_dir, path)
 
 
 
